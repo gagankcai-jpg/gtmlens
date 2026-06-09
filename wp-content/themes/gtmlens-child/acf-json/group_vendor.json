@@ -1,0 +1,323 @@
+{
+    "key": "group_vendor",
+    "title": "Vendor Fields",
+    "fields": [
+        {
+            "key": "field_vendor_logo",
+            "label": "Logo",
+            "name": "logo",
+            "type": "image",
+            "return_format": "array",
+            "preview_size": "thumbnail",
+            "library": "all"
+        },
+        {
+            "key": "field_vendor_url",
+            "label": "Vendor URL",
+            "name": "vendor_url",
+            "type": "url"
+        },
+        {
+            "key": "field_vendor_hq",
+            "label": "HQ",
+            "name": "hq",
+            "type": "text"
+        },
+        {
+            "key": "field_vendor_founded",
+            "label": "Founded",
+            "name": "founded",
+            "type": "text",
+            "placeholder": "e.g. 2017"
+        },
+        {
+            "key": "field_vendor_founders",
+            "label": "Founders / CEO",
+            "name": "founders",
+            "type": "text"
+        },
+        {
+            "key": "field_vendor_funding_stage",
+            "label": "Funding Stage",
+            "name": "funding_stage",
+            "type": "select",
+            "choices": {
+                "Bootstrapped": "Bootstrapped",
+                "Pre-Seed": "Pre-Seed",
+                "Seed": "Seed",
+                "Series A": "Series A",
+                "Series B": "Series B",
+                "Series C": "Series C",
+                "Series D+": "Series D+",
+                "Public": "Public",
+                "Acquired": "Acquired"
+            },
+            "allow_null": 1,
+            "return_format": "value"
+        },
+        {
+            "key": "field_vendor_last_round_size",
+            "label": "Last Round Size",
+            "name": "last_round_size",
+            "type": "text",
+            "placeholder": "e.g. $100M"
+        },
+        {
+            "key": "field_vendor_total_raised",
+            "label": "Total Raised",
+            "name": "total_raised",
+            "type": "text",
+            "placeholder": "e.g. $185M"
+        },
+        {
+            "key": "field_vendor_last_valuation",
+            "label": "Last Valuation",
+            "name": "last_valuation",
+            "type": "text",
+            "placeholder": "e.g. $3.1B"
+        },
+        {
+            "key": "field_vendor_last_round_size_usd_m",
+            "label": "Last round size (USD millions)",
+            "name": "last_round_size_usd_m",
+            "type": "number",
+            "instructions": "Numeric value in USD millions, sortable. E.g. 100 for $100M.",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "33",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "placeholder": "",
+            "prepend": "$",
+            "append": "M USD",
+            "min": 0,
+            "max": "",
+            "step": 1
+        },
+        {
+            "key": "field_vendor_total_raised_usd_m",
+            "label": "Total raised (USD millions)",
+            "name": "total_raised_usd_m",
+            "type": "number",
+            "instructions": "Cumulative raised in USD millions.",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "33",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "placeholder": "",
+            "prepend": "$",
+            "append": "M USD",
+            "min": 0,
+            "max": "",
+            "step": 1
+        },
+        {
+            "key": "field_vendor_last_valuation_usd_m",
+            "label": "Last valuation (USD millions)",
+            "name": "last_valuation_usd_m",
+            "type": "number",
+            "instructions": "Post-money valuation in USD millions. E.g. 3100 for $3.1B.",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "33",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "placeholder": "",
+            "prepend": "$",
+            "append": "M USD",
+            "min": 0,
+            "max": "",
+            "step": 1
+        },
+        {
+            "key": "field_vendor_last_round_date",
+            "label": "Last Round Date",
+            "name": "last_round_date",
+            "type": "date_picker",
+            "display_format": "m/Y",
+            "return_format": "Y-m-d"
+        },
+        {
+            "key": "field_vendor_last_round_source_url",
+            "label": "Last round source URL",
+            "name": "last_round_source_url",
+            "type": "url",
+            "instructions": "Press release, TechCrunch article, S-1, or Crunchbase. Adds trust to the row.",
+            "required": 0,
+            "wrapper": {
+                "width": "100",
+                "class": "",
+                "id": ""
+            }
+        },
+        {
+            "key": "field_vendor_pricing_tier",
+            "label": "Pricing Tier",
+            "name": "pricing_tier",
+            "type": "select",
+            "choices": {
+                "Free": "Free",
+                "$": "$ (< $50/mo)",
+                "$$": "$$ ($50\u2013$500/mo)",
+                "$$$": "$$$ ($500\u2013$5k/mo)",
+                "Enterprise": "Enterprise (custom)"
+            },
+            "allow_null": 1,
+            "return_format": "value"
+        },
+        {
+            "key": "field_vendor_entry_price",
+            "label": "Entry Price",
+            "name": "entry_price",
+            "type": "text",
+            "placeholder": "e.g. $149/mo"
+        },
+        {
+            "key": "field_vendor_pricing_page_url",
+            "label": "Pricing Page URL",
+            "name": "pricing_page_url",
+            "type": "url"
+        },
+        {
+            "key": "field_vendor_target_segment",
+            "label": "Target Segment",
+            "name": "target_segment",
+            "type": "text",
+            "placeholder": "e.g. Seed \u2192 Series B"
+        },
+        {
+            "key": "field_vendor_best_fit",
+            "label": "Best Fit",
+            "name": "best_fit",
+            "type": "wysiwyg",
+            "toolbar": "basic",
+            "media_upload": 0
+        },
+        {
+            "key": "field_vendor_worst_fit",
+            "label": "Worst Fit",
+            "name": "worst_fit",
+            "type": "wysiwyg",
+            "toolbar": "basic",
+            "media_upload": 0
+        },
+        {
+            "key": "field_vendor_swot_strengths",
+            "label": "SWOT \u2014 Strengths",
+            "name": "swot_strengths",
+            "type": "textarea",
+            "rows": 4
+        },
+        {
+            "key": "field_vendor_swot_weaknesses",
+            "label": "SWOT \u2014 Weaknesses",
+            "name": "swot_weaknesses",
+            "type": "textarea",
+            "rows": 4
+        },
+        {
+            "key": "field_vendor_swot_opportunities",
+            "label": "SWOT \u2014 Opportunities",
+            "name": "swot_opportunities",
+            "type": "textarea",
+            "rows": 4
+        },
+        {
+            "key": "field_vendor_swot_threats",
+            "label": "SWOT \u2014 Threats",
+            "name": "swot_threats",
+            "type": "textarea",
+            "rows": 4
+        },
+        {
+            "key": "field_vendor_analyst_take",
+            "label": "Analyst Take",
+            "name": "analyst_take",
+            "type": "wysiwyg",
+            "toolbar": "full",
+            "media_upload": 0
+        },
+        {
+            "key": "field_vendor_architecture_diagram",
+            "label": "Architecture Diagram",
+            "name": "architecture_diagram",
+            "type": "image",
+            "return_format": "array",
+            "preview_size": "medium",
+            "library": "all"
+        },
+        {
+            "key": "field_vendor_alternatives",
+            "label": "Alternatives",
+            "name": "alternatives",
+            "type": "relationship",
+            "post_type": [
+                "vendor"
+            ],
+            "filters": [
+                "search"
+            ],
+            "min": 0,
+            "max": 6,
+            "return_format": "object"
+        },
+        {
+            "key": "field_vendor_related_insights",
+            "label": "Related Insights",
+            "name": "related_insights",
+            "type": "relationship",
+            "post_type": [
+                "post"
+            ],
+            "filters": [
+                "search"
+            ],
+            "min": 0,
+            "max": 6,
+            "return_format": "object"
+        },
+        {
+            "key": "field_vendor_last_updated",
+            "label": "Last Updated",
+            "name": "last_updated",
+            "type": "date_picker",
+            "display_format": "d/m/Y",
+            "return_format": "Y-m-d",
+            "required": 1
+        },
+        {
+            "key": "field_vendor_reviewer",
+            "label": "Reviewer",
+            "name": "reviewer",
+            "type": "text",
+            "placeholder": "Analyst name"
+        }
+    ],
+    "location": [
+        [
+            {
+                "param": "post_type",
+                "operator": "==",
+                "value": "vendor"
+            }
+        ]
+    ],
+    "menu_order": 0,
+    "position": "normal",
+    "style": "default",
+    "label_placement": "top",
+    "instruction_placement": "label",
+    "active": true,
+    "show_in_rest": 1,
+    "modified": 1778064771
+}

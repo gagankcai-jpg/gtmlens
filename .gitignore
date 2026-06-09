@@ -1,0 +1,24 @@
+.mailerlite-token-temp
+
+# Theme zip archives (source of truth is extracted gtmlens-child/ folder)
+wp-content/themes/*.zip
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+
+# macOS
+.DS_Store
+**/.DS_Store
+
+# Editor
+.vscode/
+.idea/
+
+# Env / secrets
+.env
+*.env.local
+
+# Node
+node_modules/

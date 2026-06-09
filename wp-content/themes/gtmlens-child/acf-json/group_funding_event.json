@@ -1,0 +1,186 @@
+{
+    "key": "group_funding_event",
+    "title": "Funding Event Fields",
+    "fields": [
+        {
+            "key": "field_fe_company_name",
+            "label": "Company name",
+            "name": "company_name",
+            "type": "text",
+            "instructions": "Company that raised. Used as fallback when no vendor profile exists.",
+            "required": 1,
+            "wrapper": {
+                "width": "50",
+                "class": "",
+                "id": ""
+            }
+        },
+        {
+            "key": "field_fe_vendor",
+            "label": "Linked vendor (optional)",
+            "name": "vendor",
+            "type": "post_object",
+            "instructions": "If we profile this vendor, link it. Row will deep-link to the profile.",
+            "required": 0,
+            "post_type": [
+                "vendor"
+            ],
+            "return_format": "id",
+            "ui": 1,
+            "wrapper": {
+                "width": "50",
+                "class": "",
+                "id": ""
+            }
+        },
+        {
+            "key": "field_fe_category",
+            "label": "Category",
+            "name": "category",
+            "type": "taxonomy",
+            "instructions": "GTM category for filtering.",
+            "required": 0,
+            "taxonomy": "vendor_category",
+            "field_type": "select",
+            "return_format": "object",
+            "wrapper": {
+                "width": "50",
+                "class": "",
+                "id": ""
+            }
+        },
+        {
+            "key": "field_fe_event_type",
+            "label": "Event type",
+            "name": "event_type",
+            "type": "select",
+            "required": 1,
+            "choices": {
+                "round": "Funding round",
+                "ma": "M&A / Acquisition",
+                "ipo": "IPO",
+                "shutdown": "Shutdown / Wind-down",
+                "bootstrapped": "Bootstrapped"
+            },
+            "default_value": "round",
+            "wrapper": {
+                "width": "50",
+                "class": "",
+                "id": ""
+            }
+        },
+        {
+            "key": "field_fe_stage",
+            "label": "Stage",
+            "name": "stage",
+            "type": "select",
+            "required": 0,
+            "choices": {
+                "Pre-seed": "Pre-seed",
+                "Seed": "Seed",
+                "Series A": "Series A",
+                "Series B": "Series B",
+                "Series C": "Series C",
+                "Series D+": "Series D+",
+                "Growth": "Growth",
+                "IPO": "IPO",
+                "Acquired": "Acquired",
+                "Other": "Other"
+            },
+            "allow_null": 1,
+            "wrapper": {
+                "width": "33",
+                "class": "",
+                "id": ""
+            }
+        },
+        {
+            "key": "field_fe_amount_usd_m",
+            "label": "Amount (USD millions)",
+            "name": "amount_usd_m",
+            "type": "number",
+            "instructions": "Round size in USD millions. E.g. 100 for $100M.",
+            "required": 0,
+            "min": 0,
+            "step": 1,
+            "prepend": "$",
+            "append": "M USD",
+            "wrapper": {
+                "width": "33",
+                "class": "",
+                "id": ""
+            }
+        },
+        {
+            "key": "field_fe_valuation_usd_m",
+            "label": "Valuation (USD millions)",
+            "name": "valuation_usd_m",
+            "type": "number",
+            "instructions": "Post-money valuation in USD millions. Optional.",
+            "required": 0,
+            "min": 0,
+            "step": 1,
+            "prepend": "$",
+            "append": "M USD",
+            "wrapper": {
+                "width": "33",
+                "class": "",
+                "id": ""
+            }
+        },
+        {
+            "key": "field_fe_event_date",
+            "label": "Event date",
+            "name": "event_date",
+            "type": "date_picker",
+            "required": 1,
+            "display_format": "Y-m-d",
+            "return_format": "Y-m-d",
+            "first_day": 1,
+            "wrapper": {
+                "width": "50",
+                "class": "",
+                "id": ""
+            }
+        },
+        {
+            "key": "field_fe_source_url",
+            "label": "Source URL",
+            "name": "source_url",
+            "type": "url",
+            "instructions": "Press release, TechCrunch, Crunchbase, etc.",
+            "required": 1,
+            "wrapper": {
+                "width": "50",
+                "class": "",
+                "id": ""
+            }
+        },
+        {
+            "key": "field_fe_analyst_note",
+            "label": "Analyst note (optional, \u2264 280 chars)",
+            "name": "analyst_note",
+            "type": "textarea",
+            "instructions": "Single-line take. Leave blank if there's no real angle \u2014 don't fluff.",
+            "required": 0,
+            "maxlength": 280,
+            "rows": 2
+        }
+    ],
+    "location": [
+        [
+            {
+                "param": "post_type",
+                "operator": "==",
+                "value": "funding_event"
+            }
+        ]
+    ],
+    "menu_order": 0,
+    "position": "normal",
+    "style": "default",
+    "label_placement": "top",
+    "instruction_placement": "label",
+    "active": true,
+    "show_in_rest": 1
+}

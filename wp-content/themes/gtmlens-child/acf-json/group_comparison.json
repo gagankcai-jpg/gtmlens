@@ -1,0 +1,124 @@
+{
+  "key": "group_comparison",
+  "title": "Comparison Fields",
+  "fields": [
+    {
+      "key": "field_comparison_vendor_a",
+      "label": "Vendor A",
+      "name": "vendor_a",
+      "type": "post_object",
+      "post_type": ["vendor"],
+      "allow_null": 0,
+      "return_format": "object",
+      "required": 1
+    },
+    {
+      "key": "field_comparison_vendor_b",
+      "label": "Vendor B",
+      "name": "vendor_b",
+      "type": "post_object",
+      "post_type": ["vendor"],
+      "allow_null": 0,
+      "return_format": "object",
+      "required": 1
+    },
+    {
+      "key": "field_comparison_vendor_c",
+      "label": "Vendor C (optional, for 3-way comparisons)",
+      "name": "vendor_c",
+      "type": "post_object",
+      "post_type": ["vendor"],
+      "allow_null": 1,
+      "return_format": "object",
+      "required": 0
+    },
+    {
+      "key": "field_comparison_verdict",
+      "label": "Verdict (one sentence)",
+      "name": "verdict",
+      "type": "text",
+      "placeholder": "e.g. Clay wins for enrichment-heavy outbound; Apollo wins for budget-constrained founders."
+    },
+    {
+      "key": "field_comparison_winner_by_dimension",
+      "label": "Winner by Dimension",
+      "name": "winner_by_dimension",
+      "type": "repeater",
+      "min": 0,
+      "max": 20,
+      "layout": "table",
+      "sub_fields": [
+        {
+          "key": "field_comparison_dimension",
+          "label": "Dimension",
+          "name": "dimension",
+          "type": "text",
+          "placeholder": "e.g. Data freshness"
+        },
+        {
+          "key": "field_comparison_winner",
+          "label": "Winner",
+          "name": "winner",
+          "type": "text",
+          "placeholder": "e.g. Clay"
+        },
+        {
+          "key": "field_comparison_note",
+          "label": "Why",
+          "name": "note",
+          "type": "text"
+        }
+      ]
+    },
+    {
+      "key": "field_comparison_decision_rule_a",
+      "label": "Decision Rule — Choose Vendor A if…",
+      "name": "decision_rule_a",
+      "type": "wysiwyg",
+      "toolbar": "basic",
+      "media_upload": 0
+    },
+    {
+      "key": "field_comparison_decision_rule_b",
+      "label": "Decision Rule — Choose Vendor B if…",
+      "name": "decision_rule_b",
+      "type": "wysiwyg",
+      "toolbar": "basic",
+      "media_upload": 0
+    },
+    {
+      "key": "field_comparison_decision_rule_c",
+      "label": "Decision Rule — Choose Vendor C if… (optional)",
+      "name": "decision_rule_c",
+      "type": "wysiwyg",
+      "toolbar": "basic",
+      "media_upload": 0,
+      "required": 0
+    },
+    {
+      "key": "field_comparison_last_updated",
+      "label": "Last Updated",
+      "name": "last_updated",
+      "type": "date_picker",
+      "display_format": "d/m/Y",
+      "return_format": "Y-m-d",
+      "required": 1
+    }
+  ],
+  "location": [
+    [
+      {
+        "param": "post_type",
+        "operator": "==",
+        "value": "comparison"
+      }
+    ]
+  ],
+  "menu_order": 0,
+  "position": "normal",
+  "style": "default",
+  "label_placement": "top",
+  "instruction_placement": "label",
+  "active": true,
+  "show_in_rest": 1
+}

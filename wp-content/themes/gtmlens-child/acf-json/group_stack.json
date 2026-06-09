@@ -1,0 +1,112 @@
+{
+  "key": "group_stack",
+  "title": "Stack Fields",
+  "fields": [
+    {
+      "key": "field_stack_budget_tier",
+      "label": "Budget Tier",
+      "name": "budget_tier",
+      "type": "select",
+      "choices": {
+        "pre-seed": "Pre-Seed / Bootstrapped (< $500/mo)",
+        "seed": "Seed ($500–$2,000/mo)",
+        "series-a": "Series A ($2,000–$6,000/mo)",
+        "series-b": "Series B ($6,000–$12,000/mo)",
+        "series-c": "Series C ($12,000–$20,000/mo)",
+        "enterprise": "Enterprise ($20,000+/mo)"
+      },
+      "allow_null": 0,
+      "return_format": "value",
+      "required": 1
+    },
+    {
+      "key": "field_stack_icp_use_case",
+      "label": "ICP / Use Case",
+      "name": "icp_use_case",
+      "type": "text",
+      "placeholder": "e.g. Outbound-led seed-stage B2B SaaS, SMB ICP"
+    },
+    {
+      "key": "field_stack_tools",
+      "label": "Tools",
+      "name": "tools",
+      "type": "relationship",
+      "post_type": ["vendor"],
+      "filters": ["search", "taxonomy"],
+      "min": 1,
+      "max": 12,
+      "return_format": "object"
+    },
+    {
+      "key": "field_stack_monthly_cost_estimate",
+      "label": "Monthly Cost Estimate (override)",
+      "name": "monthly_cost_estimate",
+      "type": "text",
+      "placeholder": "Leave blank to auto-compute from linked vendor entry prices",
+      "instructions": "If left blank, the template sums entry_price from all linked vendors. Enter a value here only to override the computed total."
+    },
+    {
+      "key": "field_stack_architecture_diagram",
+      "label": "Architecture Diagram",
+      "name": "architecture_diagram",
+      "type": "image",
+      "return_format": "array",
+      "preview_size": "medium",
+      "library": "all"
+    },
+    {
+      "key": "field_stack_pros_cons_tradeoffs",
+      "label": "Pros / Cons / Tradeoffs",
+      "name": "pros_cons_tradeoffs",
+      "type": "repeater",
+      "min": 0,
+      "max": 20,
+      "layout": "table",
+      "sub_fields": [
+        {
+          "key": "field_stack_item_type",
+          "label": "Type",
+          "name": "type",
+          "type": "select",
+          "choices": {
+            "pro": "Pro",
+            "con": "Con",
+            "tradeoff": "Tradeoff"
+          },
+          "return_format": "value"
+        },
+        {
+          "key": "field_stack_item_text",
+          "label": "Text",
+          "name": "text",
+          "type": "text"
+        }
+      ]
+    },
+    {
+      "key": "field_stack_migration_path",
+      "label": "Migration Path (next tier)",
+      "name": "migration_path",
+      "type": "post_object",
+      "post_type": ["stack"],
+      "allow_null": 1,
+      "return_format": "object"
+    }
+  ],
+  "location": [
+    [
+      {
+        "param": "post_type",
+        "operator": "==",
+        "value": "stack"
+      }
+    ]
+  ],
+  "menu_order": 0,
+  "position": "normal",
+  "style": "default",
+  "label_placement": "top",
+  "instruction_placement": "label",
+  "active": true,
+  "show_in_rest": 1
+}

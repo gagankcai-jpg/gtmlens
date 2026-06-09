@@ -1,0 +1,59 @@
+{
+  "key": "group_insight_meta",
+  "title": "Insight Meta (E-E-A-T)",
+  "fields": [
+    {
+      "key": "field_insight_author_byline",
+      "label": "Author Byline",
+      "name": "author_byline",
+      "type": "text",
+      "placeholder": "Display name as it should appear on the article",
+      "instructions": "If left blank, falls back to the WordPress user display name."
+    },
+    {
+      "key": "field_insight_methodology_note",
+      "label": "Methodology Note",
+      "name": "methodology_note",
+      "type": "textarea",
+      "rows": 3,
+      "placeholder": "Briefly describe how this piece was researched — data sources, interview dates, tools used.",
+      "instructions": "Displayed in the article footer to satisfy E-E-A-T signals. Required for every published Insight."
+    },
+    {
+      "key": "field_insight_related_vendors",
+      "label": "Related Vendors",
+      "name": "related_vendors",
+      "type": "relationship",
+      "post_type": ["vendor"],
+      "filters": ["search", "taxonomy"],
+      "min": 0,
+      "max": 8,
+      "return_format": "object"
+    },
+    {
+      "key": "field_insight_related_category_page",
+      "label": "Related Category Page",
+      "name": "related_category_page",
+      "type": "post_object",
+      "post_type": ["page"],
+      "allow_null": 1,
+      "return_format": "object"
+    }
+  ],
+  "location": [
+    [
+      {
+        "param": "post_type",
+        "operator": "==",
+        "value": "post"
+      }
+    ]
+  ],
+  "menu_order": 10,
+  "position": "normal",
+  "style": "default",
+  "label_placement": "top",
+  "instruction_placement": "label",
+  "active": true,
+  "show_in_rest": 1
+}
