@@ -182,11 +182,16 @@ function gtmlens_scan_vendor_changes(): array {
 		if ( $code !== 200 ) continue;
 
 		$body = wp_remote_retrieve_body( $resp );
-		// Strip variable noise (timestamps, csrf tokens) before hashing
-		$normalized = preg_replace( '/(nonce|csrf|timestamp|cache-bust)[^"\']{0,40}["\']/i', '', $body );
+		// Normalize: drop scripts/styles, tags, digits, collapse whitespace (v2)
+		$stripped   = preg_replace( '#<(script|style)[^>]*>.*?</\\1>#is', '', $body );
+		$stripped   = wp_strip_all_tags( (string) $stripped );
+		$stripped   = preg_replace( '/\\d+/', '', $stripped );
+		$stripped   = preg_replace( '/\\s+/', ' ', $stripped );
+		$normalized = trim( (string) $stripped );
+		if ( strlen( $normalized ) < 200 ) continue; // skip empty/blocked pages
 		$hash       = hash( 'sha256', $normalized );
 
-		$prev = get_post_meta( $vid, '_url_hash_v1', true );
+		$prev = get_post_meta( $vid, '_url_hash_v2', true );
 		if ( $prev && $prev !== $hash ) {
 			$report['changed'][] = [
 				'slug'  => get_post_field( 'post_name', $vid ),
@@ -195,8 +200,8 @@ function gtmlens_scan_vendor_changes(): array {
 				'edit'  => admin_url( "post.php?post=$vid&action=edit" ),
 			];
 		}
-		update_post_meta( $vid, '_url_hash_v1',     $hash );
-		update_post_meta( $vid, '_url_hash_v1_at', current_time( 'mysql', 1 ) );
+		update_post_meta( $vid, '_url_hash_v2',     $hash );
+		update_post_meta( $vid, '_url_hash_v2_at', current_time( 'mysql', 1 ) );
 	}
 	return $report;
 }
@@ -404,7 +409,7 @@ function gtmlens_auto_ingested_page(): void {
 				<table class="widefat striped">
 					<thead>
 						<tr>
-							<td style="width:36px;"><input type="checkbox" onclick="document.querySelectorAll('input[name=&quot;gl_ids[]&quot;]').forEach(c => c.checked = this.checked);"></td>
+							<td style="width:36px;"><input type="checkbox" onclick="document.querySelectorAll('input[name="gl_ids[]"]').forEach(c => c.checked = this.checked);"></td>
 							<th>Title</th>
 							<th style="width:140px;">RSS source</th>
 							<th style="width:100px;">Date</th>

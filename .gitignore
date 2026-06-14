@@ -22,3 +22,6 @@ __pycache__/
 
 # Node
 node_modules/
+
+# Stray Finder duplicate of the theme folder (not part of the project)
+wp-content/themes/gtmlens-child [0-9]*/

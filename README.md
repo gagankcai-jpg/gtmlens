@@ -74,6 +74,11 @@ Side-by-side battle cards with structured decision rules (WYSIWYG), verdict badg
 - **Funding scanner** — scans 3 RSS feeds weekly, pattern-matches vendor names, creates `funding_event` drafts for review
 - **Vendor change detector** — normalizes and SHA-256 hashes vendor landing pages, flags material changes; uses `_url_hash_v2` baseline to prevent false positives from dynamic script/ad content
 
+### SEO automation (`functions.php`)
+- **301 redirect map** (`gtmlens_301_redirects` on `template_redirect`) — resolves stale vendor-slug aliases and removed category/comparison URLs flagged as 404s in Google Search Console (e.g. `/vendors/anthropic/` → `/vendors/claude-anthropic/`)
+- **Organization schema alignment** (`gtmlens_align_org_schema` on `rank_math/json_ld`) — single canonical Organization node with the correct name + logo
+- **`funding_event` noindex** — individual round CPT entries are kept out of the index; the funding tracker is the canonical surface
+
 ### Homepage Intelligence Layer
 - Hero capital stat (last 90 days, GTM rounds only, ex-Foundation Models)
 - Pulse strip — 5 most recent funding events with links

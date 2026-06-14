@@ -59,12 +59,7 @@ $term = get_queried_object();
 			<?php endwhile; ?>
 		</div>
 
-		<div style="margin-top:40px;">
-			<?php the_posts_pagination( [
-				'prev_text' => '← ' . __( 'Previous', 'gtmlens-child' ),
-				'next_text' => __( 'Next', 'gtmlens-child' ) . ' →',
-			] ); ?>
-		</div>
+		
 
 	<?php else : ?>
 		<p><?php esc_html_e( 'No vendors in this category yet.', 'gtmlens-child' ); ?></p>

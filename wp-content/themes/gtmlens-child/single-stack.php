@@ -66,33 +66,82 @@ while ( have_posts() ) :
 			<p style="color:var(--gl-text-muted);font-size:1rem;margin-top:4px;"><?php echo esc_html( $icp ); ?></p>
 		<?php endif; ?>
 
-		<!-- Tools list with cost -->
-		<?php if ( $tools ) : ?>
-			<h2><?php esc_html_e( 'Stack Tools', 'gtmlens-child' ); ?></h2>
-			<ul class="gl-tools-list">
-				<?php foreach ( $tools as $tool ) :
-					$t_logo  = get_field( 'logo', $tool->ID );
-					$t_price = get_field( 'entry_price', $tool->ID );
+		<!-- P11d: Grouped-stage stack flow -->
+		<?php if ( $tools ) :
+			// Map vendor_category slug -> stage label/order
+			$stage_for_cat = [
+				'data-enrichment'      => 'Data & Sources',
+				'intent-signal'        => 'Data & Sources',
+				'lead-capture'         => 'Data & Sources',
+				'foundation-models'    => 'Intelligence Layer',
+				'outbound'             => 'Engagement',
+				'linkedin-automation'  => 'Engagement',
+				'ai-sdr'               => 'Engagement',
+				'crm'                  => 'System of Record',
+				'orchestration'        => 'System of Record',
+				'revenue-intelligence' => 'Intelligence Layer',
+			];
+			$stage_order = ['Data & Sources', 'Engagement', 'System of Record', 'Intelligence Layer'];
+			$by_stage = [];
+			foreach ( $stage_order as $s ) { $by_stage[ $s ] = []; }
+			foreach ( $tools as $tool ) {
+				$cats = get_the_terms( $tool->ID, 'vendor_category' );
+				$slug = ( $cats && ! is_wp_error( $cats ) ) ? $cats[0]->slug : '';
+				$stage = $stage_for_cat[ $slug ] ?? 'Engagement';
+				$by_stage[ $stage ][] = $tool;
+			}
+			?>
+			<h2><?php esc_html_e( 'Stack architecture', 'gtmlens-child' ); ?></h2>
+			<?php if ( $display_cost ) : ?>
+				<div class="gl-stack-cost-pill"><?php echo esc_html( str_replace('$', '', $display_cost) ); ?></div>
+			<?php endif; ?>
+			<div class="gl-stack-flow">
+				<?php foreach ( $stage_order as $stage_label ) :
+					$stage_tools = $by_stage[ $stage_label ];
 					?>
-					<li class="gl-tools-list__item">
-						<?php if ( $t_logo && ! empty( $t_logo['url'] ) ) : ?>
-							<img
-								class="gl-tools-list__logo"
-								src="<?php echo esc_url( $t_logo['url'] ); ?>"
-								alt="<?php echo esc_attr( get_the_title( $tool->ID ) . ' logo' ); ?>"
-								width="32" height="32"
-								loading="lazy"
-							/>
-						<?php endif; ?>
-						<a class="gl-tools-list__name" href="<?php echo esc_url( get_permalink( $tool->ID ) ); ?>">
-							<?php echo esc_html( get_the_title( $tool->ID ) ); ?>
-						</a>
-						<?php if ( $t_price ) : ?>
-							<span class="gl-tools-list__price"><?php echo esc_html( $t_price ); ?></span>
-						<?php endif; ?>
-					</li>
+					<div class="gl-stack-stage">
+						<div class="gl-stack-stage__label"><?php echo esc_html( $stage_label ); ?></div>
+						<div class="gl-stack-stage__tools">
+							<?php if ( empty( $stage_tools ) ) : ?>
+								<div class="gl-stack-stage__empty">— not in this stack —</div>
+							<?php else : ?>
+								<?php foreach ( $stage_tools as $tool ) :
+									$t_logo = get_field( 'logo', $tool->ID );
+									$t_price = get_field( 'entry_price', $tool->ID );
+									?>
+									<a class="gl-stack-tool" href="<?php echo esc_url( get_permalink( $tool->ID ) ); ?>">
+										<?php if ( $t_logo && ! empty( $t_logo['url'] ) ) : ?>
+											<img src="<?php echo esc_url( $t_logo['url'] ); ?>" alt="" loading="lazy" />
+										<?php endif; ?>
+										<span><?php echo esc_html( get_the_title( $tool->ID ) ); ?></span>
+										<?php if ( $t_price ) : ?>
+											<span class="gl-stack-tool__price"><?php echo esc_html( $t_price ); ?></span>
+										<?php endif; ?>
+									</a>
+								<?php endforeach; ?>
+							<?php endif; ?>
+						</div>
+					</div>
 				<?php endforeach; ?>
-			</ul>
+			</div>
+
+			<details style="margin-bottom:1.5rem;">
+				<summary style="cursor:pointer;font-size:.85rem;font-weight:600;color:#5b6b85;"><?php esc_html_e( 'Show flat tools list', 'gtmlens-child' ); ?></summary>
+				<ul class="gl-tools-list" style="margin-top:.75rem;">
+					<?php foreach ( $tools as $tool ) :
+						$t_logo  = get_field( 'logo', $tool->ID );
+						$t_price = get_field( 'entry_price', $tool->ID );
+						?>
+						<li class="gl-tools-list__item">
+							<?php if ( $t_logo && ! empty( $t_logo['url'] ) ) : ?>
+								<img class="gl-tools-list__logo" src="<?php echo esc_url( $t_logo['url'] ); ?>" alt="<?php echo esc_attr( get_the_title( $tool->ID ) . ' logo' ); ?>" width="32" height="32" loading="lazy" />
+							<?php endif; ?>
+							<a class="gl-tools-list__name" href="<?php echo esc_url( get_permalink( $tool->ID ) ); ?>"><?php echo esc_html( get_the_title( $tool->ID ) ); ?></a>
+							<?php if ( $t_price ) : ?><span class="gl-tools-list__price"><?php echo esc_html( $t_price ); ?></span><?php endif; ?>
+						</li>
+					<?php endforeach; ?>
+				</ul>
+			</details>
 		<?php endif; ?>
 
 		<!-- Monthly cost summary -->

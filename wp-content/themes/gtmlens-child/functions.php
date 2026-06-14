@@ -686,7 +686,7 @@ function gtmlens_schema_insight(): void {
 			'url'   => 'https://gtmlens.com',
 			'logo'  => [
 				'@type' => 'ImageObject',
-				'url'   => get_stylesheet_directory_uri() . '/assets/images/logo.png',
+				'url'   => get_stylesheet_directory_uri() . '/assets/images/og-image.png',
 			],
 		],
 		'description'   => get_the_excerpt(),
@@ -702,7 +702,7 @@ function gtmlens_schema_organization(): void {
 		'name'     => 'GTMLens',
 		'url'      => 'https://gtmlens.com',
 		'email'    => 'info@gtmlens.com',
-		'logo'     => get_stylesheet_directory_uri() . '/assets/images/logo.png',
+		'logo'     => get_stylesheet_directory_uri() . '/assets/images/og-image.png',
 		'sameAs'   => [],
 	];
 
@@ -1977,4 +1977,413 @@ function gtmlens_vendor_bulk_add_page(): void {
 		<?php endif; ?>
 	</div>
 	<?php
+}
+
+
+/* === P11 Phase 6c: Insight post category gradient hero banner === */
+add_filter( 'the_content', 'gtmlens_insight_hero_banner', 1 );
+function gtmlens_insight_hero_banner( $content ) {
+	if ( ! is_singular( 'post' ) || ! in_the_loop() || ! is_main_query() ) return $content;
+	static $injected = false;
+	if ( $injected ) return $content;
+	$injected = true;
+	$pid = get_the_ID();
+	$cats = get_the_category( $pid );
+	$cat_name = $cats ? $cats[0]->name : 'Insight';
+	$cat_slug = $cats ? $cats[0]->slug : '';
+	$gradient_for_cat = [
+		'deep-dive'      => 'gradient-purple',
+		'market-map'     => '',
+		'battle-card'    => 'gradient-amber',
+		'funding'        => 'gradient-emerald',
+		'state-of'       => 'gradient-slate',
+		'claude-for-gtm' => 'gradient-purple',
+	];
+	$grad_class = $gradient_for_cat[ $cat_slug ] ?? '';
+	$pub_date = get_the_date( 'M j, Y', $pid );
+	$author = get_the_author_meta( 'display_name', get_post_field( 'post_author', $pid ) );
+	$banner = '<div class="gl-insight-hero ' . esc_attr( $grad_class ) . '">'
+		. '<span class="gl-ih-eyebrow">' . esc_html( $cat_name ) . '</span>'
+		. '<h1 class="gl-ih-title">' . esc_html( get_the_title( $pid ) ) . '</h1>'
+		. '<div class="gl-ih-meta">'
+		. ( $author ? esc_html( $author ) . ' · ' : '' )
+		. esc_html( $pub_date )
+		. '</div>'
+		. '</div>';
+	return $banner . $content;
+}
+
+// Hide default H1 on single post (banner has its own title)
+add_action( 'wp_head', 'gtmlens_insight_hide_default_title' );
+function gtmlens_insight_hide_default_title() {
+	if ( ! is_singular( 'post' ) ) return;
+	echo "<style>body.single-post .entry-header .entry-title, body.single-post .single-post-title, body.single-post header.entry-header h1.entry-title { display: none !important; }</style>";
+}
+/* === /P11 Phase 6c === */
+
+
+/* === P16: Show category archives on a single page (no pagination) === */
+add_action( 'pre_get_posts', 'gtmlens_unpaginate_category_archives' );
+function gtmlens_unpaginate_category_archives( $query ) {
+	if ( is_admin() || ! $query->is_main_query() ) return;
+	if ( $query->is_category() || $query->is_tag() || $query->is_tax() ) {
+		$query->set( 'posts_per_page', -1 );
+		$query->set( 'nopaging', true );
+	}
+}
+/* === /P16 === */
+
+
+/* === P16b: Unpaginate Query Loop blocks on category/tag archives === */
+add_filter( 'query_loop_block_query_vars', 'gtmlens_unpaginate_block_query', 10, 2 );
+function gtmlens_unpaginate_block_query( $query, $block ) {
+	if ( is_category() || is_tag() || is_tax() ) {
+		$query['posts_per_page'] = -1;
+		$query['nopaging'] = true;
+		unset( $query['paged'] );
+	}
+	return $query;
+}
+/* === /P16b === */
+
+
+/* === P17: Auto-generated SVG thumbnails for posts without featured image === */
+
+function gtmlens_auto_thumb_svg( $post_id ) {
+    $post = get_post( $post_id );
+    if ( ! $post ) return '';
+    $title = wp_strip_all_tags( $post->post_title );
+    $cats = wp_get_post_terms( $post_id, array( 'category', 'vendor_category' ) );
+    $colors = array(
+        'market-map'           => array( '#0b1320', '#3b82f6' ),
+        'ai-sdr'               => array( '#0b1320', '#06b6d4' ),
+        'outbound'             => array( '#1a0b20', '#a855f7' ),
+        'revenue-intelligence' => array( '#0b201a', '#10b981' ),
+        'enablement'           => array( '#201a0b', '#f59e0b' ),
+        'data'                 => array( '#0b1820', '#0ea5e9' ),
+        'analysis'             => array( '#1f0b20', '#ec4899' ),
+        'editorial'            => array( '#200b0b', '#ef4444' ),
+        'default'              => array( '#0b1320', '#3b82f6' ),
+    );
+    $key = 'default'; $cat_label = 'GTMLENS';
+    if ( ! empty( $cats ) && ! is_wp_error( $cats ) ) {
+        foreach ( $cats as $c ) {
+            if ( $cat_label === 'GTMLENS' ) $cat_label = strtoupper( $c->name );
+            if ( isset( $colors[ $c->slug ] ) ) { $key = $c->slug; break; }
+        }
+    }
+    list( $bg, $accent ) = $colors[ $key ];
+    $words = explode( ' ', $title );
+    $lines = array( '' ); $maxChar = 26;
+    foreach ( $words as $wd ) {
+        $idx = count( $lines ) - 1;
+        $cand = trim( $lines[ $idx ] . ' ' . $wd );
+        if ( strlen( $cand ) <= $maxChar || $lines[ $idx ] === '' ) {
+            $lines[ $idx ] = $cand;
+        } else {
+            if ( count( $lines ) >= 3 ) { $lines[ $idx ] .= '...'; break; }
+            $lines[] = $wd;
+        }
+    }
+    $cat_e = htmlspecialchars( $cat_label, ENT_QUOTES, 'UTF-8' );
+    $tspans = '';
+    $y0 = 190;
+    foreach ( $lines as $i => $ln ) {
+        $tspans .= '<tspan x="60" y="' . ( $y0 + $i * 58 ) . '">' . htmlspecialchars( $ln, ENT_QUOTES, 'UTF-8' ) . '</tspan>';
+    }
+    $svg = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 450" preserveAspectRatio="xMidYMid slice">'
+        . '<defs><linearGradient id="g' . $post_id . '" x1="0" y1="0" x2="1" y2="1">'
+        . '<stop offset="0" stop-color="' . $bg . '"/>'
+        . '<stop offset="1" stop-color="' . $accent . '" stop-opacity="0.45"/>'
+        . '</linearGradient></defs>'
+        . '<rect width="800" height="450" fill="url(#g' . $post_id . ')"/>'
+        . '<rect x="60" y="60" width="56" height="4" fill="' . $accent . '"/>'
+        . '<text x="60" y="98" font-family="Inter,system-ui,sans-serif" font-size="13" font-weight="700" fill="' . $accent . '" letter-spacing="2.5">' . $cat_e . '</text>'
+        . '<text font-family="Inter,system-ui,sans-serif" font-size="42" font-weight="700" fill="#ffffff">' . $tspans . '</text>'
+        . '<text x="60" y="405" font-family="Inter,system-ui,sans-serif" font-size="14" fill="#94a3b8" letter-spacing="2">GTMLENS . INDEPENDENT ANALYST</text>'
+        . '</svg>';
+    return $svg;
+}
+
+function gtmlens_auto_thumb_data_uri( $post_id ) {
+    $svg = gtmlens_auto_thumb_svg( $post_id );
+    if ( ! $svg ) return '';
+    return 'data:image/svg+xml;base64,' . base64_encode( $svg );
+}
+
+add_filter( 'post_thumbnail_html', 'gtmlens_auto_thumb_html_filter', 10, 5 );
+function gtmlens_auto_thumb_html_filter( $html, $post_id, $thumb_id, $size, $attr ) {
+    if ( $html ) return $html;
+    if ( ! $post_id ) return $html;
+    if ( get_post_type( $post_id ) !== 'post' ) return $html;
+    $uri = gtmlens_auto_thumb_data_uri( $post_id );
+    if ( ! $uri ) return $html;
+    $title = esc_attr( get_the_title( $post_id ) );
+    $size_class = is_array( $size ) ? 'custom' : esc_attr( $size );
+    return '<img src="' . esc_attr( $uri ) . '" alt="' . $title . '" class="attachment-' . $size_class . ' size-' . $size_class . ' wp-post-image gtmlens-auto-thumb" loading="lazy" decoding="async" width="800" height="450" />';
+}
+
+add_filter( 'has_post_thumbnail', 'gtmlens_auto_thumb_has_filter', 10, 3 );
+function gtmlens_auto_thumb_has_filter( $has, $post, $thumb_id ) {
+    if ( $has ) return $has;
+    $pid = is_object( $post ) ? $post->ID : ( $post ? (int) $post : get_the_ID() );
+    if ( ! $pid ) return $has;
+    if ( get_post_type( $pid ) !== 'post' ) return $has;
+    return true;
+}
+
+add_action( 'wp_head', 'gtmlens_auto_thumb_og', 6 );
+function gtmlens_auto_thumb_og() {
+    if ( ! is_singular( 'post' ) ) return;
+    $pid = get_queried_object_id();
+    if ( get_post_meta( $pid, '_thumbnail_id', true ) ) return;
+    $uri = gtmlens_auto_thumb_data_uri( $pid );
+    if ( ! $uri ) return;
+    echo '<meta property="og:image" content="' . esc_attr( $uri ) . '">' . "\n";
+    echo '<meta name="twitter:image" content="' . esc_attr( $uri ) . '">' . "\n";
+}
+
+
+/* === P18: Insight post reading surface — sticky TOC + inline vendor chips === */
+
+add_filter( 'the_content', 'gtmlens_post_inject_toc_and_chips', 8 );
+function gtmlens_post_inject_toc_and_chips( $content ) {
+    if ( ! is_singular( 'post' ) || ! in_the_loop() || ! is_main_query() ) return $content;
+    if ( strpos( $content, 'gl-toc__inner' ) !== false ) return $content;
+
+    // 1. Add IDs to h2/h3 and collect headings
+    $headings = array();
+    $content = preg_replace_callback(
+        '/<(h2|h3)([^>]*)>(.*?)<\/\1>/is',
+        function( $m ) use ( &$headings ) {
+            $tag = $m[1]; $attrs = $m[2]; $inner = $m[3];
+            $text = trim( wp_strip_all_tags( $inner ) );
+            if ( ! $text ) return $m[0];
+            $slug = sanitize_title( $text );
+            if ( ! $slug ) return $m[0];
+            $base = $slug; $i = 2;
+            $existing = array_column( $headings, 'slug' );
+            while ( in_array( $slug, $existing, true ) ) { $slug = $base . '-' . $i; $i++; }
+            $headings[] = array( 'tag' => $tag, 'slug' => $slug, 'text' => $text );
+            if ( preg_match( '/\sid=/', $attrs ) ) return $m[0];
+            return '<' . $tag . ' id="' . esc_attr( $slug ) . '"' . $attrs . '>' . $inner . '</' . $tag . '>';
+        },
+        $content
+    );
+
+    // 2. Vendor chips: link first mention of each vendor in text nodes between tags
+    $vendors = get_posts( array(
+        'post_type' => 'vendor', 'posts_per_page' => -1,
+        'no_found_rows' => true, 'orderby' => 'title', 'order' => 'ASC',
+    ) );
+    if ( $vendors ) {
+        $linked = array();
+        // Sort by name length DESC so longer names match first (e.g., "Bland AI" before "Bland")
+        usort( $vendors, function( $a, $b ) { return strlen( $b->post_title ) - strlen( $a->post_title ); } );
+        foreach ( $vendors as $v ) {
+            $name = trim( $v->post_title );
+            if ( strlen( $name ) < 3 ) continue;
+            if ( isset( $linked[ $name ] ) ) continue;
+            $url = get_permalink( $v->ID );
+            $pat = '/(>[^<]*?)\b(' . preg_quote( $name, '/' ) . ')\b([^<]*?<)/';
+            $count = 0;
+            $content = preg_replace_callback( $pat, function( $m ) use ( $url, $name, &$linked ) {
+                if ( isset( $linked[ $name ] ) ) return $m[0];
+                $linked[ $name ] = true;
+                return $m[1] . '<a href="' . esc_url( $url ) . '" class="gl-vendor-chip-inline">' . esc_html( $m[2] ) . '</a>' . $m[3];
+            }, $content, 1, $count );
+        }
+    }
+
+    if ( count( $headings ) < 3 ) return $content;
+
+    // 3. Build TOC HTML
+    $toc = '<aside class="gl-toc"><div class="gl-toc__inner"><div class="gl-toc__label">On this page</div><ol class="gl-toc__list">';
+    foreach ( $headings as $h ) {
+        $cls = 'gl-toc__item gl-toc__item--' . $h['tag'];
+        $toc .= '<li class="' . $cls . '"><a href="#' . esc_attr( $h['slug'] ) . '">' . esc_html( $h['text'] ) . '</a></li>';
+    }
+    $toc .= '</ol></div></aside>';
+
+    return $toc . $content;
+}
+
+
+/* === P24: Permanently block /hello-world/ even if recreated === */
+add_action( 'template_redirect', 'gtmlens_p24_block_hello_world', 1 );
+function gtmlens_p24_block_hello_world() {
+	$uri = isset( $_SERVER['REQUEST_URI'] ) ? $_SERVER['REQUEST_URI'] : '';
+	if ( strpos( $uri, '/hello-world' ) === 0 ) {
+		status_header( 410 );
+		nocache_headers();
+		wp_redirect( home_url( '/' ), 301 );
+		exit;
+	}
+}
+
+
+/* === P24: Polished editorial hero for /about/ === */
+add_filter( 'the_content', 'gtmlens_p24_about_hero', 5 );
+function gtmlens_p24_about_hero( $content ) {
+	if ( ! is_page( 'about' ) || ! in_the_loop() || ! is_main_query() ) return $content;
+	$hero = '<div class="gl-about-hero">' .
+		'<div class="gl-about-eyebrow">INDEPENDENT ANALYST PUBLICATION</div>' .
+		'<h1 class="gl-about-title">About GTMLens</h1>' .
+		'<p class="gl-about-subtitle">No vendor money. No affiliate links. No paid placements. Just analyst-grade intelligence on the AI-native GTM stack — for revenue operators, founders, and GTM leaders who need an honest read.</p>' .
+		'<div class="gl-about-pledge">' .
+			'<div class="gl-about-pledge__item"><div class="gl-about-pledge__num">0</div><div class="gl-about-pledge__lbl">paid placements</div></div>' .
+			'<div class="gl-about-pledge__item"><div class="gl-about-pledge__num">0</div><div class="gl-about-pledge__lbl">affiliate links</div></div>' .
+			'<div class="gl-about-pledge__item"><div class="gl-about-pledge__num">0</div><div class="gl-about-pledge__lbl">vendor sponsorships</div></div>' .
+			'<div class="gl-about-pledge__item"><div class="gl-about-pledge__num">53</div><div class="gl-about-pledge__lbl">vendors covered</div></div>' .
+		'</div>' .
+	'</div>';
+	/* Strip the redundant leading 'About GTMLens' h2 + first paragraph from page content */
+	$content = preg_replace( '/<h2[^>]*>\s*About GTMLens\s*<\/h2>\s*<p[^>]*>.*?<\/p>/is', '', $content, 1 );
+	return $hero . $content;
+}
+
+/* Hide Kadence's default centered page hero on the about page */
+add_action( 'wp', 'gtmlens_p24_about_hide_header' );
+function gtmlens_p24_about_hide_header() {
+	if ( ! is_page( 'about' ) ) return;
+	add_filter( 'kadence_page_title', '__return_false' );
+	add_filter( 'kadence_disable_post_title', '__return_true' );
+}
+
+
+/* === P25: Homepage Just-Landed feed === */
+function gtmlens_p25_homepage_events( $limit = 5 ) {
+	$events = array();
+	/* Funding events (last 90 days) */
+	if ( function_exists( 'gtmlens_get_funding_events' ) ) {
+		$fe = gtmlens_get_funding_events();
+		foreach ( (array) $fe as $f ) {
+			$d = isset( $f['date'] ) ? $f['date'] : '';
+			if ( ! $d ) continue;
+			$ts = strtotime( $d );
+			if ( $ts === false ) continue;
+			$type = isset( $f['event_type'] ) ? strtolower( $f['event_type'] ) : '';
+			$amt = isset( $f['amount_m'] ) ? (float) $f['amount_m'] : 0;
+			$stage = isset( $f['stage'] ) ? $f['stage'] : '';
+			$co = isset( $f['company'] ) ? $f['company'] : '';
+			$url = isset( $f['url'] ) ? $f['url'] : home_url( '/funding-tracker/' );
+			$title = '';
+			if ( $type === 'ma' || strpos( $type, 'acqu' ) !== false ) {
+				$title = $co . ' acquired';
+				$ekind = 'round';
+			} elseif ( $type === 'ipo' ) {
+				$title = $co . ' IPO';
+				$ekind = 'round';
+			} else {
+				$amtStr = $amt >= 1000 ? '$' . number_format( $amt / 1000, 1 ) . 'B' : ( $amt > 0 ? '$' . number_format( $amt ) . 'M' : '' );
+				$title = trim( $co . ' raised ' . $amtStr . ' ' . $stage );
+				$ekind = 'round';
+			}
+			$events[] = array( 'kind' => $ekind, 'title' => $title, 'date' => $d, 'ts' => $ts, 'url' => $url, 'meta' => date_i18n( 'M j', $ts ) );
+		}
+	}
+	/* Recent insights (post type 'post') */
+	$posts = get_posts( array( 'post_type' => 'post', 'posts_per_page' => 4, 'post_status' => 'publish', 'orderby' => 'date', 'order' => 'DESC' ) );
+	foreach ( $posts as $p ) {
+		$ts = strtotime( $p->post_date_gmt );
+		$events[] = array( 'kind' => 'insight', 'title' => 'New: ' . $p->post_title, 'date' => $p->post_date, 'ts' => $ts, 'url' => get_permalink( $p->ID ), 'meta' => human_time_diff( $ts, current_time( 'timestamp' ) ) . ' ago' );
+	}
+	/* Recent comparisons */
+	$comps = get_posts( array( 'post_type' => 'comparison', 'posts_per_page' => 3, 'post_status' => 'publish', 'orderby' => 'date', 'order' => 'DESC' ) );
+	foreach ( $comps as $cp ) {
+		$ts = strtotime( $cp->post_date_gmt );
+		$events[] = array( 'kind' => 'compare', 'title' => 'Battle card: ' . $cp->post_title, 'date' => $cp->post_date, 'ts' => $ts, 'url' => get_permalink( $cp->ID ), 'meta' => human_time_diff( $ts, current_time( 'timestamp' ) ) . ' ago' );
+	}
+	usort( $events, function( $a, $b ) { return $b['ts'] - $a['ts']; } );
+	return array_slice( $events, 0, $limit );
+}
+
+/* === P25: Live-now stats for the market map === */
+function gtmlens_p25_live_now_stats() {
+	$now = current_time( 'timestamp' );
+	$d30 = $now - 30 * DAY_IN_SECONDS;
+	$d60 = $now - 60 * DAY_IN_SECONDS;
+	$d90 = $now - 90 * DAY_IN_SECONDS;
+	/* Count vendors with a round in last 30d (via ACF on vendor CPT) */
+	$active = 0;
+	$vendors = get_posts( array( 'post_type' => 'vendor', 'posts_per_page' => -1, 'post_status' => 'publish', 'fields' => 'ids' ) );
+	foreach ( (array) $vendors as $vid ) {
+		$lrd = (string) get_field( 'last_round_date', $vid );
+		if ( $lrd && strtotime( $lrd ) >= $d30 ) $active++;
+	}
+	$cap_30 = 0; $cap_30_60 = 0; $events_q = 0;
+	if ( function_exists( 'gtmlens_get_funding_events' ) ) {
+		$fe = gtmlens_get_funding_events();
+		$qy = (int) date( 'Y', $now ); $qq = (int) ceil( (int) date( 'n', $now ) / 3 );
+		$q_start = mktime( 0, 0, 0, ( $qq - 1 ) * 3 + 1, 1, $qy );
+		foreach ( (array) $fe as $f ) {
+			$t = isset( $f['event_type'] ) ? strtolower( $f['event_type'] ) : '';
+			if ( $t !== 'round' && $t !== 'funding' ) continue;
+			$ts = strtotime( isset( $f['date'] ) ? $f['date'] : '' );
+			if ( ! $ts ) continue;
+			$amt = isset( $f['amount_m'] ) ? (float) $f['amount_m'] : 0;
+			if ( $ts >= $d30 ) $cap_30 += $amt;
+			elseif ( $ts >= $d60 ) $cap_30_60 += $amt;
+			if ( $ts >= $q_start ) $events_q++;
+		}
+	}
+	$pace = $cap_30_60 > 0 ? round( ( ( $cap_30 - $cap_30_60 ) / $cap_30_60 ) * 100 ) : null;
+	return array( 'active' => $active, 'cap_30' => $cap_30, 'pace' => $pace, 'events_q' => $events_q );
+}
+
+
+/* P29: consolidate Organization schema — align Rank Math org name + logo, drop duplicate */
+if ( ! function_exists( 'gtmlens_align_org_schema' ) ) {
+	function gtmlens_align_org_schema( $data, $jsonld ) {
+		if ( ! is_array( $data ) ) { return $data; }
+		$seen_org = false;
+		foreach ( $data as $k => $v ) {
+			$type = isset( $v['@type'] ) ? $v['@type'] : '';
+			$is_org = ( $type === 'Organization' ) || ( is_array( $type ) && in_array( 'Organization', $type, true ) );
+			if ( $is_org ) {
+				if ( $seen_org ) { unset( $data[ $k ] ); continue; }
+				$seen_org = true;
+				$data[ $k ]['name'] = 'GTMLens';
+				$data[ $k ]['logo'] = [ '@type' => 'ImageObject', 'url' => get_stylesheet_directory_uri() . '/assets/images/og-image.png' ];
+			}
+		}
+		return $data;
+	}
+	add_filter( 'rank_math/json_ld', 'gtmlens_align_org_schema', 99, 2 );
+}
+
+
+/* P29: noindex thin single funding_event pages (aggregated in the funding tracker) */
+if ( ! function_exists( 'gtmlens_noindex_funding_event' ) ) {
+	function gtmlens_noindex_funding_event( $robots ) {
+		if ( is_singular( 'funding_event' ) ) { $robots['index'] = 'noindex'; $robots['follow'] = 'follow'; }
+		return $robots;
+	}
+	add_filter( 'rank_math/frontend/robots', 'gtmlens_noindex_funding_event' );
+	add_filter( 'wp_robots', function( $r ) { if ( is_singular( 'funding_event' ) ) { $r['noindex'] = true; unset( $r['index'] ); } return $r; } );
+}
+
+
+// =====================================================================
+// GSC 404 FIXES — vendor slug aliases + category redirects (2026-06)
+// =====================================================================
+add_action( 'template_redirect', 'gtmlens_301_redirects' );
+function gtmlens_301_redirects() {
+	$path = untrailingslashit( parse_url( $_SERVER['REQUEST_URI'], PHP_URL_PATH ) );
+	$map = [
+		'/vendors/anthropic'                       => '/vendors/claude-anthropic/',
+		'/vendors/gpt-openai'                      => '/vendors/openai-gpt/',
+		'/vendors/clari'                           => '/vendors/',
+		'/vendors/glockapps'                       => '/vendors/',
+		'/vendors/people-data-labs'                => '/vendors/',
+		'/category/best-practice'                  => '/insights/',
+		'/category/claude-for-gtm'                 => '/vendors/claude-anthropic/',
+		'/category/playbook'                       => '/gtm-engineering/',
+		'/compare/clari-vs-custom-ai-forecasting'   => '/compare/',
+		'/compare/hubspot-vs-attio'                => '/compare/',
+	];
+	if ( isset( $map[ $path ] ) ) {
+		wp_redirect( home_url( $map[ $path ] ), 301 );
+		exit;
+	}
 }

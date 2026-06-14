@@ -93,7 +93,7 @@ if ( ! function_exists( 'gtmlens_fmt_usd_m' ) ) {
 	<p class="glhp-hero__eyebrow"><?php esc_html_e( 'Funding Tracker', 'gtmlens-child' ); ?></p>
 	<h1 class="glhp-hero__h1"><?php esc_html_e( 'GTM Funding Tracker', 'gtmlens-child' ); ?></h1>
 	<p class="glhp-hero__sub" style="max-width:760px;">
-		Rolling list of funding rounds, M&amp;A, and IPOs across the AI-native GTM stack. Independent. No paywall. Sourced from press releases, SEC filings, and Crunchbase.
+		Rolling list of funding rounds, M&amp;A, and IPOs across the AI-native GTM stack. Independent. No paywall. Sourced from press releases, SEC filings, and Crunchbase. <span style="opacity:.85">Methodology: rolling 7/30/90-day and YTD windows are bounded by event (announcement) date; capital totals include venture rounds, M&amp;A, and IPOs; valuations are post-money where disclosed; the quarter pace metric compares the current quarter&#8217;s daily capital run-rate against the prior full quarter.</span>
 	</p>
 	<?php if ( $last_mod ) : ?>
 		<p style="margin-top:14px;font-size:.85rem;color:var(--gl-text-muted);">
@@ -108,21 +108,232 @@ if ( ! function_exists( 'gtmlens_fmt_usd_m' ) ) {
 <section class="glhp-boxed" style="padding:0 24px 16px;max-width:1200px;margin:0 auto;">
 	<div class="gl-spark-wrap" aria-label="Events per quarter, last 6 quarters">
 		<div class="gl-spark-label">Events / quarter (last 6)</div>
+<div class="gl-spark-legend"><span class="gl-leg gl-leg--round">Rounds</span><span class="gl-leg gl-leg--ma">M&amp;A</span><span class="gl-leg gl-leg--ipo">IPO</span></div>
 		<div class="gl-spark-bars">
-			<?php foreach ( $spark as $b ) : ?>
-				<div class="gl-spark-col" title="<?php echo esc_attr( $b['label'] . ': ' . $b['count'] . ' events' ); ?>">
-					<div class="gl-spark-bar" style="height:<?php echo $spark_max ? max( 4, (int) round( $b['count'] / $spark_max * 56 ) ) : 0; ?>px;"></div>
-					<div class="gl-spark-tick"><?php echo esc_html( substr( $b['label'], 0, 2 ) ); // Q1, Q2, etc. ?></div>
-					<div class="gl-spark-year"><?php echo esc_html( substr( $b['label'], -2 ) ); // 26, 25 ?></div>
-				</div>
-			<?php endforeach; ?>
+			<?php
+/* gl-qbk-buckets: per-quarter type breakdown + $ raised */
+$gl_qbk = array();
+foreach ( $events as $glev ) {
+  $gld = isset( $glev['date'] ) ? $glev['date'] : '';
+  if ( ! $gld || strlen( $gld ) < 7 ) continue;
+  $gly = (int) substr( $gld, 0, 4 );
+  $glm = (int) substr( $gld, 5, 2 );
+  $glq = (int) ceil( $glm / 3 );
+  $gllbl = sprintf( 'Q%d %d', $glq, $gly );
+  if ( ! isset( $gl_qbk[ $gllbl ] ) ) $gl_qbk[ $gllbl ] = array( 'rounds'=>0, 'ma'=>0, 'ipo'=>0, 'total_m'=>0, 'count'=>0 );
+  $glt = isset( $glev['event_type'] ) ? strtolower( (string) $glev['event_type'] ) : '';
+  if ( strpos( $glt, 'acqu' ) !== false || $glt === 'ma' || $glt === 'merger' ) $gl_qbk[ $gllbl ]['ma']++;
+  elseif ( $glt === 'ipo' || $glt === 'public' || strpos( $glt, 'ipo' ) !== false ) $gl_qbk[ $gllbl ]['ipo']++;
+  else $gl_qbk[ $gllbl ]['rounds']++;
+  $gl_qbk[ $gllbl ]['count']++;
+  $gl_qbk[ $gllbl ]['total_m'] += (float) ( isset( $glev['amount_m'] ) ? $glev['amount_m'] : 0 );
+}
+$gl_fmt_qm = function( $m ) { if ( $m >= 1000 ) return '$' . number_format( $m / 1000, 1 ) . 'B'; if ( $m >= 1 ) return '$' . number_format( $m ) . 'M'; return ''; };
+$gl_now_y = (int) date( 'Y' );
+$gl_now_q = (int) ceil( ( (int) date( 'n' ) ) / 3 );
+$spark_cap_max = 0; foreach ( $spark as $gl_cmx ) { $gl_cmv = isset( $gl_qbk[ $gl_cmx['label'] ] ) ? (float) $gl_qbk[ $gl_cmx['label'] ]['total_m'] : 0; if ( $gl_cmv > $spark_cap_max ) { $spark_cap_max = $gl_cmv; } }
+foreach ( $spark as $b ) :
+  $gl_bkt = isset( $gl_qbk[ $b['label'] ] ) ? $gl_qbk[ $b['label'] ] : array( 'rounds'=>0, 'ma'=>0, 'ipo'=>0, 'total_m'=>0, 'count'=>$b['count'] );
+  $gl_cap_m_b = isset( $gl_qbk[ $b['label'] ] ) ? (float) $gl_qbk[ $b['label'] ]['total_m'] : 0; $gl_total_h = (int) round( ( log10( $gl_cap_m_b + 1 ) / log10( max( 10, $spark_cap_max ) + 1 ) ) * 56 );
+  if ( $gl_total_h < 4 ) $gl_total_h = 4;
+  $gl_rounds_h = $gl_bkt['count'] > 0 ? (int) round( ( $gl_bkt['rounds'] / $gl_bkt['count'] ) * $gl_total_h ) : $gl_total_h;
+  $gl_ma_h     = $gl_bkt['count'] > 0 ? (int) round( ( $gl_bkt['ma']     / $gl_bkt['count'] ) * $gl_total_h ) : 0;
+  $gl_ipo_h    = $gl_total_h - $gl_rounds_h - $gl_ma_h; if ( $gl_ipo_h < 0 ) $gl_ipo_h = 0;
+  $gl_lbl_short = substr( $b['label'], 0, 2 );
+  $gl_yr_short  = substr( $b['label'], -2 );
+  $gl_is_current = ( (int) ('20' . $gl_yr_short) === $gl_now_y && (int) substr( $gl_lbl_short, 1, 1 ) === $gl_now_q );
+  $gl_title = $b['label'] . ' — ' . $gl_bkt['count'] . ' events';
+  if ( $gl_bkt['total_m'] > 0 ) $gl_title .= ', ' . call_user_func( $gl_fmt_qm, $gl_bkt['total_m'] );
+  $gl_title .= ' (' . $gl_bkt['rounds'] . ' rounds';
+  if ( $gl_bkt['ma'] > 0 ) $gl_title .= ', ' . $gl_bkt['ma'] . ' M&A';
+  if ( $gl_bkt['ipo'] > 0 ) $gl_title .= ', ' . $gl_bkt['ipo'] . ' IPO';
+  $gl_title .= ')';
+?>
+<a class="gl-spark-col<?php echo $gl_is_current ? ' gl-spark-col--now' : ''; ?>" href="#gl-funding-feed-anchor" title="<?php echo esc_attr( $gl_title ); ?>">
+  <div class="gl-spark-amt"><?php echo esc_html( call_user_func( $gl_fmt_qm, $gl_bkt['total_m'] ) ); ?></div>
+  <div class="gl-spark-stack" style="height:<?php echo $gl_total_h; ?>px;">
+    <?php if ( $gl_ipo_h > 0 ) : ?><div class="gl-spark-seg gl-spark-seg--ipo" style="height:<?php echo $gl_ipo_h; ?>px;"></div><?php endif; ?>
+    <?php if ( $gl_ma_h > 0 ) : ?><div class="gl-spark-seg gl-spark-seg--ma" style="height:<?php echo $gl_ma_h; ?>px;"></div><?php endif; ?>
+    <?php if ( $gl_rounds_h > 0 ) : ?><div class="gl-spark-seg gl-spark-seg--round" style="height:<?php echo $gl_rounds_h; ?>px;"></div><?php endif; ?>
+  </div>
+  <div class="gl-spark-qlbl"><?php echo esc_html( $gl_lbl_short ); ?> <span class="gl-spark-yr">'<?php echo esc_html( $gl_yr_short ); ?></span></div>
+  <div class="gl-spark-count"><?php echo (int) $gl_bkt['count']; ?> events</div>
+</a>
+<?php endforeach; ?>
+</div>
+<?php endif; ?>
+
 		</div>
+<?php
+/* gl-spark-pace: current-quarter run-rate vs prior */
+$gl_now_ts = current_time( 'timestamp' );
+$gl_cq = $gl_now_q; $gl_cy = $gl_now_y;
+$gl_pq = ( $gl_cq > 1 ) ? $gl_cq - 1 : 4;
+$gl_py = ( $gl_cq > 1 ) ? $gl_cy : $gl_cy - 1;
+$gl_curr_lbl_full  = sprintf( 'Q%d %d', $gl_cq, $gl_cy );
+$gl_prior_lbl_full = sprintf( 'Q%d %d', $gl_pq, $gl_py );
+$gl_q_start_m  = ( $gl_cq - 1 ) * 3 + 1;
+$gl_q_start_ts = mktime( 0, 0, 0, $gl_q_start_m, 1, $gl_cy );
+$gl_days_in   = max( 1, (int) floor( ( $gl_now_ts - $gl_q_start_ts ) / 86400 ) + 1 );
+$gl_curr_b  = isset( $gl_qbk[ $gl_curr_lbl_full ] )  ? $gl_qbk[ $gl_curr_lbl_full ]  : array('count'=>0,'total_m'=>0);
+$gl_prior_b = isset( $gl_qbk[ $gl_prior_lbl_full ] ) ? $gl_qbk[ $gl_prior_lbl_full ] : array('count'=>0,'total_m'=>0);
+$gl_curr_rate_m  = $gl_curr_b['total_m']  / $gl_days_in;
+$gl_prior_rate_m = $gl_prior_b['total_m'] / 90;
+$gl_pace_pct = ( $gl_prior_rate_m > 0 ) ? (int) round( ( ( $gl_curr_rate_m - $gl_prior_rate_m ) / $gl_prior_rate_m ) * 100 ) : null;
+$gl_prior_lbl_short = sprintf( "Q%d '%02d", $gl_pq, $gl_py % 100 );
+$gl_curr_lbl_short  = sprintf( "Q%d '%02d", $gl_cq, $gl_cy % 100 );
+if ( $gl_pace_pct !== null ) :
+  $gl_dir = $gl_pace_pct > 0 ? 'up' : ( $gl_pace_pct < 0 ? 'down' : 'flat' );
+  $gl_dir_word = $gl_pace_pct > 0 ? 'above' : ( $gl_pace_pct < 0 ? 'below' : 'tracking' );
+?>
+<div class="gl-spark-pace">
+  <strong><?php echo esc_html( $gl_curr_lbl_short ); ?> pace:</strong>
+  <?php if ( $gl_pace_pct === 0 ) : ?>
+    tracking even with <?php echo esc_html( $gl_prior_lbl_short ); ?> daily run-rate (<?php echo (int) $gl_days_in; ?> day<?php echo $gl_days_in === 1 ? '' : 's'; ?> in)
+  <?php else : ?>
+    <span class="gl-pace-pct gl-pace-pct--<?php echo $gl_dir; ?>"><?php echo ( $gl_pace_pct > 0 ? '&#9650; ' : '&#9660; ' ) . abs( (int) $gl_pace_pct ); ?>%</span>
+    <?php echo esc_html( $gl_dir_word ); ?> <?php echo esc_html( $gl_prior_lbl_short ); ?> daily run-rate
+    <span class="gl-pace-meta">&middot; <?php echo (int) $gl_days_in; ?> day<?php echo $gl_days_in === 1 ? '' : 's'; ?> in &middot; <?php echo esc_html( call_user_func( $gl_fmt_qm, $gl_curr_b['total_m'] ) ); ?> tracked</span>
+  <?php endif; ?>
+
 	</div>
 </section>
 <?php endif; ?>
 
 <?php if ( $spark ) : ?>
 <section class="glhp-boxed" style="padding:8px 24px 24px;max-width:1200px;margin:0 auto;">
+	<?php
+	/* === P20: Funding tracker highlight pulse + top-5 rounds === */
+	$gl_all_events = isset( $events ) && is_array( $events ) ? $events : ( function_exists( 'gtmlens_get_funding_events' ) ? gtmlens_get_funding_events() : array() );
+	$gl_now_ts = current_time( 'timestamp' );
+	$gl_win = isset( $_GET['win'] ) ? sanitize_text_field( $_GET['win'] ) : '30d';
+	if ( ! in_array( $gl_win, array( '7d', '30d', '90d', 'ytd' ), true ) ) $gl_win = '30d';
+	$gl_win_days = ( $gl_win === '7d' ) ? 7 : ( ( $gl_win === '90d' ) ? 90 : 30 );
+	$gl_win_label = ( $gl_win === '7d' ) ? 'last 7d' : ( ( $gl_win === '90d' ) ? 'last 90d' : ( ( $gl_win === 'ytd' ) ? 'YTD' : 'last 30d' ) );
+	$gl_win_prior_label = ( $gl_win === '7d' ) ? 'prior 7d' : ( ( $gl_win === '90d' ) ? 'prior 90d' : ( ( $gl_win === 'ytd' ) ? '' : 'prior 30d' ) );
+	if ( $gl_win === 'ytd' ) {
+		$gl_30 = mktime( 0, 0, 0, 1, 1, (int) date( 'Y', $gl_now_ts ) );
+		$gl_60 = mktime( 0, 0, 0, 1, 1, (int) date( 'Y', $gl_now_ts ) - 1 );
+	} else {
+		$gl_30 = $gl_now_ts - $gl_win_days * DAY_IN_SECONDS;
+		$gl_60 = $gl_now_ts - 2 * $gl_win_days * DAY_IN_SECONDS;
+	}
+	$gl_90 = $gl_now_ts - 90 * DAY_IN_SECONDS;
+	$gl_rounds_30 = 0; $gl_cap_30 = 0; $gl_cap_30_gtm = 0; $gl_rounds_60_30 = 0; $gl_cap_60_30 = 0;
+	$gl_round_pool = array();
+	foreach ( $gl_all_events as $ev ) {
+		$type = isset( $ev['event_type'] ) ? $ev['event_type'] : '';
+		if ( 'round' !== $type && 'funding' !== $type ) continue;
+		$dt = isset( $ev['date'] ) ? strtotime( $ev['date'] ) : 0;
+		if ( ! $dt ) continue;
+		$amt = isset( $ev['amount_m'] ) ? (float) $ev['amount_m'] : 0;
+		if ( $dt >= $gl_30 ) { $gl_rounds_30++; $gl_cap_30 += $amt; if ( ! ( isset( $ev['category'] ) && 'Foundation Models' === $ev['category'] ) ) { $gl_cap_30_gtm += $amt; } }
+		elseif ( $dt >= $gl_60 ) { $gl_rounds_60_30++; $gl_cap_60_30 += $amt; }
+		if ( $dt >= $gl_90 ) $gl_round_pool[] = $ev;
+	}
+	usort( $gl_round_pool, function( $a, $b ) {
+		$av = isset( $a['date'] ) ? strtotime( $a['date'] ) : 0;
+		$bv = isset( $b['date'] ) ? strtotime( $b['date'] ) : 0;
+		if ( $av === $bv ) return 0;
+		return $bv > $av ? 1 : -1;
+	} );
+	$gl_top5 = array_slice( $gl_round_pool, 0, 5 );
+	$gl_delta_rounds = $gl_rounds_60_30 > 0 ? round( ( $gl_rounds_30 - $gl_rounds_60_30 ) / max( 1, $gl_rounds_60_30 ) * 100 ) : null;
+	$gl_delta_cap = $gl_cap_60_30 > 0 ? round( ( $gl_cap_30 - $gl_cap_60_30 ) / max( 1, $gl_cap_60_30 ) * 100 ) : null;
+	$gl_fmt_m = function( $m ) { if ( $m >= 1000 ) return '$' . number_format( $m / 1000, 1 ) . 'B'; return '$' . number_format( $m ) . 'M'; };
+	$gl_delta_chip = function( $d, $cur = 0 ) {
+		if ( $d === null ) {
+			if ( $cur > 0 ) return '<span class="gl-delta gl-delta--new">new</span>';
+			return '';
+		}
+		if ( $d > 0 ) return '<span class="gl-delta gl-delta--up">&#9650; ' . $d . '%</span>';
+		if ( $d < 0 ) return '<span class="gl-delta gl-delta--down">&#9660; ' . abs( $d ) . '%</span>';
+		return '<span class="gl-delta gl-delta--flat">&middot; 0%</span>';
+	};
+	?>
+	<section class="gl-funding-pulse" aria-label="Last 30 days at a glance">
+		<div class="gl-pulse-window-toggle" role="tablist" aria-label="Time window">
+	<?php foreach ( array( '7d'=>'7d', '30d'=>'30d', '90d'=>'90d', 'ytd'=>'YTD' ) as $wkey => $wlabel ) :
+		$wurl = add_query_arg( array( 'win' => $wkey ), remove_query_arg( 'win' ) );
+		$wact = ( $wkey === $gl_win ); ?>
+		<a href="<?php echo esc_url( $wurl ); ?>" class="gl-pulse-window-chip<?php echo $wact ? ' is-active' : ''; ?>" role="tab" aria-selected="<?php echo $wact ? 'true' : 'false'; ?>"><?php echo esc_html( $wlabel ); ?></a>
+	<?php endforeach; ?>
+</div>
+<div class="gl-pulse-grid">
+			<div class="gl-pulse-card">
+				<div class="gl-pulse-label">Rounds &middot; <?php echo esc_html( $gl_win_label ); ?></div>
+				<div class="gl-pulse-num"><?php echo (int) $gl_rounds_30; ?> <?php echo $gl_delta_chip( $gl_delta_rounds, $gl_rounds_30 ); ?></div>
+				<?php if ( $gl_rounds_60_30 > 0 ) : ?><div class="gl-pulse-sub">vs <?php echo (int) $gl_rounds_60_30; ?> in <?php echo esc_html( $gl_win_prior_label ); ?></div><?php else : ?><div class="gl-pulse-sub">no rounds in <?php echo esc_html( $gl_win_prior_label ?: "prior window" ); ?></div><?php endif; ?>
+			</div>
+			<div class="gl-pulse-card">
+				<div class="gl-pulse-label">Capital raised &middot; <?php echo esc_html( $gl_win_label ); ?></div>
+				<div class="gl-pulse-num"><?php echo esc_html( $gl_fmt_m( $gl_cap_30 ) ); ?> <?php echo $gl_delta_chip( $gl_delta_cap, $gl_cap_30 ); ?></div>
+				<?php if ( $gl_cap_30 > $gl_cap_30_gtm ) : ?><div class="gl-pulse-sub">ex-foundation models: <?php echo esc_html( $gl_fmt_m( $gl_cap_30_gtm ) ); ?></div><?php endif; ?><?php if ( $gl_cap_60_30 > 0 ) : ?><div class="gl-pulse-sub">vs <?php echo esc_html( $gl_fmt_m( $gl_cap_60_30 ) ); ?> in <?php echo esc_html( $gl_win_prior_label ); ?></div><?php else : ?><div class="gl-pulse-sub">no rounds in <?php echo esc_html( $gl_win_prior_label ?: "prior window" ); ?></div><?php endif; ?>
+			</div>
+			<?php if ( ! empty( $gl_top5 ) ) : ?>
+			<div class="gl-pulse-top5">
+				<div class="gl-pulse-label">Recent rounds &middot; last 90d</div>
+				<ol class="gl-top5-list">
+				<?php foreach ( $gl_top5 as $glr_i => $r ) :
+  $co = isset( $r['company'] ) ? $r['company'] : ( isset( $r['label'] ) ? $r['label'] : '' );
+  $amt = isset( $r['amount_m'] ) ? (float) $r['amount_m'] : 0;
+  $dt = isset( $r['date'] ) ? strtotime( $r['date'] ) : 0;
+  $url = isset( $r['url'] ) ? $r['url'] : '';
+  $stage = isset( $r['stage'] ) ? $r['stage'] : '';
+  $valm = isset( $r['val_m'] ) ? (float) $r['val_m'] : 0;
+?>
+<li class="gl-top5-item gl-top5-item--rank-<?php echo (int) ( $glr_i + 1 ); ?>">
+  <?php if ( $url ) : ?><a href="<?php echo esc_url( $url ); ?>"><?php endif; ?>
+    <span class="gl-top5-co"><?php echo esc_html( $co ); ?></span>
+    <span class="gl-top5-amt"><?php echo esc_html( $gl_fmt_m( $amt ) ); ?></span>
+    <?php if ( $stage ) : ?><span class="gl-top5-stage"><?php echo esc_html( $stage ); ?></span><?php endif; ?>
+    <?php if ( $valm > 0 ) : ?><span class="gl-top5-val">&rarr; <?php echo esc_html( $gl_fmt_m( $valm ) ); ?></span><?php endif; ?>
+    <?php if ( $dt ) : ?><span class="gl-top5-dt"><?php echo esc_html( date_i18n( 'M j', $dt ) ); ?></span><?php endif; ?>
+  <?php if ( $url ) : ?></a><?php endif; ?>
+</li>
+<?php endforeach; ?>
+				</ol>
+			</div>
+			<?php endif; ?>
+		</div>
+	
+<?php
+/* Stage mix across last 30d rounds */
+$gl_stage_buckets = array( 'Seed'=>0, 'A'=>0, 'B'=>0, 'C'=>0, 'D+'=>0, 'Other'=>0 );
+$gl_stage_total_m = 0;
+foreach ( $gl_all_events as $sev ) {
+  $std = isset( $sev['date'] ) ? strtotime( $sev['date'] ) : 0;
+  if ( ! $std || $std < $gl_30 ) continue;
+  $st = isset( $sev['event_type'] ) ? strtolower( (string) $sev['event_type'] ) : '';
+  if ( $st !== 'round' && $st !== 'funding' ) continue;
+  if ( isset( $sev['category'] ) && 'Foundation Models' === $sev['category'] ) continue;
+  $stage = isset( $sev['stage'] ) ? strtolower( (string) $sev['stage'] ) : '';
+  $bucket = 'Other';
+  if ( strpos( $stage, 'seed' ) !== false || strpos( $stage, 'pre' ) !== false ) $bucket = 'Seed';
+  elseif ( strpos( $stage, ' a' ) !== false || $stage === 'series a' || strpos( $stage, 'series a' ) !== false ) $bucket = 'A';
+  elseif ( strpos( $stage, ' b' ) !== false || strpos( $stage, 'series b' ) !== false ) $bucket = 'B';
+  elseif ( strpos( $stage, ' c' ) !== false || strpos( $stage, 'series c' ) !== false ) $bucket = 'C';
+  elseif ( strpos( $stage, ' d' ) !== false || strpos( $stage, ' e' ) !== false || strpos( $stage, ' f' ) !== false || strpos( $stage, 'growth' ) !== false ) $bucket = 'D+';
+  $amt = (float) ( isset( $sev['amount_m'] ) ? $sev['amount_m'] : 0 );
+  $gl_stage_buckets[ $bucket ] += $amt;
+  $gl_stage_total_m += $amt;
+}
+if ( $gl_stage_total_m > 0 ) : ?>
+<div class="gl-stage-mix">
+  <div class="gl-stage-mix__label">Stage mix &middot; <?php echo esc_html( $gl_win_label ); ?> (by capital, ex-foundation models)</div>
+  <div class="gl-stage-mix__bar">
+    <?php foreach ( $gl_stage_buckets as $sk => $sv ) : if ( $sv <= 0 ) continue; $pct = ( $sv / $gl_stage_total_m ) * 100; ?>
+      <div class="gl-stage-mix__seg gl-stage-mix__seg--<?php echo esc_attr( strtolower( str_replace( '+', 'plus', $sk ) ) ); ?>" style="width:<?php echo round( $pct, 1 ); ?>%" title="<?php echo esc_attr( $sk . ': ' . round( $pct ) . '% (' . call_user_func( $gl_fmt_m, $sv ) . ')' ); ?>"></div>
+    <?php endforeach; ?>
+  </div>
+  <div class="gl-stage-mix__legend">
+    <?php foreach ( $gl_stage_buckets as $sk => $sv ) : if ( $sv <= 0 ) continue; $pct = ( $sv / $gl_stage_total_m ) * 100; ?>
+      <span class="gl-stage-mix__legitem gl-stage-mix__legitem--<?php echo esc_attr( strtolower( str_replace( '+', 'plus', $sk ) ) ); ?>"><?php echo esc_html( $sk ); ?> <?php echo round( $pct ); ?>%</span>
+    <?php endforeach; ?>
+  </div>
+</div>
+<?php endif; ?>
+</section>
 	<div class="gl-funding-summary">
 		<?php foreach ( $spark as $b ) :
 			$q = $b['label'];
@@ -169,7 +380,8 @@ if ( ! function_exists( 'gtmlens_fmt_usd_m' ) ) {
 		<span class="gl-filter-count" x-text="'Showing ' + sortedFiltered.length + ' of ' + events.length"></span>
 	</div>
 
-	<div class="gl-funding-feed">
+	<div id="gl-funding-feed-anchor"></div>
+<div class="gl-funding-feed">
 		<template x-for="(e, i) in sortedFiltered" :key="i">
 			<article class="gl-funding-card" :class="'gl-event-' + e.event_type">
 				<div class="gl-card-header">
