@@ -21,9 +21,25 @@ $publics    = array_values( array_filter( gtmlens_get_funding_events(), function
 	return 'ipo' === $e['event_type'];
 } ) );
 
+// Aggregate views (quarter totals, sparkline, pace) exclude Foundation Models —
+// a single FM mega-round (e.g. Anthropic) otherwise swamps GTM-tool capital and
+// distorts quarter-over-quarter pace. The detailed rolling list keeps them.
+// FM detection matches the category tag OR the company name — some foundation-model
+// event records (e.g. an older OpenAI/Anthropic round) ship without the category set.
+if ( ! function_exists( 'gtmlens_event_is_fm' ) ) {
+	function gtmlens_event_is_fm( $e ) {
+		if ( isset( $e['category'] ) && 'Foundation Models' === $e['category'] ) return true;
+		$co = isset( $e['company'] ) ? $e['company'] : '';
+		return (bool) preg_match( '/Anthropic|OpenAI|\bGPT\b|Gemini|Mistral|DeepMind/i', $co );
+	}
+}
+$events_gtm = array_values( array_filter( $events, function ( $e ) {
+	return ! gtmlens_event_is_fm( $e );
+} ) );
+
 $dates      = array_filter( array_column( $events, 'date' ) );
 $last_mod   = $dates ? max( $dates ) : '';
-$buckets    = gtmlens_bucket_events_by_quarter( $events );
+$buckets    = gtmlens_bucket_events_by_quarter( $events_gtm );
 $categories = array_values( array_unique( array_filter( array_column( $events, 'category' ) ) ) );
 sort( $categories );
 $stages     = array_values( array_unique( array_filter( array_column( $events, 'stage' ) ) ) );
@@ -66,7 +82,7 @@ function gtmlens_build_sparkline_buckets( array $events ): array {
 	}
 	return $out;
 }
-$spark = gtmlens_build_sparkline_buckets( $events );
+$spark = gtmlens_build_sparkline_buckets( $events_gtm );
 $spark = array_reverse( $spark ); // Newest first (left → oldest right)
 $spark_max = $spark ? max( array_column( $spark, 'count' ) ) : 1;
 
@@ -113,7 +129,7 @@ if ( ! function_exists( 'gtmlens_fmt_usd_m' ) ) {
 			<?php
 /* gl-qbk-buckets: per-quarter type breakdown + $ raised */
 $gl_qbk = array();
-foreach ( $events as $glev ) {
+foreach ( $events_gtm as $glev ) {
   $gld = isset( $glev['date'] ) ? $glev['date'] : '';
   if ( ! $gld || strlen( $gld ) < 7 ) continue;
   $gly = (int) substr( $gld, 0, 4 );
@@ -206,8 +222,8 @@ if ( $gl_pace_pct !== null ) :
 	/* === P20: Funding tracker highlight pulse + top-5 rounds === */
 	$gl_all_events = isset( $events ) && is_array( $events ) ? $events : ( function_exists( 'gtmlens_get_funding_events' ) ? gtmlens_get_funding_events() : array() );
 	$gl_now_ts = current_time( 'timestamp' );
-	$gl_win = isset( $_GET['win'] ) ? sanitize_text_field( $_GET['win'] ) : '30d';
-	if ( ! in_array( $gl_win, array( '7d', '30d', '90d', 'ytd' ), true ) ) $gl_win = '30d';
+	$gl_win = isset( $_GET['win'] ) ? sanitize_text_field( $_GET['win'] ) : '90d';
+	if ( ! in_array( $gl_win, array( '7d', '30d', '90d', 'ytd' ), true ) ) $gl_win = '90d';
 	$gl_win_days = ( $gl_win === '7d' ) ? 7 : ( ( $gl_win === '90d' ) ? 90 : 30 );
 	$gl_win_label = ( $gl_win === '7d' ) ? 'last 7d' : ( ( $gl_win === '90d' ) ? 'last 90d' : ( ( $gl_win === 'ytd' ) ? 'YTD' : 'last 30d' ) );
 	$gl_win_prior_label = ( $gl_win === '7d' ) ? 'prior 7d' : ( ( $gl_win === '90d' ) ? 'prior 90d' : ( ( $gl_win === 'ytd' ) ? '' : 'prior 30d' ) );
@@ -219,7 +235,7 @@ if ( $gl_pace_pct !== null ) :
 		$gl_60 = $gl_now_ts - 2 * $gl_win_days * DAY_IN_SECONDS;
 	}
 	$gl_90 = $gl_now_ts - 90 * DAY_IN_SECONDS;
-	$gl_rounds_30 = 0; $gl_cap_30 = 0; $gl_cap_30_gtm = 0; $gl_rounds_60_30 = 0; $gl_cap_60_30 = 0;
+	$gl_rounds_30 = 0; $gl_cap_30 = 0; $gl_cap_30_gtm = 0; $gl_rounds_60_30 = 0; $gl_cap_60_30 = 0; $gl_cap_60_30_gtm = 0;
 	$gl_round_pool = array();
 	foreach ( $gl_all_events as $ev ) {
 		$type = isset( $ev['event_type'] ) ? $ev['event_type'] : '';
@@ -227,8 +243,9 @@ if ( $gl_pace_pct !== null ) :
 		$dt = isset( $ev['date'] ) ? strtotime( $ev['date'] ) : 0;
 		if ( ! $dt ) continue;
 		$amt = isset( $ev['amount_m'] ) ? (float) $ev['amount_m'] : 0;
-		if ( $dt >= $gl_30 ) { $gl_rounds_30++; $gl_cap_30 += $amt; if ( ! ( isset( $ev['category'] ) && 'Foundation Models' === $ev['category'] ) ) { $gl_cap_30_gtm += $amt; } }
-		elseif ( $dt >= $gl_60 ) { $gl_rounds_60_30++; $gl_cap_60_30 += $amt; }
+		$gl_is_fm = gtmlens_event_is_fm( $ev );
+		if ( $dt >= $gl_30 ) { $gl_rounds_30++; $gl_cap_30 += $amt; if ( ! $gl_is_fm ) { $gl_cap_30_gtm += $amt; } }
+		elseif ( $dt >= $gl_60 ) { $gl_rounds_60_30++; $gl_cap_60_30 += $amt; if ( ! $gl_is_fm ) { $gl_cap_60_30_gtm += $amt; } }
 		if ( $dt >= $gl_90 ) $gl_round_pool[] = $ev;
 	}
 	usort( $gl_round_pool, function( $a, $b ) {
@@ -240,6 +257,7 @@ if ( $gl_pace_pct !== null ) :
 	$gl_top5 = array_slice( $gl_round_pool, 0, 5 );
 	$gl_delta_rounds = $gl_rounds_60_30 > 0 ? round( ( $gl_rounds_30 - $gl_rounds_60_30 ) / max( 1, $gl_rounds_60_30 ) * 100 ) : null;
 	$gl_delta_cap = $gl_cap_60_30 > 0 ? round( ( $gl_cap_30 - $gl_cap_60_30 ) / max( 1, $gl_cap_60_30 ) * 100 ) : null;
+	$gl_delta_cap_gtm = $gl_cap_60_30_gtm > 0 ? round( ( $gl_cap_30_gtm - $gl_cap_60_30_gtm ) / max( 1, $gl_cap_60_30_gtm ) * 100 ) : null;
 	$gl_fmt_m = function( $m ) { if ( $m >= 1000 ) return '$' . number_format( $m / 1000, 1 ) . 'B'; return '$' . number_format( $m ) . 'M'; };
 	$gl_delta_chip = function( $d, $cur = 0 ) {
 		if ( $d === null ) {
@@ -266,9 +284,9 @@ if ( $gl_pace_pct !== null ) :
 				<?php if ( $gl_rounds_60_30 > 0 ) : ?><div class="gl-pulse-sub">vs <?php echo (int) $gl_rounds_60_30; ?> in <?php echo esc_html( $gl_win_prior_label ); ?></div><?php else : ?><div class="gl-pulse-sub">no rounds in <?php echo esc_html( $gl_win_prior_label ?: "prior window" ); ?></div><?php endif; ?>
 			</div>
 			<div class="gl-pulse-card">
-				<div class="gl-pulse-label">Capital raised &middot; <?php echo esc_html( $gl_win_label ); ?></div>
-				<div class="gl-pulse-num"><?php echo esc_html( $gl_fmt_m( $gl_cap_30 ) ); ?> <?php echo $gl_delta_chip( $gl_delta_cap, $gl_cap_30 ); ?></div>
-				<?php if ( $gl_cap_30 > $gl_cap_30_gtm ) : ?><div class="gl-pulse-sub">ex-foundation models: <?php echo esc_html( $gl_fmt_m( $gl_cap_30_gtm ) ); ?></div><?php endif; ?><?php if ( $gl_cap_60_30 > 0 ) : ?><div class="gl-pulse-sub">vs <?php echo esc_html( $gl_fmt_m( $gl_cap_60_30 ) ); ?> in <?php echo esc_html( $gl_win_prior_label ); ?></div><?php else : ?><div class="gl-pulse-sub">no rounds in <?php echo esc_html( $gl_win_prior_label ?: "prior window" ); ?></div><?php endif; ?>
+				<div class="gl-pulse-label">GTM capital &middot; <?php echo esc_html( $gl_win_label ); ?></div>
+				<div class="gl-pulse-num"><?php echo esc_html( $gl_fmt_m( $gl_cap_30_gtm ) ); ?> <?php echo $gl_delta_chip( $gl_delta_cap_gtm, $gl_cap_30_gtm ); ?></div>
+				<?php if ( $gl_cap_30 > $gl_cap_30_gtm ) : ?><div class="gl-pulse-sub">incl. foundation models: <?php echo esc_html( $gl_fmt_m( $gl_cap_30 ) ); ?></div><?php endif; ?><?php if ( $gl_cap_60_30_gtm > 0 ) : ?><div class="gl-pulse-sub">vs <?php echo esc_html( $gl_fmt_m( $gl_cap_60_30_gtm ) ); ?> in <?php echo esc_html( $gl_win_prior_label ); ?></div><?php else : ?><div class="gl-pulse-sub">no GTM rounds in <?php echo esc_html( $gl_win_prior_label ?: "prior window" ); ?></div><?php endif; ?>
 			</div>
 			<?php if ( ! empty( $gl_top5 ) ) : ?>
 			<div class="gl-pulse-top5">

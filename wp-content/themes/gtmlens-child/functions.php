@@ -2381,6 +2381,7 @@ function gtmlens_301_redirects() {
 		'/category/playbook'                       => '/gtm-engineering/',
 		'/compare/clari-vs-custom-ai-forecasting'   => '/compare/',
 		'/compare/hubspot-vs-attio'                => '/compare/',
+		'/stack-builder/quiz'                      => '/stack-finder/',
 	];
 	if ( isset( $map[ $path ] ) ) {
 		wp_redirect( home_url( $map[ $path ] ), 301 );

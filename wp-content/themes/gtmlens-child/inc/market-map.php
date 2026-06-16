@@ -113,6 +113,9 @@ function gtmlens_scale_chip( $vendor_id ) {
 	$stage  = (string) get_field( 'funding_stage', $vendor_id );
 	$raised = (int) get_field( 'total_raised_usd_m', $vendor_id );
 	$val    = (int) get_field( 'last_valuation_usd_m', $vendor_id );
+	// Gemini's "valuation" is Alphabet's market cap (parent), not a comparable
+	// startup raise — label it as such instead of an outlier $2.4T figure.
+	if ( 'gemini-google' === get_post_field( 'post_name', $vendor_id ) ) return 'Public · Alphabet';
 	if ( in_array( $stage, [ 'Public', 'IPO' ], true ) ) return 'Public';
 	if ( 'Acquired' === $stage ) return 'Acquired';
 	if ( $val >= 1000 ) return gtmlens_fmt_raised( $val ) . ' valuation';
@@ -246,6 +249,7 @@ function gtmlens_market_map_render() {
 		$step = 3.4;
 		foreach ( $idxs as $k => $i ) {
 			if ( $k === 0 ) continue;
+			$dots[ $i ]['suppress_amount'] = true; // spiraled siblings: drop $ label to avoid collision
 			$angle = ( $k * 137.5 ) * M_PI / 180;
 			$r = $step * sqrt( $k );
 			$dots[ $i ]['x'] = max( 3, min( 97, $dots[ $i ]['x'] + $r * cos( $angle ) ) );
@@ -278,13 +282,16 @@ function gtmlens_market_map_render() {
 		$examples[ $t ] = array_slice( $arr, 0, 2 );
 	}
 
-	$top_scale = array_slice( $ranked_scale, 0, 5 );
+	// Leaderboards exclude Foundation Models: their parent-scale valuations and
+	// mega-rounds (Claude/GPT/Gemini) otherwise swamp the GTM-tool rankings.
+	$gl_is_gtm = function ( $d ) { return 'foundation-models' !== $d['cat']; };
+	$top_scale = array_slice( array_values( array_filter( $ranked_scale, $gl_is_gtm ) ), 0, 5 );
 	$top_momentum = $dots;
 	usort( $top_momentum, function ( $a, $b ) { return $b['momentum_score'] - $a['momentum_score']; } );
-	$top_momentum = array_slice( array_values( array_filter( $top_momentum, function ( $d ) { return $d['momentum_score'] > 35; } ) ), 0, 5 );
+	$top_momentum = array_slice( array_values( array_filter( $top_momentum, function ( $d ) use ( $gl_is_gtm ) { return $d['momentum_score'] > 35 && $gl_is_gtm( $d ); } ) ), 0, 5 );
 	$top_velocity = $dots;
 	usort( $top_velocity, function ( $a, $b ) { return ( $b['velocity'] <=> $a['velocity'] ); } );
-	$top_velocity = array_slice( array_values( array_filter( $top_velocity, function ( $d ) { return $d['velocity'] > 0; } ) ), 0, 5 );
+	$top_velocity = array_slice( array_values( array_filter( $top_velocity, function ( $d ) use ( $gl_is_gtm ) { return $d['velocity'] > 0 && $gl_is_gtm( $d ); } ) ), 0, 5 );
 
 	$render_rail_row = function ( $d, $metric, $rank ) {
 		?>
@@ -385,7 +392,7 @@ function gtmlens_market_map_render() {
 								<?php endif; ?>
 							</span>
 							<span class="gl-mm2-dot__label"><?php echo esc_html( $d['short'] ?? $d['name'] ); ?></span>
-							<?php if ( ! empty( $d['show_amount'] ) ) : ?>
+							<?php if ( ! empty( $d['show_amount'] ) && empty( $d['suppress_amount'] ) && 'foundation-models' !== $d['cat'] ) : ?>
 								<span class="gl-mm2-dot__amount"><?php echo esc_html( $d['amount_label'] ); ?></span>
 							<?php endif; ?>
 							<div class="gl-mm2-dot__tip">
