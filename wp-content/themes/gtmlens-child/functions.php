@@ -260,6 +260,80 @@ add_action( 'rest_api_init', function () {
 			return [ 'ok' => (bool) $ok, 'post_id' => $post_id, 'field' => $field_name, 'rows' => count( $rows ) ];
 		},
 	] );
+
+	// Authenticated funding-update endpoint for the monthly gtmlens-funding-refresh
+	// routine. Auth = WP Application Password (Basic) of a user who can edit_posts.
+	// Applies a single confirmed round to a vendor, with a prior-value audit trail
+	// (meta _auto_applied_log) for rollback, a newer-date guard, and a matching
+	// funding_event record. ACF writes go through update_field() server-side.
+	register_rest_route( 'gtmlens/v1', '/apply-funding', [
+		'methods'             => 'POST',
+		'permission_callback' => function () { return current_user_can( 'edit_posts' ); },
+		'callback'            => function ( WP_REST_Request $r ) {
+			$vid    = (int) $r->get_param( 'vendor_id' );
+			$round  = (int) $r->get_param( 'round_size_usd_m' );
+			$valm   = (int) $r->get_param( 'valuation_usd_m' );
+			$rdate  = preg_replace( '/\D/', '', (string) $r->get_param( 'round_date' ) ); // YYYYMMDD
+			$stage  = sanitize_text_field( (string) $r->get_param( 'funding_stage' ) );
+			$src    = esc_url_raw( (string) $r->get_param( 'source_url' ) );
+			if ( ! $vid || get_post_type( $vid ) !== 'vendor' || get_post_status( $vid ) !== 'publish' ) {
+				return new WP_Error( 'bad_vendor', 'vendor_id must be a published vendor', [ 'status' => 400 ] );
+			}
+			if ( strlen( $rdate ) !== 8 ) {
+				return new WP_Error( 'bad_date', 'round_date must be YYYYMMDD', [ 'status' => 400 ] );
+			}
+			// Newer-date guard: never overwrite a newer round with an older one.
+			$prev_date = preg_replace( '/\D/', '', (string) get_field( 'last_round_date', $vid ) );
+			if ( strlen( $prev_date ) === 8 && $rdate <= $prev_date ) {
+				return new WP_Error( 'stale', 'round_date not newer than current last_round_date', [ 'status' => 409 ] );
+			}
+			// Audit: snapshot prior values for rollback.
+			$prior = [
+				'last_round_size_usd_m' => get_field( 'last_round_size_usd_m', $vid ),
+				'last_valuation_usd_m'  => get_field( 'last_valuation_usd_m', $vid ),
+				'total_raised_usd_m'    => get_field( 'total_raised_usd_m', $vid ),
+				'last_round_date'       => get_field( 'last_round_date', $vid ),
+				'funding_stage'         => get_field( 'funding_stage', $vid ),
+			];
+			$log = (array) get_post_meta( $vid, '_auto_applied_log', true );
+			$log[] = [ 'at' => current_time( 'mysql', 1 ), 'src' => $src, 'prior' => $prior ];
+			update_post_meta( $vid, '_auto_applied_log', $log );
+			// Apply.
+			$new_total = (int) $prior['total_raised_usd_m'] + $round;
+			if ( $round > 0 ) update_field( 'last_round_size_usd_m', $round, $vid );
+			if ( $valm > 0 )  update_field( 'last_valuation_usd_m', $valm, $vid );
+			update_field( 'total_raised_usd_m', $new_total, $vid );
+			update_field( 'last_round_date', $rdate, $vid );
+			if ( $stage ) update_field( 'funding_stage', $stage, $vid );
+			update_field( 'last_updated', date( 'Ymd' ), $vid );
+			// Matching funding_event record.
+			$company = get_the_title( $vid );
+			$ev_id = wp_insert_post( [
+				'post_type'   => 'funding_event',
+				'post_status' => 'publish',
+				'post_title'  => $company . ' — ' . $stage . ' ' . substr( $rdate, 0, 4 ),
+			] );
+			if ( $ev_id && ! is_wp_error( $ev_id ) ) {
+				$vterms = wp_get_post_terms( $vid, 'vendor_category', [ 'fields' => 'names' ] );
+				$vcat   = ( ! is_wp_error( $vterms ) && $vterms ) ? $vterms[0] : '';
+				update_field( 'company_name', $company, $ev_id );
+				update_field( 'event_date', $rdate, $ev_id );
+				update_field( 'event_type', 'round', $ev_id );
+				update_field( 'source_url', $src, $ev_id );
+				if ( $round > 0 ) update_field( 'amount_usd_m', $round, $ev_id );
+				if ( $valm > 0 )  update_field( 'valuation_usd_m', $valm, $ev_id );
+				if ( $stage ) update_field( 'stage', $stage, $ev_id );
+				if ( $vcat )  update_field( 'category', $vcat, $ev_id );
+				update_field( 'vendor', $vid, $ev_id );
+				update_post_meta( $ev_id, '_auto_ingested', 1 );
+			}
+			return [
+				'ok' => true, 'vendor_id' => $vid, 'event_id' => (int) $ev_id,
+				'applied' => [ 'round' => $round, 'valuation' => $valm, 'total' => $new_total, 'date' => $rdate, 'stage' => $stage ],
+				'prior' => $prior,
+			];
+		},
+	] );
 } );
 
 /* ═══════════════════════════════════════════════════════════════════════════

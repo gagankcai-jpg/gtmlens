@@ -1,0 +1,4 @@
+{
+  "lastRun": "2026-06-22",
+  "note": "Anchor date for gtmlens-funding-refresh. The monthly routine only acts on confirmed funding/M&A events dated after lastRun, then advances this."
+}
