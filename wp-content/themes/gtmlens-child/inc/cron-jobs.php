@@ -230,23 +230,10 @@ function gtmlens_send_weekly_digest( array $rss_report, array $vendor_report ): 
 		$lines[] = '';
 		$lines[] = '  No new candidates this week.';
 	}
-	$lines[] = '';
-	$lines[] = 'VENDOR CHANGE SCAN';
-	$lines[] = sprintf( '  Vendors scanned: %d   Material changes detected: %d',
-		$vendor_report['scanned'], count( $vendor_report['changed'] ) );
-	if ( $vendor_report['changed'] ) {
-		$lines[] = '';
-		foreach ( $vendor_report['changed'] as $c ) {
-			$lines[] = sprintf( '  • %s — %s', $c['title'], $c['url'] );
-			$lines[] = sprintf( '    Edit: %s', $c['edit'] );
-		}
-		$lines[] = '';
-		$lines[] = '  Workflow: review the diff (compare current page vs your profile), update last_updated + analyst_take.';
-	}
-	if ( ! empty( $rss_report['errors'] ) || ! empty( $vendor_report['errors'] ) ) {
+	if ( ! empty( $rss_report['errors'] ) ) {
 		$lines[] = '';
 		$lines[] = 'ERRORS';
-		foreach ( array_merge( $rss_report['errors'], $vendor_report['errors'] ) as $e ) {
+		foreach ( $rss_report['errors'] as $e ) {
 			$lines[] = '  ! ' . $e;
 		}
 	}
@@ -255,8 +242,8 @@ function gtmlens_send_weekly_digest( array $rss_report, array $vendor_report ): 
 	$lines[] = sprintf( 'Sent %s · %s', current_time( 'D, j M Y H:i T' ), home_url() );
 
 	$body = implode( "\n", $lines );
-	$subject = sprintf( '[GTMLens] %d candidates · %d vendor changes',
-		(int) $rss_report['created'], count( $vendor_report['changed'] ) );
+	$subject = sprintf( '[GTMLens] %d funding candidate%s this week',
+		(int) $rss_report['created'], (int) $rss_report['created'] === 1 ? '' : 's' );
 
 	return wp_mail( GTMLENS_AUTO_INGEST_EMAIL, $subject, $body );
 }
@@ -283,15 +270,16 @@ function gtmlens_run_auto_ingest(): array {
 		error_log( 'GTMLens rss_ingest exception: ' . $e->getMessage() );
 	}
 	update_option( 'gtmlens_auto_ingest_last_run', current_time( 'mysql', 1 ) );
-	update_option( 'gtmlens_auto_ingest_last_report', [ 'rss' => $rss, 'vendor' => [ 'scanned' => 0, 'changed' => [], 'errors' => [], 'status' => 'queued' ] ] );
+	update_option( 'gtmlens_auto_ingest_last_report', [ 'rss' => $rss, 'vendor' => [ 'scanned' => 0, 'changed' => [], 'errors' => [], 'status' => 'disabled' ] ] );
 
-	if ( ! wp_next_scheduled( GTMLENS_VENDOR_SCAN_HOOK ) ) {
-		wp_schedule_single_event( time() + 5, GTMLENS_VENDOR_SCAN_HOOK );
-	}
+	// Vendor change scan retired (2026-06): full-page hashing flagged ~half the
+	// vendors every week (marketing-site churn), not material change. The monthly
+	// gtmlens-funding-refresh routine covers material vendor events with far higher
+	// signal. The scan function + hook remain defined but are no longer scheduled.
 	if ( ! wp_next_scheduled( GTMLENS_DIGEST_HOOK ) ) {
-		wp_schedule_single_event( time() + 90, GTMLENS_DIGEST_HOOK );
+		wp_schedule_single_event( time() + 15, GTMLENS_DIGEST_HOOK );
 	}
-	return [ 'rss' => $rss, 'vendor_scan' => 'scheduled' ];
+	return [ 'rss' => $rss, 'vendor_scan' => 'disabled' ];
 }
 add_action( GTMLENS_AUTO_INGEST_HOOK, 'gtmlens_run_auto_ingest' );
 
