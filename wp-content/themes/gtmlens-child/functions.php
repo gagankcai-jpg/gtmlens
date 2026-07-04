@@ -2453,6 +2453,10 @@ function gtmlens_301_redirects() {
 		'/category/best-practice'                  => '/insights/',
 		'/category/claude-for-gtm'                 => '/vendors/claude-anthropic/',
 		'/category/playbook'                       => '/gtm-engineering/',
+		'/category/deep-dive'                      => '/insights/',
+		'/category/market-map'                     => '/insights/',
+		'/category/state-of'                       => '/insights/',
+		'/category/uncategorized'                  => '/insights/',
 		'/compare/clari-vs-custom-ai-forecasting'   => '/compare/',
 		'/compare/hubspot-vs-attio'                => '/compare/',
 		'/stack-builder/quiz'                      => '/stack-finder/',
@@ -2462,3 +2466,16 @@ function gtmlens_301_redirects() {
 		exit;
 	}
 }
+
+/* Blog post-category archives can never resolve: the vendor_category taxonomy
+ * owns the /category/ rewrite base, so /category/{post-cat} 404s. Keep the
+ * post `category` taxonomy out of the Rank Math sitemap (the 301 map above
+ * catches any externally linked slugs). */
+add_filter( 'rank_math/sitemap/exclude_taxonomy', function ( $exclude, $taxonomy ) {
+	return 'category' === $taxonomy ? true : $exclude;
+}, 10, 2 );
+
+/* Rank Math's stored sitemap cache has no reliable flush on this install (it
+ * survived save_post, permalink flush, and object-cache purge, and served
+ * week-old sitemaps to GSC). ~134 URLs — regenerating per request is cheap. */
+add_filter( 'rank_math/sitemap/enable_caching', '__return_false' );
