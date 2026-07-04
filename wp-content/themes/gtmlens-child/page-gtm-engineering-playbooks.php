@@ -31,6 +31,13 @@ $posts = get_posts( [
 	<p class="glhp-hero__sub" style="max-width:720px;"><?php echo esc_html( $subtitle ); ?></p>
 </section>
 
+<section class="glhp-boxed" style="max-width:1200px;margin:0 auto;padding:0 24px;">
+	<div style="background:var(--gl-white);border:1px solid var(--gl-border);border-left:4px solid var(--gl-primary);border-radius:8px;padding:20px 24px;margin-bottom:8px;">
+		<p style="margin:0 0 10px;font-size:.95rem;line-height:1.6;"><strong>Where to start:</strong> if you&rsquo;re new to GTM engineering, build the <em>RB2B de-anonymization</em> playbook first &mdash; it&rsquo;s the fastest path from zero to a working signal loop (an afternoon, mostly free tiers). <em>Waterfall enrichment with Clay</em> and <em>inbound routing to Slack</em> are the next two load-bearing builds; the cold-outbound, LinkedIn-sequencing, and HubSpot-forecast playbooks assume those foundations exist.</p>
+		<p style="margin:0;font-size:.95rem;line-height:1.6;">Every playbook lists tools with entry pricing &mdash; cross-check the <a href="/stack-finder/">Stack Finder</a>&rsquo;s July 2026 pricing pass before you buy, and read each tool&rsquo;s vendor profile for acquisition or repricing notes (several tools in these builds changed hands or price this year).</p>
+	</div>
+</section>
+
 <?php if ( $posts ) : ?>
 <section class="glhp-boxed glhp-boxed--white" style="padding: 32px 24px 80px; max-width:1200px; margin: 0 auto;">
 	<div class="glhp-insight-grid" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:24px;">

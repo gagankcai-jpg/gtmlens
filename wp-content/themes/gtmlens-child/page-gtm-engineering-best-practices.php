@@ -31,6 +31,13 @@ $posts = get_posts( [
 	<p class="glhp-hero__sub" style="max-width:720px;"><?php echo esc_html( $subtitle ); ?></p>
 </section>
 
+<section class="glhp-boxed" style="max-width:1200px;margin:0 auto;padding:0 24px;">
+	<div style="background:var(--gl-white);border:1px solid var(--gl-border);border-left:4px solid var(--gl-primary);border-radius:8px;padding:20px 24px;margin-bottom:8px;">
+		<p style="margin:0 0 10px;font-size:.95rem;line-height:1.6;"><strong>How to use these:</strong> read <em>How to vet a GTM tool in 30 minutes</em> first &mdash; it&rsquo;s the screening framework the rest assume. <em>Choosing a CRM at seed</em> is the one irreversible decision on the list; <em>What to measure in a stack audit</em> is the quarterly ritual; <em>Why most AI SDRs fail</em> is the pattern library for the category&rsquo;s biggest line item.</p>
+		<p style="margin:0;font-size:.95rem;line-height:1.6;"><strong>Two 2026 addenda</strong> from this year&rsquo;s market: underwrite every signals vendor for a change of control &mdash; <a href="/the-great-signal-grab/">three category leaders were acquired in four months</a> &mdash; and build against SDKs and open protocols, not vendor GUIs (OpenAI&rsquo;s Agent Builder went launch-to-deprecated in seven months). Ready to apply them? The <a href="/stack-finder/">Stack Finder</a> turns these frameworks into a recommendation in 90 seconds.</p>
+	</div>
+</section>
+
 <?php if ( $posts ) : ?>
 <section class="glhp-boxed glhp-boxed--white" style="padding: 32px 24px 80px; max-width:1200px; margin: 0 auto;">
 	<div class="glhp-insight-grid" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:24px;">
