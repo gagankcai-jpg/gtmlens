@@ -259,7 +259,13 @@ endif;
 
 		<!-- LEFT: text -->
 		<div class="glhp-report__text">
-			<p class="glhp-report__eyebrow"><?php esc_html_e( 'Q2 2026 FLAGSHIP REPORT', 'gtmlens-child' ); ?></p>
+			<p class="glhp-report__eyebrow"><?php
+			if ( $flagship ) {
+				echo esc_html( 'Q' . ceil( (int) get_the_date( 'n', $flagship->ID ) / 3 ) . ' ' . get_the_date( 'Y', $flagship->ID ) . ' FLAGSHIP REPORT' );
+			} else {
+				esc_html_e( 'FLAGSHIP REPORT', 'gtmlens-child' );
+			}
+			?></p>
 
 			<!-- P12: Funding-volume sparkline (last 8 quarters) -->
 			<?php
@@ -319,7 +325,13 @@ endif;
 				?>
 			</h2>
 			<p class="glhp-report__sub">
-				<?php esc_html_e( '7,000-word category report. 5 structural shifts. 6 predictions for Q3.', 'gtmlens-child' ); ?>
+				<?php
+				if ( $flagship && has_excerpt( $flagship->ID ) ) {
+					echo esc_html( wp_trim_words( get_the_excerpt( $flagship->ID ), 28, '…' ) );
+				} else {
+					esc_html_e( '7,000-word category report. 5 structural shifts. 6 predictions for Q3.', 'gtmlens-child' );
+				}
+				?>
 			</p>
 			<a class="gl-btn-primary" href="<?php echo esc_url( $flagship ? get_permalink( $flagship->ID ) : home_url( '/state-of-ai-gtm-q2-2026/' ) ); ?>">
 				<?php esc_html_e( 'Read the report →', 'gtmlens-child' ); ?>
