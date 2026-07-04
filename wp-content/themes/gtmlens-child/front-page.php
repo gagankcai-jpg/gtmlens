@@ -77,6 +77,8 @@ $cat_order = [
 	'orchestration',
 	'revenue-intelligence',
 	'support-cx-agents',
+	'sales-enablement',
+	'attribution-analytics',
 	'lead-capture',
 	'foundation-models',
 ];
@@ -92,6 +94,8 @@ $cat_icons = [
 	'orchestration'       => '⚙️',
 	'revenue-intelligence'=> '📊',
 	'support-cx-agents'   => '🎧',
+	'sales-enablement'    => '📚',
+	'attribution-analytics'=> '📈',
 	'lead-capture'        => '🎯',
 	'foundation-models'   => '🧠',
 ];

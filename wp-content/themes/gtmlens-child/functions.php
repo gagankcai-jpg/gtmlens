@@ -200,6 +200,14 @@ function gtmlens_seed_vendor_category_terms(): void {
 			'name' => 'Support & CX Agents',
 			'slug' => 'support-cx-agents',
 		],
+		[
+			'name' => 'Sales Enablement',
+			'slug' => 'sales-enablement',
+		],
+		[
+			'name' => 'Attribution & Analytics',
+			'slug' => 'attribution-analytics',
+		],
 	];
 
 	foreach ( $terms as $term ) {

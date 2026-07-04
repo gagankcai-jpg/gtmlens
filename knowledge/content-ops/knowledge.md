@@ -34,3 +34,8 @@
 ## GTM-eng hubs + stack tiers 2026-07-04
 - /gtm-engineering/best-practices/ and /playbooks/ were never broken — they're category index templates (4 + 6 cards). Added editorial intro boxes (reading order + 2026 buyer rules + Stack Finder cross-link) to both templates.
 - Stack tier pages: series-b (#235) and series-c (#236) posts were missing the 5-section narrative body (Why this stack / architecture / not-buying-yet / when-to-upgrade / alternatives) that seed/series-a/enterprise have. Written via REST post content (~4.4K chars each), incl. Salesloft-Clari merger caveat and change-of-control contract rule.
+
+## Revenue Intelligence cleanup 2026-07-05
+- Split RI (was 11) into: Sales Enablement (277: highspot, spekit, glean), Attribution & Analytics (278: dreamdata, hockeystack, factors-ai). RI keeps the true set: gong, chorus, sybill, spotlight-ai, aligned (5). 14 categories total.
+- GOTCHA (self-inflicted, now understood): funding-events feed dedupes vendor-derived rows against funding_event posts by (vendor_id|event_date). Correcting a date on ONE side breaks the dedupe and double-lists the round — this double-counted Dreamdata's $55M until event #412 was aligned to 20251014. RULE: when correcting a round date, update the vendor profile AND its funding_event to the same date.
+- Tagged Glean events #421/#285 and Dreamdata #412 with their new categories (event rows don't inherit vendor categories).
