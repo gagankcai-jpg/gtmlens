@@ -409,8 +409,8 @@ endif;
 			$cat_slug = $cats ? $cats[0]->slug : '';
 			$grad     = $gradient_for_cat[ $cat_slug ] ?? ( ['gradient-blue','gradient-purple','gradient-amber','gradient-emerald','gradient-slate'][ $i % 5 ] );
 			$pub_date = get_the_date( 'M j, Y', $insight->ID );
-			$has_thumb= has_post_thumbnail( $insight->ID );
-			$thumb_url= $has_thumb ? get_the_post_thumbnail_url( $insight->ID, 'medium_large' ) : '';
+			$thumb_url= (string) get_the_post_thumbnail_url( $insight->ID, 'medium_large' );
+			$has_thumb= '' !== $thumb_url; // gate on the URL: has_post_thumbnail() is filtered true for all posts (auto-thumb system) but the URL filter is not
 		?>
 			<a class="gl-card" href="<?php echo esc_url( get_permalink( $insight->ID ) ); ?>">
 				<div class="gl-card-cover <?php echo esc_attr( $grad ); ?>"<?php if ( $has_thumb ) : ?> style="background-image:linear-gradient(180deg, rgba(13,31,60,.30), rgba(13,31,60,.65)), url('<?php echo esc_url( $thumb_url ); ?>'); background-size:cover; background-position:center;"<?php endif; ?>>

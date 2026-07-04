@@ -45,8 +45,8 @@ $gradient_for_cat = [
 			$cat_slug    = $cats ? $cats[0]->slug : '';
 			$grad_class  = $gradient_for_cat[ $cat_slug ] ?? ( ['gradient-blue','gradient-purple','gradient-amber','gradient-emerald','gradient-slate'][ $i % 5 ] );
 			$pub_date    = get_the_date( 'M j, Y', $p->ID );
-			$has_thumb   = has_post_thumbnail( $p->ID );
-			$thumb_url   = $has_thumb ? get_the_post_thumbnail_url( $p->ID, 'medium_large' ) : '';
+			$thumb_url   = (string) get_the_post_thumbnail_url( $p->ID, 'medium_large' );
+			$has_thumb   = '' !== $thumb_url; // gate on the URL, not has_post_thumbnail() — see front-page.php note
 			$title       = get_the_title( $p->ID );
 			$excerpt     = wp_trim_words( get_the_excerpt( $p->ID ), 22 );
 			?>

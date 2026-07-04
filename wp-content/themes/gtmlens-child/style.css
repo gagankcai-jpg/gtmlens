@@ -3404,6 +3404,12 @@ a:hover {
 }
 .gl-mm2-dot.has-amount .gl-mm2-dot__label { display: none; }
 
+/* Collision-suppressed name labels: hidden until hover/focus */
+.gl-mm2-dot--nolabel .gl-mm2-dot__label,
+.gl-mm2-dot--nolabel .gl-mm2-dot__amount { display: none; }
+.gl-mm2-dot--nolabel:hover .gl-mm2-dot__label,
+.gl-mm2-dot--nolabel:focus .gl-mm2-dot__label { display: block; z-index: 6; }
+
 /* 4-tier momentum halo */
 .gl-mm2-dot[data-momentum="hot"]  .gl-mm2-dot__chip {
   box-shadow: 0 0 0 2px #10b981, 0 0 14px 4px rgba(16,185,129,.45);

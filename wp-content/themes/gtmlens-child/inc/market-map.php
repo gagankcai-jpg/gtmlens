@@ -257,6 +257,32 @@ function gtmlens_market_map_render() {
 		}
 	}
 
+	// Name-label collision pass (greedy by scale): in dense clusters only the
+	// dominant vendor keeps a visible name; suppressed names stay in the hover
+	// tooltip and reappear on :hover/:focus via .gl-mm2-dot--nolabel CSS.
+	$gl_label_rects = [];
+	$gl_lbl_order = array_keys( $dots );
+	usort( $gl_lbl_order, function ( $a, $b ) use ( $dots ) { return $dots[ $b ]['scale_score'] - $dots[ $a ]['scale_score']; } );
+	foreach ( $gl_lbl_order as $gl_i ) {
+		$gl_name = $dots[ $gl_i ]['short'] ?? $dots[ $gl_i ]['name'];
+		$gl_w    = max( 6.0, mb_strlen( $gl_name ) * 0.72 ); // label width, % of plot
+		$gl_rect = [
+			$dots[ $gl_i ]['x'] - $gl_w / 2,
+			$dots[ $gl_i ]['y'] + 1.2,
+			$dots[ $gl_i ]['x'] + $gl_w / 2,
+			$dots[ $gl_i ]['y'] + 3.8,
+		];
+		$gl_hit = false;
+		foreach ( $gl_label_rects as $gl_r ) {
+			if ( $gl_rect[0] < $gl_r[2] && $gl_rect[2] > $gl_r[0] && $gl_rect[1] < $gl_r[3] && $gl_rect[3] > $gl_r[1] ) { $gl_hit = true; break; }
+		}
+		if ( $gl_hit ) {
+			$dots[ $gl_i ]['suppress_label'] = true;
+		} else {
+			$gl_label_rects[] = $gl_rect;
+		}
+	}
+
 	$ranked_scale = $dots;
 	usort( $ranked_scale, function ( $a, $b ) { return $b['scale_score'] - $a['scale_score']; } );
 	$top12_ids = array_flip( array_map( function ( $d ) { return $d['id']; }, array_slice( $ranked_scale, 0, 12 ) ) );
@@ -376,7 +402,7 @@ function gtmlens_market_map_render() {
 					<?php foreach ( $dots as $d ) :
 						$initial = mb_substr( $d['name'], 0, 1 );
 						?>
-						<a class="gl-mm2-dot<?php if ( ! empty( $d['show_amount'] ) ) echo ' has-amount'; ?>"
+						<a class="gl-mm2-dot<?php if ( ! empty( $d['show_amount'] ) ) echo ' has-amount'; if ( ! empty( $d['suppress_label'] ) ) echo ' gl-mm2-dot--nolabel'; ?>"
 						   href="<?php echo esc_url( $d['url'] ); ?>"
 						   data-cat="<?php echo esc_attr( $d['cat'] ); ?>"
 						   data-type="<?php echo esc_attr( $d['type'] ); ?>"
