@@ -316,7 +316,7 @@ function gtmlens_market_map_render() {
 	?>
 	<section class="gl-mm2 gl-mm3 gl-mm4" aria-label="AI-native GTM market map">
 		<header class="gl-mm2__head">
-			<p class="gl-mm2__eyebrow">Q2 2026 · INTERACTIVE LANDSCAPE</p>
+			<p class="gl-mm2__eyebrow"><?php echo esc_html( 'Q' . ceil( (int) date( 'n' ) / 3 ) . ' ' . date( 'Y' ) ); ?> · INTERACTIVE LANDSCAPE</p>
 			<h2 class="gl-mm2__h2">The AI-native GTM market</h2>
 			<p class="gl-mm2__sub"><?php echo (int) count( $dots ); ?> vendors on the <strong>Scale × Momentum</strong> matrix. Y = scale (public/valuation/raised, composite). X = momentum (recent round size + recency). Dot size = funding velocity. Halo = freshness. Filter by category and type.</p>
 		</header>

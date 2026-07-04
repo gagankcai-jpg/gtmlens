@@ -76,6 +76,7 @@ $cat_order = [
 	'linkedin-automation',
 	'orchestration',
 	'revenue-intelligence',
+	'support-cx-agents',
 	'lead-capture',
 	'foundation-models',
 ];
@@ -90,6 +91,7 @@ $cat_icons = [
 	'linkedin-automation' => '🔗',
 	'orchestration'       => '⚙️',
 	'revenue-intelligence'=> '📊',
+	'support-cx-agents'   => '🎧',
 	'lead-capture'        => '🎯',
 	'foundation-models'   => '🧠',
 ];
@@ -340,10 +342,10 @@ endif;
 
 		<!-- RIGHT: market map SVG thumbnail -->
 		<div class="glhp-report__visual">
-			<a href="<?php echo esc_url( $market_map ? get_permalink( $market_map->ID ) : home_url( '/ai-gtm-market-map-q2-2026/' ) ); ?>" class="glhp-report__map-link" aria-label="<?php esc_attr_e( 'View AI GTM Market Map Q2 2026', 'gtmlens-child' ); ?>">
+			<a href="<?php echo esc_url( $market_map ? get_permalink( $market_map->ID ) : home_url( '/ai-gtm-market-map-q2-2026/' ) ); ?>" class="glhp-report__map-link" aria-label="<?php esc_attr_e( 'View AI GTM Market Map', 'gtmlens-child' ); ?>">
 				<img
 					src="<?php echo esc_url( $map_img_url ); ?>"
-					alt="<?php esc_attr_e( 'AI GTM Market Map Q2 2026', 'gtmlens-child' ); ?>"
+					alt="<?php esc_attr_e( 'AI GTM Market Map', 'gtmlens-child' ); ?>"
 					class="glhp-report__map-img"
 					loading="eager"
 				>

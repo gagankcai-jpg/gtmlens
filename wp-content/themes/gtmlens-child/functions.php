@@ -196,6 +196,10 @@ function gtmlens_seed_vendor_category_terms(): void {
 			'name' => 'Foundation Models',
 			'slug' => 'foundation-models',
 		],
+		[
+			'name' => 'Support & CX Agents',
+			'slug' => 'support-cx-agents',
+		],
 	];
 
 	foreach ( $terms as $term ) {

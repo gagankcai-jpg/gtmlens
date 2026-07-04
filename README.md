@@ -39,7 +39,7 @@ GTMLens covers the emerging category of AI-native GTM tooling: AI SDRs, data enr
 | Funding Event | `funding_event` | Individual funding rounds (auto-ingested via cron) |
 
 ### Taxonomy
-- **Vendor Category** (`vendor_category`) — 11 categories: AI SDR, Outbound & Sequencing, Data & Enrichment, Data Activation, CRM, Intent & Signal, Orchestration, Revenue Intelligence, Lead Capture, LinkedIn Automation, Foundation Models
+- **Vendor Category** (`vendor_category`) — 12 categories: AI SDR, Outbound & Sequencing, Data & Enrichment, Data Activation, CRM, Intent & Signal, Orchestration, Revenue Intelligence, Support & CX Agents, Lead Capture, LinkedIn Automation, Foundation Models
 
 ### ACF Field Groups (`acf-json/`)
 - `group_vendor.json` — analyst_take, swot_*, entry_price, best_fit, last_updated, funding fields
@@ -156,15 +156,15 @@ The scripts use the WP REST API. ACF fields require the ACF REST extension or th
 
 ---
 
-## Data Coverage (as of June 2026)
+## Data Coverage (as of July 2026)
 
 | Metric | Count |
 |---|---|
-| Tracked vendors | 54 |
-| Comparisons | 5+ |
+| Tracked vendors | 56 |
+| Comparisons | 25 |
 | Funding events | 30+ |
-| Insights / deep dives | 3+ |
-| Categories | 11 |
+| Insights / deep dives | 30+ |
+| Categories | 12 |
 | Capital tracked (last 90d, ex-FM) | ~$1.2B |
 
 ---
