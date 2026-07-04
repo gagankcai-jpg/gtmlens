@@ -25,3 +25,8 @@
 - Deepened 6 profiles with "Update (Jul 2026)" paragraphs + pricing fields: actively-ai, sierra, decagon, cresta, crescendo, unify.
 - DATA CORRECTIONS found during research: Cresta profile had wrong round date (2025-04-15 → actual 2024-11-19) and stale "~$1.0B" valuation (last disclosed $1.6B Mar 2022; Series D undisclosed) — fixed profile + funding_event #422 (also cleared its bogus 1000 valuation). Unify valuation was "Undisclosed" → verified $260M (Battery, Jul 2025).
 - Remaining thin profiles (16): monaco, glean, openai-gpt, bland-ai, bardeen-ai, sybill, default, lyzr, spekit, reo-dev, relevance-ai, pylon, aurasell, dreamdata, highspot, aligned(newish, fine).
+
+## Thin-profile batch 2 (2026-07-04) — all 15 remaining deepened
+- glean, highspot, spekit, dreamdata, sybill, monaco, aurasell, lyzr, bland-ai, relevance-ai, bardeen-ai, default, reo-dev, pylon, openai-gpt: "Update (Jul 2026)" paragraphs + pricing fields + last_updated. All 21 originally-thin profiles now done (batch 1: actively-ai, sierra, decagon, cresta, crescendo, unify).
+- DATA CORRECTIONS this batch: Highspot valuation $2.3B→$3.5B (Jan 2022 Series F; also fixed phantom Apr-2024 round date and set round $248M/total $654M); Aurasell round date 2026-02-12→2025-08-26 (Feb 2026 was the GTM OS product LAUNCH, not the round — fixed profile + funding_event #410, so its map momentum drops); Monaco founders filled (were "Undisclosed"); Dreamdata total ~$80M→~$67M.
+- Editorial flags kept in the takes: Bardeen = "monitor" (no funding since Jun 2022); Monaco traction all vendor-sourced; Lyzr $14.5M@$250M single-announcement-derived; Reo.dev customers vendor-named.
