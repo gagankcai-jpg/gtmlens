@@ -1,10 +1,10 @@
-// Pricing as of May 2026 — verify before publishing
+// Pricing as of July 2026 — verify before publishing
 {
   "vendors": {
     "clay": {
       "name": "Clay",
       "category": "data-enrichment",
-      "entryPrice": 149,
+      "entryPrice": 167,
       "tier": "$$",
       "fitTags": [
         "seed",
@@ -16,7 +16,7 @@
         "smb",
         "mid-market"
       ],
-      "pricingNote": "Starter ~$149/mo; scales with credits",
+      "pricingNote": "Launch plan ~$167/mo annual (Mar 2026 repackaging); scales with credits",
       "url": "/vendors/clay/"
     },
     "apollo": {
@@ -52,7 +52,7 @@
     "smartlead": {
       "name": "Smartlead",
       "category": "outbound",
-      "entryPrice": 39,
+      "entryPrice": 33,
       "tier": "$$",
       "fitTags": [
         "seed",
@@ -63,7 +63,8 @@
         "1-3",
         "4-10"
       ],
-      "url": "/vendors/smartlead/"
+      "url": "/vendors/smartlead/",
+      "pricingNote": "Base $32.50/mo annual ($39 monthly)"
     },
     "instantly": {
       "name": "Instantly",
@@ -83,7 +84,7 @@
     "lemlist": {
       "name": "Lemlist",
       "category": "outbound",
-      "entryPrice": 39,
+      "entryPrice": 55,
       "tier": "$$",
       "fitTags": [
         "seed",
@@ -93,7 +94,8 @@
         "1-3",
         "4-10"
       ],
-      "url": "/vendors/lemlist/"
+      "url": "/vendors/lemlist/",
+      "pricingNote": "Email plan $55/mo annual — cheapest paid tier since 2026 repricing"
     },
     "outreach": {
       "name": "Outreach",
@@ -142,7 +144,7 @@
     "expandi": {
       "name": "Expandi",
       "category": "linkedin-automation",
-      "entryPrice": 99,
+      "entryPrice": 79,
       "tier": "$$",
       "fitTags": [
         "seed",
@@ -151,7 +153,8 @@
         "1-3",
         "4-10"
       ],
-      "url": "/vendors/expandi/"
+      "url": "/vendors/expandi/",
+      "pricingNote": "Business $79/mo annual ($99 monthly)"
     },
     "phantombuster": {
       "name": "Phantombuster",
@@ -186,7 +189,7 @@
     "attio": {
       "name": "Attio",
       "category": "crm",
-      "entryPrice": 34,
+      "entryPrice": 29,
       "tier": "$",
       "fitTags": [
         "seed",
@@ -196,12 +199,13 @@
         "smb",
         "mid-market"
       ],
-      "url": "/vendors/attio/"
+      "url": "/vendors/attio/",
+      "pricingNote": "Plus $29/user/mo annual"
     },
     "pipedrive": {
       "name": "Pipedrive",
       "category": "crm",
-      "entryPrice": 24,
+      "entryPrice": 14,
       "tier": "$",
       "fitTags": [
         "pre-seed",
@@ -211,12 +215,13 @@
         "founder-led",
         "1-3"
       ],
-      "url": "/vendors/pipedrive/"
+      "url": "/vendors/pipedrive/",
+      "pricingNote": "Lite (ex-Essential) $14/user/mo annual"
     },
     "salesforce": {
       "name": "Salesforce",
       "category": "crm",
-      "entryPrice": 165,
+      "entryPrice": 175,
       "tier": "Enterprise",
       "fitTags": [
         "series-c",
@@ -224,7 +229,8 @@
         "enterprise-icp",
         "10+"
       ],
-      "url": "/vendors/salesforce/"
+      "url": "/vendors/salesforce/",
+      "pricingNote": "Sales Cloud Enterprise $175/user/mo annual (Aug 2025 list increase)"
     },
     "rb2b": {
       "name": "RB2B",
@@ -246,9 +252,9 @@
       "url": "/vendors/rb2b/"
     },
     "warmly": {
-      "name": "Warmly",
+      "name": "Warmly (HubSpot)",
       "category": "intent-signal",
-      "entryPrice": 700,
+      "entryPrice": 833,
       "tier": "$$$",
       "fitTags": [
         "series-a",
@@ -257,12 +263,13 @@
         "hybrid",
         "mid-market"
       ],
-      "url": "/vendors/warmly/"
+      "url": "/vendors/warmly/",
+      "pricingNote": "From ~$10K/yr. Acquired by HubSpot Jun 2026 — verify standalone availability before committing"
     },
     "factors-ai": {
       "name": "Factors.ai",
       "category": "intent-signal",
-      "entryPrice": 399,
+      "entryPrice": 199,
       "tier": "$$",
       "fitTags": [
         "series-a",
@@ -272,7 +279,8 @@
         "inbound",
         "mid-market"
       ],
-      "url": "/vendors/factors-ai/"
+      "url": "/vendors/factors-ai/",
+      "pricingNote": "Lite $199/mo — new entry tier"
     },
     "6sense": {
       "name": "6sense",
@@ -439,7 +447,7 @@
     "typeform": {
       "name": "Typeform",
       "category": "lead-capture",
-      "entryPrice": 25,
+      "entryPrice": 28,
       "tier": "$$",
       "fitTags": [
         "seed",
@@ -449,7 +457,8 @@
         "mid-market",
         "4-10"
       ],
-      "url": "/vendors/typeform/"
+      "url": "/vendors/typeform/",
+      "pricingNote": "Basic $28/mo annual"
     },
     "claude-anthropic": {
       "name": "Claude (Anthropic)",
@@ -697,7 +706,7 @@
         ]
       },
       "pick": "hubspot",
-      "_note": "HubSpot: free CRM tier through Pro covers pre-seed\u2192Series B"
+      "_note": "HubSpot: free CRM tier through Pro covers pre-seed→Series B"
     },
     {
       "category": "crm",
