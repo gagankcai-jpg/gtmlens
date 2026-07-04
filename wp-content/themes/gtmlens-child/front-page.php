@@ -211,7 +211,7 @@ if ( $pulse_events ) :
 			<?php foreach ( $pulse_events as $ev ) :
 				$nm   = $ev['company'] ?? '';
 				$stg  = $ev['stage'] ?? '';
-				$amt  = ! empty( $ev['amount_disp'] ) ? $ev['amount_disp'] : ( ! empty( $ev['amount_m'] ) ? '$' . number_format( $ev['amount_m'] ) . 'M' : '' );
+				$amt  = ! empty( $ev['amount_disp'] ) ? $ev['amount_disp'] : ( ! empty( $ev['amount_m'] ) ? ( $ev['amount_m'] >= 1000 ? '$' . number_format( $ev['amount_m'] / 1000, 1 ) . 'B' : '$' . number_format( $ev['amount_m'] ) . 'M' ) : '' );
 				$dt   = $ev['date'] ?? '';
 				$dlab = '';
 				if ( $dt && preg_match( '/^(\d{4})-(\d{2})/', $dt, $rd ) ) {

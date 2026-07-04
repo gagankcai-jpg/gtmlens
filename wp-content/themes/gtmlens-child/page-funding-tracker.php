@@ -109,7 +109,7 @@ if ( ! function_exists( 'gtmlens_fmt_usd_m' ) ) {
 	<p class="glhp-hero__eyebrow"><?php esc_html_e( 'Funding Tracker', 'gtmlens-child' ); ?></p>
 	<h1 class="glhp-hero__h1"><?php esc_html_e( 'GTM Funding Tracker', 'gtmlens-child' ); ?></h1>
 	<p class="glhp-hero__sub" style="max-width:760px;">
-		Rolling list of funding rounds, M&amp;A, and IPOs across the AI-native GTM stack. Independent. No paywall. Sourced from press releases, SEC filings, and Crunchbase. <span style="opacity:.85">Methodology: rolling 7/30/90-day and YTD windows are bounded by event (announcement) date; capital totals include venture rounds, M&amp;A, and IPOs; valuations are post-money where disclosed; the quarter pace metric compares the current quarter&#8217;s daily capital run-rate against the prior full quarter.</span>
+		Rolling list of funding rounds, M&amp;A, and IPOs across the AI-native GTM stack. Independent. No paywall. Sourced from press releases, SEC filings, and Crunchbase. <span style="opacity:.85">Methodology: rolling 7/30/90-day and YTD windows are bounded by event (announcement) date; capital totals count venture rounds only &#8212; M&amp;A and IPOs are tracked as events; valuations are post-money where disclosed; the quarter pace metric compares the current quarter&#8217;s daily capital run-rate against the prior full quarter.</span>
 	</p>
 	<?php if ( $last_mod ) : ?>
 		<p style="margin-top:14px;font-size:.85rem;color:var(--gl-text-muted);">
