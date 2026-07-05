@@ -142,6 +142,8 @@ function gtmlens_market_map_render() {
 		'crm' => 'CRM', 'intent-signal' => 'Intent & Signal', 'linkedin-automation' => 'LinkedIn Automation',
 		'orchestration' => 'Orchestration', 'revenue-intelligence' => 'Revenue Intelligence',
 		'lead-capture' => 'Lead Capture', 'foundation-models' => 'Foundation Models',
+		'support-cx-agents' => 'Support & CX Agents', 'sales-enablement' => 'Sales Enablement',
+		'attribution-analytics' => 'Attribution & Analytics',
 	];
 	$type_label = [
 		'leader' => 'Leader', 'challenger' => 'Challenger', 'established' => 'Established',

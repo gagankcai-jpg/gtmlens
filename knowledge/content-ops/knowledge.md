@@ -43,3 +43,10 @@
 ## Quiz price eyeball resolutions 2026-07-05
 - HubSpot Sales Hub Starter: current official list IS $7/mo/seat annual ($20 monthly) — confirmed by two geo-independent reads of hubspot.com/pricing/sales (US fetch + INR page at identical 2.86x monthly/annual ratio). The $15 figure everywhere else is the stale prior list. Quiz 15→7; profile synced.
 - Spotlight.ai HAS published pricing (was profiled as "not publicly listed"): Conversational Intelligence $20/user/mo, Deal Intelligence $40/user/mo, annual. Quiz 50→20; profile synced ($$ tier + pricing URL).
+
+## Final pre-share review 2026-07-05
+- Full crawl: 137 sitemap URLs all 200/no PHP errors; 443 internal links, 1 broken fixed (playbook linked nonexistent /compare/default-vs-chili-piper/ → repointed to /vendors/default/).
+- DEDUP AUDIT (the Dreamdata bug generalized): found + fixed 3 more feed duplicates/phantoms — Unify $40M (event 20250715 vs profile 20250714, aligned); Clay: profile carried the Jan-2026 $5B TENDER date as a $100M "Series C" round + phantom event #411 (trashed) — real round is Aug 5 2025 @$3.1B CapitalG, total corrected $165M→$204M; Artisan: phantom Dec-2024 "$25M Series A" was the profile date (no such round exists — Series A announced Apr 9 2025), profile + event #308 aligned to 20250409.
+- PACE METRIC fixed: was computed on bucket totals incl. M&A (Fin $3.6B made Q3 pace read ▼78%); now rounds-only per methodology (▼17%, label "$X in rounds"). Bars stay stacked-by-type (disclosed via legend).
+- market-map.php $cat_label needed entries for all 3 new categories (chips rendered raw slugs otherwise). RULE: adding a vendor_category requires FOUR touches — seed list (functions.php), $cat_order + $cat_icons (front-page.php), $cat_label (market-map.php).
+- page-funding-tracker.php local vs live: 4-line/115-char cosmetic divergence predating today; all functional probes identical.

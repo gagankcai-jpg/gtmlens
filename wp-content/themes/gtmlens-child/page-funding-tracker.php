@@ -136,11 +136,11 @@ foreach ( $events_gtm as $glev ) {
   $glm = (int) substr( $gld, 5, 2 );
   $glq = (int) ceil( $glm / 3 );
   $gllbl = sprintf( 'Q%d %d', $glq, $gly );
-  if ( ! isset( $gl_qbk[ $gllbl ] ) ) $gl_qbk[ $gllbl ] = array( 'rounds'=>0, 'ma'=>0, 'ipo'=>0, 'total_m'=>0, 'count'=>0 );
+  if ( ! isset( $gl_qbk[ $gllbl ] ) ) $gl_qbk[ $gllbl ] = array( 'rounds'=>0, 'ma'=>0, 'ipo'=>0, 'total_m'=>0, 'rounds_m'=>0, 'count'=>0 );
   $glt = isset( $glev['event_type'] ) ? strtolower( (string) $glev['event_type'] ) : '';
   if ( strpos( $glt, 'acqu' ) !== false || $glt === 'ma' || $glt === 'merger' ) $gl_qbk[ $gllbl ]['ma']++;
   elseif ( $glt === 'ipo' || $glt === 'public' || strpos( $glt, 'ipo' ) !== false ) $gl_qbk[ $gllbl ]['ipo']++;
-  else $gl_qbk[ $gllbl ]['rounds']++;
+  else { $gl_qbk[ $gllbl ]['rounds']++; $gl_qbk[ $gllbl ]['rounds_m'] += (float) ( isset( $glev['amount_m'] ) ? $glev['amount_m'] : 0 ); }
   $gl_qbk[ $gllbl ]['count']++;
   $gl_qbk[ $gllbl ]['total_m'] += (float) ( isset( $glev['amount_m'] ) ? $glev['amount_m'] : 0 );
 }
@@ -191,10 +191,12 @@ $gl_prior_lbl_full = sprintf( 'Q%d %d', $gl_pq, $gl_py );
 $gl_q_start_m  = ( $gl_cq - 1 ) * 3 + 1;
 $gl_q_start_ts = mktime( 0, 0, 0, $gl_q_start_m, 1, $gl_cy );
 $gl_days_in   = max( 1, (int) floor( ( $gl_now_ts - $gl_q_start_ts ) / 86400 ) + 1 );
-$gl_curr_b  = isset( $gl_qbk[ $gl_curr_lbl_full ] )  ? $gl_qbk[ $gl_curr_lbl_full ]  : array('count'=>0,'total_m'=>0);
-$gl_prior_b = isset( $gl_qbk[ $gl_prior_lbl_full ] ) ? $gl_qbk[ $gl_prior_lbl_full ] : array('count'=>0,'total_m'=>0);
-$gl_curr_rate_m  = $gl_curr_b['total_m']  / $gl_days_in;
-$gl_prior_rate_m = $gl_prior_b['total_m'] / 90;
+$gl_curr_b  = isset( $gl_qbk[ $gl_curr_lbl_full ] )  ? $gl_qbk[ $gl_curr_lbl_full ]  : array('count'=>0,'total_m'=>0,'rounds_m'=>0);
+$gl_prior_b = isset( $gl_qbk[ $gl_prior_lbl_full ] ) ? $gl_qbk[ $gl_prior_lbl_full ] : array('count'=>0,'total_m'=>0,'rounds_m'=>0);
+/* Pace is a capital metric: venture rounds only, per the stated methodology.
+ * A single mega-M&A (e.g. Fin at $3.6B) would otherwise swamp the run-rate. */
+$gl_curr_rate_m  = ( isset( $gl_curr_b['rounds_m'] )  ? $gl_curr_b['rounds_m']  : $gl_curr_b['total_m'] )  / $gl_days_in;
+$gl_prior_rate_m = ( isset( $gl_prior_b['rounds_m'] ) ? $gl_prior_b['rounds_m'] : $gl_prior_b['total_m'] ) / 90;
 $gl_pace_pct = ( $gl_prior_rate_m > 0 ) ? (int) round( ( ( $gl_curr_rate_m - $gl_prior_rate_m ) / $gl_prior_rate_m ) * 100 ) : null;
 $gl_prior_lbl_short = sprintf( "Q%d '%02d", $gl_pq, $gl_py % 100 );
 $gl_curr_lbl_short  = sprintf( "Q%d '%02d", $gl_cq, $gl_cy % 100 );
@@ -209,7 +211,7 @@ if ( $gl_pace_pct !== null ) :
   <?php else : ?>
     <span class="gl-pace-pct gl-pace-pct--<?php echo $gl_dir; ?>"><?php echo ( $gl_pace_pct > 0 ? '&#9650; ' : '&#9660; ' ) . abs( (int) $gl_pace_pct ); ?>%</span>
     <?php echo esc_html( $gl_dir_word ); ?> <?php echo esc_html( $gl_prior_lbl_short ); ?> daily run-rate
-    <span class="gl-pace-meta">&middot; <?php echo (int) $gl_days_in; ?> day<?php echo $gl_days_in === 1 ? '' : 's'; ?> in &middot; <?php echo esc_html( call_user_func( $gl_fmt_qm, $gl_curr_b['total_m'] ) ); ?> tracked</span>
+    <span class="gl-pace-meta">&middot; <?php echo (int) $gl_days_in; ?> day<?php echo $gl_days_in === 1 ? '' : 's'; ?> in &middot; <?php echo esc_html( call_user_func( $gl_fmt_qm, isset( $gl_curr_b['rounds_m'] ) ? $gl_curr_b['rounds_m'] : $gl_curr_b['total_m'] ) ); ?> in rounds</span>
   <?php endif; ?>
 
 	</div>
