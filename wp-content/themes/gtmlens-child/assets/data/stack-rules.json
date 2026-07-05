@@ -173,7 +173,7 @@
     "hubspot": {
       "name": "HubSpot",
       "category": "crm",
-      "entryPrice": 15,
+      "entryPrice": 7,
       "tier": "$$",
       "fitTags": [
         "pre-seed",
@@ -184,7 +184,8 @@
         "smb",
         "mid-market"
       ],
-      "url": "/vendors/hubspot/"
+      "url": "/vendors/hubspot/",
+      "pricingNote": "Sales Hub Starter $7/mo/seat annual ($20 monthly) — verified on official page Jul 2026"
     },
     "attio": {
       "name": "Attio",
@@ -416,7 +417,7 @@
     "spotlight-ai": {
       "name": "Spotlight.ai",
       "category": "revenue-intelligence",
-      "entryPrice": 50,
+      "entryPrice": 20,
       "tier": "$$",
       "fitTags": [
         "series-a",
@@ -425,7 +426,8 @@
         "4-10",
         "10+"
       ],
-      "url": "/vendors/spotlight-ai/"
+      "url": "/vendors/spotlight-ai/",
+      "pricingNote": "Conversational Intelligence $20/user/mo annual; Deal Intelligence $40 (published)"
     },
     "tally": {
       "name": "Tally",

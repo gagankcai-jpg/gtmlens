@@ -39,3 +39,7 @@
 - Split RI (was 11) into: Sales Enablement (277: highspot, spekit, glean), Attribution & Analytics (278: dreamdata, hockeystack, factors-ai). RI keeps the true set: gong, chorus, sybill, spotlight-ai, aligned (5). 14 categories total.
 - GOTCHA (self-inflicted, now understood): funding-events feed dedupes vendor-derived rows against funding_event posts by (vendor_id|event_date). Correcting a date on ONE side breaks the dedupe and double-lists the round — this double-counted Dreamdata's $55M until event #412 was aligned to 20251014. RULE: when correcting a round date, update the vendor profile AND its funding_event to the same date.
 - Tagged Glean events #421/#285 and Dreamdata #412 with their new categories (event rows don't inherit vendor categories).
+
+## Quiz price eyeball resolutions 2026-07-05
+- HubSpot Sales Hub Starter: current official list IS $7/mo/seat annual ($20 monthly) — confirmed by two geo-independent reads of hubspot.com/pricing/sales (US fetch + INR page at identical 2.86x monthly/annual ratio). The $15 figure everywhere else is the stale prior list. Quiz 15→7; profile synced.
+- Spotlight.ai HAS published pricing (was profiled as "not publicly listed"): Conversational Intelligence $20/user/mo, Deal Intelligence $40/user/mo, annual. Quiz 50→20; profile synced ($$ tier + pricing URL).
