@@ -50,3 +50,9 @@
 - PACE METRIC fixed: was computed on bucket totals incl. M&A (Fin $3.6B made Q3 pace read ▼78%); now rounds-only per methodology (▼17%, label "$X in rounds"). Bars stay stacked-by-type (disclosed via legend).
 - market-map.php $cat_label needed entries for all 3 new categories (chips rendered raw slugs otherwise). RULE: adding a vendor_category requires FOUR touches — seed list (functions.php), $cat_order + $cat_icons (front-page.php), $cat_label (market-map.php).
 - page-funding-tracker.php local vs live: 4-line/115-char cosmetic divergence predating today; all functional probes identical.
+
+## Content batch 3 + polish (2026-07-06)
+- Published 4 articles (build-vs-buy-ai-sdr [flagship], sdr-hiring-counter-narrative, mcp-agent-native-gtm-stack, clari-salesloft-six-months) + warmly-alternatives (best-practice cat) + comparison #556 actively-ai-vs-unify ("the brain and the pipe"). All single-source stats attributed inline (The Signal n=62, UserGems churn, Sumble/Growth Unhinged).
+- Featured images: 7 branded abstract covers (no title text — cards overlay their own) generated IN-BROWSER on canvas (procedural: seeded RNG, category palette, node motif) and uploaded via REST media — zero image bytes through agent context. file_upload tool rejects scratchpad paths; canvas.toBlob→FormData is the pattern.
+- Polish: single-vendor hero stats now float-format fractional millions ($73.8M); .gl-sidebar__label nowrap; orphan category tile self-resolved at 14 categories.
+- page-funding-tracker.php local/live divergence RESOLVED by full-file push of the repo copy (29,470 bytes, verified equal). Cause was cosmetic drift (foreach spacing, lost blanks/comments) from the pre-compaction hot-fix era.

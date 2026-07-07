@@ -109,14 +109,14 @@ while ( have_posts() ) :
 				?>
 				<?php
 	/* === P19: Vendor stats strip === */
-	$gl_tr_m   = (int) get_field( 'total_raised_usd_m' );
-	$gl_val_m  = (int) get_field( 'last_valuation_usd_m' );
-	$gl_lr_m   = (int) get_field( 'last_round_size_usd_m' );
+	$gl_tr_m   = (float) get_field( 'total_raised_usd_m' );
+	$gl_val_m  = (float) get_field( 'last_valuation_usd_m' );
+	$gl_lr_m   = (float) get_field( 'last_round_size_usd_m' );
 	$gl_lr_dt  = (string) get_field( 'last_round_date' );
 	$gl_stage  = (string) get_field( 'funding_stage' );
 	$gl_fnd    = (string) get_field( 'founded' );
 	$gl_hq     = (string) get_field( 'hq' );
-	$gl_fmt    = function( $m ) { if ( $m >= 1000 ) return '$' . number_format( $m / 1000, 1 ) . 'B'; if ( $m > 0 ) return '$' . number_format( $m ) . 'M'; return ''; };
+	$gl_fmt    = function( $m ) { if ( $m >= 1000 ) return '$' . number_format( $m / 1000, 1 ) . 'B'; if ( $m > 0 ) return '$' . number_format( $m, fmod( $m, 1 ) > 0.049 ? 1 : 0 ) . 'M'; return ''; };
 	$gl_has    = ( $gl_tr_m || $gl_val_m || $gl_lr_m || $gl_stage || $gl_fnd || $gl_hq );
 	if ( $gl_has ) : ?>
 	<div class="gl-vendor-stats">

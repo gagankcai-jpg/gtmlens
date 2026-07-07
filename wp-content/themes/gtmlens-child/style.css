@@ -103,6 +103,7 @@ a:hover {
 .gl-sidebar__label {
 	color: var(--gl-text-muted);
 	font-weight: 500;
+	white-space: nowrap;
 }
 
 .gl-sidebar__value {
