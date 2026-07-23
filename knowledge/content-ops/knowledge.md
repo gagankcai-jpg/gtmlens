@@ -56,3 +56,21 @@
 - Featured images: 7 branded abstract covers (no title text — cards overlay their own) generated IN-BROWSER on canvas (procedural: seeded RNG, category palette, node motif) and uploaded via REST media — zero image bytes through agent context. file_upload tool rejects scratchpad paths; canvas.toBlob→FormData is the pattern.
 - Polish: single-vendor hero stats now float-format fractional millions ($73.8M); .gl-sidebar__label nowrap; orphan category tile self-resolved at 14 categories.
 - page-funding-tracker.php local/live divergence RESOLVED by full-file push of the repo copy (29,470 bytes, verified equal). Cause was cosmetic drift (foreach spacing, lost blanks/comments) from the pre-compaction hot-fix era.
+
+## July refresh cycle (2026-07-23)
+
+Executed after 2.5-week gap (last batch Jul 6). Research: two parallel agents (funding/M&A + product news, Jul 6–23 window), both primary-source verified before any write.
+
+**Published:**
+- Posts #576 gtm-stack-movements-july-2026, #577 context-layer-war (flagship). Covers media #578/#580 (canvas procedure, seeds 72/88, deep-dive palette).
+- Vendors #561 Alta (ai-sdr 83, $25M Series A 20260708, IN Venture/Sumitomo; 3 founders incl. Mor Shabtai — press release listed a third founder the research agent missed; always re-verify primary), #563 Sable (sales-enablement 277, $45M 20260716, Sequoia+8VC, round has NO stage label — recorded unlabeled).
+- Funding events #565 Alta round, #567 Sable round, #569 Ciro ma (Reevo; company release only, flagged), #571 Inconvo ma (Attio acqui-hire). Vendor-linked events dates aligned with profiles → dedupe held (verified: Q3 6 events $130M, 3 rounds/3 M&A, no dupes).
+- Attio (#144) take: Inconvo tuck-in update para; last_updated 20260723.
+- Clari six-months (#538): editor's note Jul 23 — vendor now claims "Spring 2026 platform integration" (Jul 14 Salesloft CI launch); December re-score will audit.
+
+**New gotchas:**
+- funding_event ACF analyst_note max 280 chars — ACF validation silently bounces publish (page reloads to post-new with wp-post-new-reload=true, no #message); check .acf-error-message when publish seems to no-op.
+- Vendor profile template does NOT render founders field (data saved, not displayed — same for Gong).
+- Rejected aggregator claim: "Glean $180M Series D at $2.7B Jul 2026" (aifunding.me) — contradicted by Glean's own record ($150M Series F at $7.2B Jun 2025). Do not publish.
+
+**Watch items:** Zoom–Common Room close ("coming weeks" as of Jul 2 — still unconfirmed closed); MCP 2026-07-28 spec final (5 days after publish; article references RC); HubSpot Q2 product roundup (Jul 23) may add Warmly integration detail; Emergence Capital SDR survey (36% cut) publication date unconfirmed — candidate for reconciliation piece with sdr-hiring-counter-narrative once dated.
