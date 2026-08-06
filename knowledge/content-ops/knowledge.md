@@ -74,3 +74,11 @@ Executed after 2.5-week gap (last batch Jul 6). Research: two parallel agents (f
 - Rejected aggregator claim: "Glean $180M Series D at $2.7B Jul 2026" (aifunding.me) — contradicted by Glean's own record ($150M Series F at $7.2B Jun 2025). Do not publish.
 
 **Watch items:** Zoom–Common Room close ("coming weeks" as of Jul 2 — still unconfirmed closed); MCP 2026-07-28 spec final (5 days after publish; article references RC); HubSpot Q2 product roundup (Jul 23) may add Warmly integration detail; Emergence Capital SDR survey (36% cut) publication date unconfirmed — candidate for reconciliation piece with sdr-hiring-counter-narrative once dated.
+
+## Aug 6 follow-through (routine catch applied)
+
+- Funding event #584 Seam AI ma 2026-07-21 (Clarify acquirer; intent-signal 82) — sourced from the Aug 1 routine's proposal, then 2-source confirmed (Clarify blog + GeekWire) before write. Tracker now Q3: 7 events, $130M (3 rounds, 4 M&A), dedupe clean.
+- Event #483 Common Room note updated: close confirmed July 2026 per Zoom's own blog (Linda Lian + team joined). Watch item closed.
+- Post #576 Stack Movements July revised in place (5 subs + CR close wording; dated "(Updated Aug 6)" note in tuck-in para). Local draft file synced byte-identical (5,382 chars).
+- Routine SKILL.md gained "KNOWN INTENTIONAL DATA STATES" section (sable stage deliberately blank — unlabeled round) to stop false-positive gap flags.
+- Verdict on first scheduled run (Aug 1): working as designed — propose-only degrade correct, no double-counting of manual July work, caught Clarify–Seam which both July research agents missed.
