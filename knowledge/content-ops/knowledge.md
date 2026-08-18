@@ -82,3 +82,22 @@ Executed after 2.5-week gap (last batch Jul 6). Research: two parallel agents (f
 - Post #576 Stack Movements July revised in place (5 subs + CR close wording; dated "(Updated Aug 6)" note in tuck-in para). Local draft file synced byte-identical (5,382 chars).
 - Routine SKILL.md gained "KNOWN INTENTIONAL DATA STATES" section (sable stage deliberately blank — unlabeled round) to stop false-positive gap flags.
 - Verdict on first scheduled run (Aug 1): working as designed — propose-only degrade correct, no double-counting of manual July work, caught Clarify–Seam which both July research agents missed.
+
+## August refresh cycle (2026-08-18)
+
+Full review + Tier 1/2 execution. Research: 2 agents (Aug 1–18 window) + 4 direct verifications (Encore AI 2nd source, Breeze→Agent Hub multi-source, Claude 5 primary via anthropic.com, export-control timeline via CNBC).
+
+**Published:**
+- Posts #593 claude-capability-tracker-q3-2026, #594 the-repricing (flagship). Covers media #600/#602 (seeds 101/117).
+- Funding events #589 Agency ma 20260804 ($17M per Klaviyo 10-Q, support-cx-agents), #591 Encore AI round 20260729 ($30M Series A Team8, support-cx-agents; missed by Aug 1 routine, caught in review).
+- Editor's notes: #115 Q2 Claude tracker (note REPLACED, points to Q3 edition), #69/#113/#112 Claude cluster (prepended, "workflow patterns hold, models moved"), #577 Context-Layer War (ZoomInfo +1.2% Q2 + Breeze→Agent Hub + link to The Repricing).
+
+**Facts locked (primary-sourced):**
+- Claude Fable 5: launched Jun 9 2026, Mythos-class (above Opus), $10/$50 per M tokens, Opus 4.8 fallback for cyber/bio/distill (>95% sessions no fallback), usage-credit on plans after Jun 22. Export controls Jun 12–30 (CNBC + anthropic.com/news/redeploying-fable-5), global return Jul 1.
+- ZoomInfo Q2 (Aug 5): $310.4M +1.2% YoY, hybrid consumption pricing from late Q3, migrations through 2027, zero GTM.AI in guidance.
+- HubSpot Q2 (Aug 5): $911.7M +20%; Breeze brand retired ~Jul 23-30 → Agent Hub (beta); Revenue Hub launched Jul 30. "Changing products, pricing, GTM model" = mgmt quote; "credits throttled adoption" framing = analyst inference, attributed as such in article.
+- Emergence "36% cut SDRs" survey = fielded April 2025 → reconciliation-piece idea DEAD; sdr-hiring-counter-narrative stands (cites Sumble/Growth Unhinged, different data).
+
+**Tracker note:** quarterly bar tooltip sums rounds+M&A disclosed amounts (stacked-by-type design); headline capital metrics stay rounds-only. Agency amount_m=17 set (Fin precedent for disclosed M&A).
+
+**Watchlist:** June ($20M pre-seed, Benioff-backed, single-source), Firmable (APAC, MCP server), allGood (Clari+Salesloft distribution), Relay shutdown (adjacent). Stack Movements August due ~Sep 1 (pair with routine run; Zoom Aug 25 earnings = first Common Room read). Quiz pricing re-verify ~Sep after ZoomInfo/HubSpot pricing shifts land. Highspot–Seismic still unclosed; no Gong S-1.
