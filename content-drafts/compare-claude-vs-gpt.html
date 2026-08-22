@@ -1,0 +1,45 @@
+<h2 class="wp-block-heading">1. What changed since June — the lineup reset</h2>
+
+<p>This comparison used to have a tidy answer: standardize on Opus 4.8 for anything agentic, default to GPT-5.5 where distribution matters more than the substrate. Both halves are now obsolete. In seven weeks Anthropic shipped three models — <strong>Fable 5</strong> (June 9, a new frontier tier above Opus), <strong>Sonnet 5</strong> (June 30) and <strong>Opus 5</strong> (July 24) — while OpenAI shipped the <strong>GPT-5.6</strong> family in July and then cut its prices on July 30. What emerged is two priced ladders rather than two models, and at the tiers most GTM teams actually run they are separated by cents. "Claude or GPT?" has quietly become the wrong question. The right ones are which tier you run for which job, what your output-token bill looks like at that tier, and how fast you could switch if one of them became unavailable — which stopped being hypothetical in June.</p>
+
+<h2 class="wp-block-heading">2. Side-by-side</h2>
+
+<figure class="wp-block-table"><table><thead><tr><th>Tier</th><th>Claude (Anthropic)</th><th>GPT (OpenAI)</th></tr></thead><tbody>
+<tr><td>Frontier</td><td>Fable 5 — $10 / $50 per M tokens (Jun 9, 2026)</td><td>GPT-5.6 Sol — $5 / $30 (Jul 2026)</td></tr>
+<tr><td>Workhorse</td><td>Opus 5 — $5 / $25 (Jul 24, 2026)</td><td>GPT-5.6 Sol doubles as the top tier</td></tr>
+<tr><td>Mid-tier / agents</td><td>Sonnet 5 — $2 / $10 (Jun 30, 2026)</td><td>GPT-5.6 Terra — $2 / $12</td></tr>
+<tr><td>Volume / classification</td><td>Haiku 4.5 — $1 / $5</td><td>GPT-5.6 Luna — $0.20 / $1.20</td></tr>
+<tr><td>Last round</td><td>$65B Series H (May 28, 2026)</td><td>$122B round (Mar 31, 2026)</td></tr>
+<tr><td>Valuation</td><td>$965B</td><td>$852B</td></tr>
+<tr><td>Total raised</td><td>~$132B; confidential IPO S-1 filed Jun 1, 2026</td><td>~$180B</td></tr>
+<tr><td>App-layer posture</td><td>Substrate only — no competing GTM application</td><td>Workspace Agents into Slack, Salesforce, Drive (Apr 22, 2026)</td></tr>
+<tr><td>Best-fit GTM use</td><td>Long-horizon agents, RevOps automation, CRM-writing, multi-step research</td><td>Broad seller copilots, content drafting, high-volume classification</td></tr>
+</tbody></table></figure>
+
+<p><em>API list prices per million input / output tokens, as published by each vendor in August 2026. OpenAI's figures reflect the July 30 cut, which reduced Terra by 20% and Luna by 80% and left Sol at its launch rate.</em></p>
+
+<h2 class="wp-block-heading">3. Tier for tier, the prices have converged — except at the bottom</h2>
+
+<p>Put the ladders side by side and the pattern is hard to miss. At the mid-tier, <strong>Sonnet 5 and GPT-5.6 Terra charge exactly the same $2 per million input tokens</strong>, and Claude is 17% cheaper on output ($10 vs $12). At the tier above, <strong>Opus 5 and GPT-5.6 Sol also match at $5 input</strong>, with Claude again 17% cheaper on output ($25 vs $30). Since agentic workloads are output-heavy by construction — an agent that chains ten tool calls generates ten times the tokens it reads — that 17% is the number that actually compounds on your invoice. It is a real but modest edge, and it is nothing like the categorical gap this page described in June.</p>
+
+<p>The exception runs the other way, and it is the most interesting number in the table. <strong>GPT-5.6 Luna at $0.20 / $1.20 has no Claude equivalent</strong>: Anthropic's cheapest tier, Haiku 4.5, costs five times more on input and four times more on output. For the unglamorous majority of GTM token spend — classifying inbound, routing leads, first-pass enrichment, deduping a list, tagging a call transcript — that is not a rounding error, it is the whole business case. Teams running high-volume, low-judgment work at Haiku prices are leaving money on the table by not testing Luna against it.</p>
+
+<p>Anthropic's counter is at the top of the ladder rather than the bottom. Opus 5 arrived at the same $5 / $25 as Opus 4.8 while, in Anthropic's words, coming "close to the frontier intelligence of Claude Fable 5 at half the price" — a vendor claim, and one worth testing on your own evals before it changes your architecture. If it holds for your workloads, it makes Fable 5 a specialist tool rather than a default: you would reach for the $10 / $50 tier only when a task is genuinely frontier-hard, not because it sits at the top of the price list.</p>
+
+<h2 class="wp-block-heading">4. Availability is now a selection criterion</h2>
+
+<p>The most durable lesson of this quarter was not a benchmark. On June 12 a US export-control order forced Anthropic to suspend global access to Fable 5; the order was lifted June 30 and the model returned worldwide on July 1. We covered the episode in the <a href="https://gtmlens.com/claude-capability-tracker-q3-2026/">Q3 capability tracker</a>, and the operational read has not changed: <strong>frontier-model availability is now a regulatory variable, not just a reliability one</strong>. Eighteen days is longer than most GTM teams' tolerance for a dead enrichment waterfall or a research agent that stops answering.</p>
+
+<p>This cuts against both vendors, and it is the strongest argument in this entire comparison for refusing to pick one. Teams that had pinned a single model into a single code path spent June rewriting under pressure. Teams that had built model-agnostic routing — the pattern in our <a href="https://gtmlens.com/mcp-agent-native-gtm-stack/">agent-native playbook</a> — changed a config value. With the MCP 2026-07-28 specification now final, the plumbing for that portability is standard rather than bespoke, which removes the last good excuse for hard-coding a provider.</p>
+
+<h2 class="wp-block-heading">5. The channel conflict has not gone away</h2>
+
+<p>One structural asymmetry survives the lineup reset intact. OpenAI's Workspace Agents, shipped April 22, plug directly into Slack, Salesforce and Drive — the exact systems a GTM tool integrates with. If you are building an SDR or RevOps agent on GPT, your substrate supplier now ships a product into your category. Anthropic, so far, does not: it sells the model and the developer surface around it, and has not shipped a GTM application competing with what its customers build. That is a genuine difference in supplier risk, and it matters most to the buyer who is building something durable on top rather than buying a copilot for this quarter.</p>
+
+<p>The honest counterweight is distribution, and it is just as real. GPT is the default model inside ChatGPT, which means it is already on your sellers' phones and already the thing your marketers paste into without filing a procurement ticket. Ambient adoption is a moat no benchmark captures, and OpenAI's July price cuts read as a company defending exactly that position — buying the volume tier outright rather than arguing about frontier scores.</p>
+
+<h2 class="wp-block-heading">6. Verdict — run a portfolio, design for substitution</h2>
+
+<p>Stop treating this as a standardization decision and start treating it as a routing table. <strong>Run <a href="https://gtmlens.com/vendors/claude-anthropic/">Opus 5</a> as the default for judgment-dense agentic work</strong> — CRM-writing agents, multi-step account research, RevOps automation — where the 17% output-price advantage compounds and the supplier is not also your competitor. <strong>Reserve Fable 5 for genuinely frontier-hard tasks</strong>, not as a status default. <strong>Test <a href="https://gtmlens.com/vendors/openai-gpt/">GPT-5.6 Luna</a> against Haiku on every high-volume, low-judgment job you run</strong>; at a fifth of the input price it will win more of those than pride suggests. And where sellers already live in ChatGPT, let them — adoption beats a marginal capability edge for a copilot nobody opens.</p>
+
+<p>Above all of it sits one rule that June made non-negotiable: <strong>build on the substrate you can swap</strong>. Route through an abstraction, keep a tested fallback at every tier, and price your architecture on output tokens rather than launch-day benchmarks. The two ladders will keep leapfrogging each other; the only durable advantage is being able to move between them in an afternoon. As our <a href="https://gtmlens.com/build-vs-buy-ai-sdr/">Build-vs-Buy analysis</a> put it in a different context — spend frontier tokens on judgment, commodity tokens on everything else. That rule now has four Claude tiers and three GPT tiers to apply it across, and the arbitrage between them is the real 2026 skill.</p>
