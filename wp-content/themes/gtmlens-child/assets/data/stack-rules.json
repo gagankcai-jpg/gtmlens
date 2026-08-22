@@ -1,10 +1,10 @@
-// Pricing as of July 2026 — verify before publishing
+// Pricing as of August 2026 — verify before publishing
 {
   "vendors": {
     "clay": {
       "name": "Clay",
       "category": "data-enrichment",
-      "entryPrice": 167,
+      "entryPrice": 54,
       "tier": "$$",
       "fitTags": [
         "seed",
@@ -16,7 +16,7 @@
         "smb",
         "mid-market"
       ],
-      "pricingNote": "Launch plan ~$167/mo annual (Mar 2026 repackaging); scales with credits",
+      "pricingNote": "Launch from $54/mo on annual billing (180K actions/yr); $167/mo on monthly billing. Metered in Actions + data credits since the Mar 2026 repackaging",
       "url": "/vendors/clay/"
     },
     "apollo": {
@@ -46,7 +46,7 @@
         "enterprise-icp",
         "10+"
       ],
-      "pricingNote": "Estimated team-plan floor; enterprise contracts $50K-$500K+/yr",
+      "pricingNote": "Estimated team-plan floor; enterprise contracts $50K-$500K+/yr. Moving from seats to hybrid consumption pricing from late Q3 2026, migrations through 2027 — model usage before signing",
       "url": "/vendors/zoominfo/"
     },
     "smartlead": {
@@ -69,7 +69,7 @@
     "instantly": {
       "name": "Instantly",
       "category": "outbound",
-      "entryPrice": 37,
+      "entryPrice": 47,
       "tier": "$",
       "fitTags": [
         "pre-seed",
@@ -79,6 +79,7 @@
         "founder-led",
         "1-3"
       ],
+      "pricingNote": "Outreach module Growth $47/mo; product split into Outreach / Credits / CRM modules Jan 2026 — price the module you actually need",
       "url": "/vendors/instantly/"
     },
     "lemlist": {
@@ -185,12 +186,12 @@
         "mid-market"
       ],
       "url": "/vendors/hubspot/",
-      "pricingNote": "Sales Hub Starter $7/mo/seat annual ($20 monthly) — verified on official page Jul 2026"
+      "pricingNote": "Sales Hub Starter $7/mo/seat annual ($20 monthly) — re-verified on hubspot.com Aug 2026"
     },
     "attio": {
       "name": "Attio",
       "category": "crm",
-      "entryPrice": 29,
+      "entryPrice": 35,
       "tier": "$",
       "fitTags": [
         "seed",
@@ -201,7 +202,7 @@
         "mid-market"
       ],
       "url": "/vendors/attio/",
-      "pricingNote": "Plus $29/user/mo annual"
+      "pricingNote": "Plus $35/user/mo annual ($44 monthly); Pro $79 ($99 monthly) — verified on attio.com Aug 2026"
     },
     "pipedrive": {
       "name": "Pipedrive",
@@ -355,6 +356,7 @@
         "4-10",
         "10+"
       ],
+      "pricingNote": "No published pricing; third-party trackers estimate ~$30K-$60K/yr for a single AI SDR seat (unverified)",
       "url": "/vendors/11x/"
     },
     "artisan": {
@@ -372,6 +374,7 @@
         "4-10",
         "10+"
       ],
+      "pricingNote": "No published pricing as of Aug 2026 — plans are scoped on your plan behind a sales call; figure is a third-party estimate",
       "url": "/vendors/artisan/"
     },
     "gong": {
@@ -474,7 +477,7 @@
         "series-c",
         "enterprise"
       ],
-      "pricingNote": "API: $3/M input, $15/M output (Sonnet 4.6); usage-based",
+      "pricingNote": "API list, Aug 2026: Haiku 4.5 $1/$5, Sonnet 5 $2/$10, Opus 5 $5/$25, Fable 5 $10/$50 per M input/output tokens; usage-based",
       "url": "/vendors/claude-anthropic/"
     }
   },
