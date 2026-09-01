@@ -151,3 +151,35 @@ NEW MATERIAL FOUND while researching (the original edition predated it): **from 
 This is the most GTM-consequential item of the quarter — it lands on every AI-drafted outbound email — so it got its own section with three ranked implications, framed as a compliance asset rather than a threat. Q4 watch list now includes the Dec 2 deadline and whether a detector actually ships.
 Verified live: 12 required strings present, 5 stale strings gone, all 4 internal links 200. Homepage flagship unaffected (content-only edit does not change publish order).
 OPEN EDITORIAL CALL (not actioned): the title still reads "The Mythos-Class Quarter", which was the right frame when Fable 5 led the piece but no longer matches a body arguing the frontier tier stopped being the interesting one. Not factually wrong — Fable 5 is Mythos-class and did ship in Q3 — so left for a human call.
+
+## Stack Movements August 2026 (2026-09-01) — DRAFT ONLY, not published
+
+Scheduled routine `gtmlens-stack-movements-august` run. **No WP credential** (`~/.config/gtmlens/wp.json` absent) → Step 4 skipped entirely, no WP writes, no cover image generated. Draft only: `content-drafts/gtm-stack-movements-august-2026.html` (909 words, 5 H2, fragment-clean: no h1, no inline styles).
+
+**Input gap:** the 09:00 `gtmlens-funding-refresh` produced NO September proposal file. Newest is still `monitor/proposals/2026-08-02.md` and `monitor/state.json` lastRun is still `2026-08-02`. So the Aug 18–31 window had zero routine coverage — all research below is this run's own. **Human should check why the funding routine did not run/emit on Sep 1.**
+
+**Verified and used (exact date + primary or 2+ independent):**
+- **Seismic–Highspot merger CLOSED 2026-08-18** (highspot.com blog + Businesswire/Morningstar + GeekWire). Seismic name, CEO Rob Tarkoff, Wahbe expected to board, 2,500 customers / 3.5M users. **Standing watchlist item now RESOLVED.**
+- **Common Room: closed 2026-07-17, all-cash consideration $266.8M** ($198,789K goodwill, $43,800K intangibles, $24,209K other; preliminary allocation) — Zoom 10-Q for period ended 2026-07-31, PRIMARY. **This corrects the widely-reported "$250 million"** carried in call coverage. First hard price on any of the five Q3 signal-layer tuck-ins (all previously undisclosed). Common Room lifetime raised ~$52.9M → ~5x.
+- **Zoom Q2 FY27 (2026-08-25):** revenue $1,277.2M +4.9%; Enterprise $787.5M +7.8%; Online $489.7M +0.6%; FY27 guide $5.085–5.095B; Virtual Agent customers +256% YoY — all from SEC 8-K ex-99.1, PRIMARY.
+- Zoom call claims attributed as company-claimed in the article: Revenue Accelerator paid customers +41% YoY, Workplace AI licensed MAU +125% (not in filings). CFO Michelle Chang "de minimis" framing on Common Room contribution.
+- **Salesforce Q2 FY27 (2026-08-26):** revenue $11.35B +11%; Agentforce ARR >$1.5B +240%; AI & Data ARR ~$3.9B +210%; 3.2B AWUs in Q2 +97% QoQ; FY27 guide raised $46.1–46.4B (investor.salesforce.com + CNBC + 24/7 Wall St). **Caveat flagged in article: effective Q2 FY27 Agentforce ARR now includes Slackbot and Headless 360 — denominator redefined, growth rate not comparable.**
+- **Claudeforce announced 2026-08-26** (Salesforce + Anthropic): Claude as reasoning model inside Salesforce; "Salesforce in Claude" plugin with 37 prebuilt sales skills; select pilot now, open beta expected Sept 2026 (salesforce.com/investor PR + VentureBeat + digitalcommerce360).
+- **Clari + Salesloft Aug 11 2026 release** (community.clari.com release notes, primary): Salesloft MCP server as ChatGPT custom connector (Agentic customers, ChatGPT Business/Enterprise); **transcript-retrieval tool REMOVED from the Claude MCP connector** ("protocol limitations"); External Client Application on AppExchange with required migration by **2026-09-02**.
+- **Relay.app**: shutdown announced 2026-07-16, free accounts closed 2026-08-15, paid ends 2026-09-14; Jacob Bank + staff to Google Chrome. Watchlist item now dated.
+
+**Deliberately OMITTED (failed the bar):**
+- HubSpot Agent Hub credit pricing ($0.01/credit, ~$0.50/resolution, ~$1/lead, ~$0.10/data answer) — **third-party sources only** (engaging.io, hubjoy, fastslowmotion); hubspot.com/pricing/agent-hub 404s. Do not publish until primary-verified.
+- Salesforce's reported ~$300M 2026 Anthropic token spend + $300M equity stake — single search-summary sourcing, big number, not primary-verified. Omitted per "a wrong figure is worse than a missing one."
+- ZoomInfo 20% RIF / ~600 roles: real but **dated 2026-05-11** (8-K), out of the Aug 18–31 window. Not used.
+- Zoom–BrightHire: announced 2025-11-13, out of window.
+- No AI GTM venture round anywhere in Aug 18–31 met the bar. Aug 4 Klaviyo–Agency and Jul 29 Encore AI already tracked (#589/#591); Klaviyo 10-Q Aug 4 asset-assignment re-confirmed in passing.
+
+**Scoreboard as published in the draft (unchanged from Aug 18 state):** Q3 = $160M / 4 rounds (Aligned $60M Jul 1, Alta $25M Jul 8, Sable $45M Jul 16, Encore AI $30M Jul 29) + 5 M&A (Common Room, Ciro, Inconvo, Seam AI, Agency).
+
+**FOR HUMAN REVIEW (no records written — propose-only, per task scope):**
+1. **Publish the draft** in a logged-in session: title "GTM Stack Movements: August 2026", slug `gtm-stack-movements-august-2026`, category 81, + cover image (seed 139) per the routine spec. Nothing was pushed to WP.
+2. **Highspot vendor record** — merger closed 2026-08-18; `funding_stage` still not flipped. Decide Acquired vs Merged. Also a **tracker-convention call**: signed Q1 2026, closed Q3 2026 — does it become a Q3 M&A event (would make Q3 six) or stay recorded at announcement? Draft says "pending record decision" and does not backdate.
+3. **Common Room funding event** — the site records undisclosed terms; the 10-Q gives $266.8M and a 2026-07-17 close date. Worth updating amount + close date on the event record.
+4. Funding routine did not emit a Sep 1 proposal; `state.json` lastRun still 2026-08-02.
+5. Watchlist still open, nothing found this run: June (Benioff pre-seed, single-source), Firmable, allGood, **Gong — still no S-1 on EDGAR**.
