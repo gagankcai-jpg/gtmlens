@@ -152,9 +152,15 @@ This is the most GTM-consequential item of the quarter — it lands on every AI-
 Verified live: 12 required strings present, 5 stale strings gone, all 4 internal links 200. Homepage flagship unaffected (content-only edit does not change publish order).
 OPEN EDITORIAL CALL (not actioned): the title still reads "The Mythos-Class Quarter", which was the right frame when Fable 5 led the piece but no longer matches a body arguing the frontier tier stopped being the interesting one. Not factually wrong — Fable 5 is Mythos-class and did ship in Q3 — so left for a human call.
 
-## Stack Movements August 2026 (2026-09-01) — DRAFT ONLY, not published
+## Stack Movements August 2026 (2026-09-01) — PUBLISHED
 
-Scheduled routine `gtmlens-stack-movements-august` run. **No WP credential** (`~/.config/gtmlens/wp.json` absent) → Step 4 skipped entirely, no WP writes, no cover image generated. Draft only: `content-drafts/gtm-stack-movements-august-2026.html` (909 words, 5 H2, fragment-clean: no h1, no inline styles).
+Scheduled routine `gtmlens-stack-movements-august` run, drafted at 11:30 and **published later the same day on the user's explicit instruction**. `content-drafts/gtm-stack-movements-august-2026.html` (909 words, 5 H2, fragment-clean: no h1, no inline styles).
+
+**Published:** post **#630** `/gtm-stack-movements-august-2026/`, category 81 (Deep Dive), cover media **#629** (seed 139, deep-dive palette). Verified live: HTTP 200, zero PHP errors, 7/7 key strings present, 5 H2 → theme TOC, og:image set, all 5 internal links + the PNG resolve 200. Theme vendor auto-linking picked up Highspot / Outreach / Salesloft in the body unprompted.
+
+**AUTH METHOD — the credential gap is still real.** `~/.config/gtmlens/wp.json` does **not** exist, so the routine's documented HTTP Basic path was unavailable and the scheduled run correctly degraded to propose-only. Publishing succeeded only because a **logged-in wp-admin session existed in the user's real Chrome** (claude-in-chrome), letting us use the repo's other documented path: cookie auth + `X-WP-Nonce` from `admin-ajax.php?action=rest-nonce`. The in-app browser pane was NOT logged in (redirected to wp-login.php) — only the real-Chrome surface worked. **For unattended runs to publish, someone must still create `~/.config/gtmlens/wp.json`.** Until then every scheduled run will draft-only, by design.
+- Cover generated **in-browser on canvas** per the established house pattern (line 56), not PIL — the routine SKILL.md specifies PIL parameters, but PIL output would have to cross agent context as base64 to reach WP. Canvas → `toBlob` → FormData keeps image bytes out of context entirely. Python's `random.Random(139)` is not reproducible in JS, so node placement used mulberry32(139); all other spec parameters (1200x675, navy 13/31/60, 0.55 wash, t=x/W*0.7+y/H*0.3 with the 0.6 split, 44px dot grid r=1.6 @0.10, halo rings, 64px band, 22px Helvetica wordmark at x=36/160) were followed exactly. Rendered 11 nodes. **Consider updating SKILL.md to specify canvas rather than PIL** — the two disagree and canvas is what the site actually uses.
+- Cosmetic: the theme's title card overlays the lower-left of the cover, partially covering the GTMLENS wordmark. Consistent with the line-56 note that cards overlay their own text; harmless, but the wordmark band is largely decorative on post heroes.
 
 **Input gap:** the 09:00 `gtmlens-funding-refresh` produced NO September proposal file. Newest is still `monitor/proposals/2026-08-02.md` and `monitor/state.json` lastRun is still `2026-08-02`. So the Aug 18–31 window had zero routine coverage — all research below is this run's own. **Human should check why the funding routine did not run/emit on Sep 1.**
 
@@ -177,8 +183,8 @@ Scheduled routine `gtmlens-stack-movements-august` run. **No WP credential** (`~
 
 **Scoreboard as published in the draft (unchanged from Aug 18 state):** Q3 = $160M / 4 rounds (Aligned $60M Jul 1, Alta $25M Jul 8, Sable $45M Jul 16, Encore AI $30M Jul 29) + 5 M&A (Common Room, Ciro, Inconvo, Seam AI, Agency).
 
-**FOR HUMAN REVIEW (no records written — propose-only, per task scope):**
-1. **Publish the draft** in a logged-in session: title "GTM Stack Movements: August 2026", slug `gtm-stack-movements-august-2026`, category 81, + cover image (seed 139) per the routine spec. Nothing was pushed to WP.
+**FOR HUMAN REVIEW (no tracker/vendor records written — propose-only, per task scope):**
+1. ~~Publish the draft~~ — **DONE**, post #630 live. Remaining WP-side items are the record decisions below, all of which change tracker numbers and were deliberately left alone.
 2. **Highspot vendor record** — merger closed 2026-08-18; `funding_stage` still not flipped. Decide Acquired vs Merged. Also a **tracker-convention call**: signed Q1 2026, closed Q3 2026 — does it become a Q3 M&A event (would make Q3 six) or stay recorded at announcement? Draft says "pending record decision" and does not backdate.
 3. **Common Room funding event** — the site records undisclosed terms; the 10-Q gives $266.8M and a 2026-07-17 close date. Worth updating amount + close date on the event record.
 4. Funding routine did not emit a Sep 1 proposal; `state.json` lastRun still 2026-08-02.
