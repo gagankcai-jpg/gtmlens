@@ -603,7 +603,7 @@ function gtmlens_stack_quiz_shortcode(): string {
 					<template x-for="row in stack" :key="row.vendorSlug">
 						<a class="gl-quiz__row" :href="row.url">
 							<span class="gl-quiz__row-cat" x-text="row.categoryLabel"></span>
-							<span class="gl-quiz__row-vendor" x-text="row.name"></span>
+							<span class="gl-quiz__row-vendor"><span x-text="row.name"></span><template x-if="row.pricingNote"><small class="gl-quiz__row-note" x-text="row.pricingNote"></small></template></span>
 							<span class="gl-quiz__row-price" x-text="row.price ? '$' + row.price.toLocaleString() + '/mo' : 'Free / usage-based'"></span>
 							<span class="gl-quiz__row-cta">View profile →</span>
 						</a>

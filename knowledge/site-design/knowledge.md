@@ -18,6 +18,7 @@
 - `?context=edit` on REST GET returns raw ACF values; `vendor_X` fields come back as integer post IDs, not embedded objects. Coerce dict→ID before re-posting.
 
 ## Theme deploy flow
+> **DEMOTED 2026-10-19 — see `hypotheses.md` #1.** The zip-repackaging rule below is contradicted for files that already exist: `assets/data/stack-rules.json`, `front-page.php`, `style.css` and `functions.php` have all been edited successfully via wp-admin → Theme File Editor (CodeMirror method, see `rules.md` #12-14). It may still be the only path for genuinely new files.
 - All theme changes must be repackaged into `gtmlens-child-{label}.zip` and uploaded via WP Admin → Themes → Add New → Upload (replace existing). Hostinger has no SSH for this user.
 - Cache-bust homepage with `?v=N` — page often shows old content otherwise.
 

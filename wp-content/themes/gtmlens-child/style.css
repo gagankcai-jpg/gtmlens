@@ -2192,6 +2192,14 @@ a:hover {
 	font-weight: 700;
 	color: var(--gl-primary);
 }
+.gl-quiz__row-note {
+	display: block;
+	font-weight: 400;
+	font-size: .76rem;
+	line-height: 1.35;
+	color: var(--gl-text-muted);
+	margin-top: 3px;
+}
 .gl-quiz__row-price {
 	font-weight: 600;
 	color: var(--gl-text);

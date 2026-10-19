@@ -778,12 +778,26 @@
           "hybrid"
         ],
         "stage": [
-          "seed",
+          "seed"
+        ]
+      },
+      "pick": "rb2b",
+      "_note": "RB2B at seed for inbound/PLG too: free tier covers early traffic without consuming the budget."
+    },
+    {
+      "category": "intent-signal",
+      "if": {
+        "motion": [
+          "inbound",
+          "plg",
+          "hybrid"
+        ],
+        "stage": [
           "series-a"
         ]
       },
       "pick": "warmly",
-      "_note": "Warmly: best deanonymization+routing for inbound/PLG at series-a"
+      "_note": "Warmly for inbound/PLG at series-a. NOT seed: $833/mo floor consumes a seed budget, and standalone availability is uncertain post-HubSpot."
     },
     {
       "category": "intent-signal",
