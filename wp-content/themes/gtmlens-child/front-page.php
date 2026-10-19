@@ -312,11 +312,11 @@ endif;
 							$is_last = ( $i === count( $spark_data ) - 1 );
 							$fill = $is_last ? '#1d4ed8' : '#a8b3c7';
 							?>
-							<rect x="<?php echo $bx; ?>" y="<?php echo $by; ?>" width="<?php echo max(2,$bw); ?>" height="<?php echo max(2,$bh); ?>" rx="2" fill="<?php echo $fill; ?>"><title><?php echo esc_html( $pt['q'] . ': ' . $pt['n'] . ' rounds' ); ?></title></rect>
+							<rect x="<?php echo $bx; ?>" y="<?php echo $by; ?>" width="<?php echo max(2,$bw); ?>" height="<?php echo max(2,$bh); ?>" rx="2" fill="<?php echo $fill; ?>"><title><?php echo esc_html( $pt['q'] . ': ' . $pt['n'] . ' deals' ); ?></title></rect>
 						<?php endforeach; ?>
 					</svg>
 					<span class="gl-spark-mini__label">
-						<strong><?php echo (int) $total_n; ?></strong> rounds tracked · last 8 quarters
+						<strong><?php echo (int) $total_n; ?></strong> deals tracked · last 8 quarters
 					</span>
 				</div>
 			<?php endif; ?>
