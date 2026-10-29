@@ -313,3 +313,5 @@ Hypothesis #7 (roundup research misses rounds): 1 confirmation (Bland, found 202
 - HubSpot Agent Hub primary source.
 - Agentforce Hunter GA (Nov) unverified.
 - WP credential still absent.
+### Vendor freshness sweep (2026-10-29, propose-only)
+14 May–Jun profiles checked against primary sources; output in `monitor/proposals/2026-10-29-vendor-freshness.md`. Result: 7 proposed changes, 4 current, 3 current with unverified leads. **Most fixes are old errors, not new events.** Round dates are off by days to weeks (Apollo, Outreach, 6sense, Typeform), and the Salesloft record says 2024 for Vista's Dec 2021 deal and omits the Clari merger (completed 2025-12-03; operates as Salesloft from 2026-09-02). Demandbase took $175M from Vista Credit Partners on 2023-02-16. RB2B's "Seed / ~$5M" has no source at all. This is the first deliberate per-vendor audit, and it supports hypothesis 7 in spirit: roundup-level research misses things, and here it was wrong historical data rather than missed rounds. Nothing applied; awaiting user approval (rule 15). Any date fix must also move the matching funding_event (rule 12).
