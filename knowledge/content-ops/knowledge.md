@@ -329,3 +329,9 @@ Hypothesis #7 (roundup research misses rounds): 1 confirmation (Bland, found 202
   - #484 Fin note: "Close expected Q4 FY27" replaced with "Completed Sep 10, 2026".
   - 7 M&A dates re-saved as Y-m-d (cosmetic; see correction above).
   - All 4 early hand-entered M&A events (297/298/299/317) had wrong dates and 2 had dead or invented source URLs. Treat any pre-2026 hand-entered record as unverified until it is checked against a primary source.
+- **Hightouch + n8n cross-site pass (2026-10-29, user-approved):**
+  - **Hightouch:** ARR was overstated 2× ($200M+ vs $100M company-stated, Apr 2026), and the 65% growth claim was unsourced.
+  - **Census:** treated as an independent competitor, though Fivetran agreed to buy it 2025-05-01.
+  - **n8n Series B:** misstated three different ways across three posts ($35M Dec 2025 Sequoia; €60M late/Oct 2025 €300M Sequoia; €60M 2025). The truth is €55M, Mar 2025, Highland Europe.
+  - **n8n total raised:** $254M → $240M (n8n primary).
+  - **Lesson:** the Q2 2026 pieces (114 map, 147 report) were drafted with unverified funding figures. Treat any Q2 2026 funding claim as unverified until checked. Supports hypothesis 9 (excerpt drift); I propagated one bad figure myself while fixing another. Recheck the whole sentence, not just the field being corrected.

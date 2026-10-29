@@ -48,3 +48,11 @@ My error: earlier today I rewrote the excerpt from "$1.2B Series C" to "$2.75B v
 
 - **Correct already:** post 662 (Q4 map: $180M Series C Oct 2025 at $2.5B).
 - **Unverified, flag only:** post 147's "50,000+ active installations" (n8n's March 2025 figure was 200k+ active users).
+
+## n8n APPLIED 2026-10-29 (user-approved, all five)
+- **Vendor 86:** total_raised ~$254M → $240M (240), per n8n's Series C post. Excerpt "€60M … in 2025" → "€55M … in March 2025". last_updated 20261029.
+- **Post 114 (Q2 map):** sentence now cites the $180M Series C (Oct 2025, Accel, $2.5B), with an inline correction quoting the original "$35M Series B (December 2025, Sequoia Europe-led)".
+- **Post 147 (Q2 state-of):** both passages corrected inline with dated notes (€55M Series B Mar 2025, Highland Europe; $180M Series C Oct 2025, Accel, $2.5B).
+- **Post 148 (Apr column):** "€60M Series B (Highland Europe, 2025)" → "€55M Series B (Highland Europe, March 2025)".
+- **Live check:** all 5 pages return 200. The only remaining old figures sit inside the correction notes, by design.
+- **Not changed:** post 147's "50,000+ active installations" (unverified, flag only).
