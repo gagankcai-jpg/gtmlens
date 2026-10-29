@@ -162,3 +162,9 @@ No funding round or acquisition was found from any source, so the live "Seed / ~
   - #297 "Salesloft acquired by Vista" is dated 2024-08-12; the Vista deal was 2021-12-23.
   - #298 "Drift acquired by Salesloft" is dated 2024-02-01; not checked.
 - **APPLIED 2026-10-29 (user-approved):** #297 event_date 2024-08-12 → 2021-12-23 and #317 2025-11-01 → 2025-12-03. Titles updated and source_url set to the Salesloft newsroom primaries; tracker feed verified. #298 (Drift) is still unverified.
+- **APPLIED 2026-10-29 (user-approved):** #298 Drift acquired by Salesloft:
+  - event_date 2024-02-01 → 2024-02-13 (Business Wire 20240213827883 + Salesloft newsroom).
+  - stage: blank → Acquired.
+  - source_url replaced: the old `salesloft.com/news/drift-acquisition` looked fabricated.
+  - Value left undisclosed; category left empty.
+  - All three Salesloft tracker events are now primary-sourced.

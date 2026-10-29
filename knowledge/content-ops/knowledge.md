@@ -320,3 +320,4 @@ Hypothesis #7 (roundup research misses rounds): 1 confirmation (Bland, found 202
   - Omit `vendor` when it is null.
   - Send empty numeric fields as `null`, not `""` (`rest_invalid_type`).
   - Write `event_date` as `Y-m-d`. A `Ymd` write is accepted but stored in a different format from the other events, which would break string-sorted date order.
+- **#298 Drift fixed (2024-02-13).** All three Salesloft M&A events had wrong dates (off by 12 days, 3 months and ~2.6 years), and at least one had a non-resolving source URL. Early hand-entered M&A records (ids ~297–317) look unreliable as a batch. Worth a sweep of the remaining early M&A events against primaries.
