@@ -358,3 +358,8 @@ Hypothesis #7 (roundup research misses rounds): 1 confirmation (Bland, found 202
   - Fin → Sep 10 (moves Q2 → Q3), Common Room → Jul 17, Agency → Aug 5 (announcement; still pending).
   - Q3 2026 tracker = 10 acquisitions, 3 with disclosed price (Common Room, Agency, Fin).
   - Outstanding conflict: two existing values come from 10-Qs (Agency $17M, Common Room $266.8M) under the new "blank unless announced" rule.
+- **ZoomInfo pass (2026-10-29, user-approved):**
+  - **Errors fixed:** the "$1.5B ARR" comparison claim (actual FY2025 revenue was $1,249.5M), Chorus "June 2021" (it was July), Workbounce "November 2024" (only the year is sourced), and the ticker anachronism (ZI → GTM on 2025-05-13).
+  - **Profile update:** the vendor take got its 2026 update.
+  - **Follow-up:** Q3 results Nov 4 resolve two published predictions; grade them on that day.
+  - **Pattern across today's six vendor passes:** pages updated in August carried accurate events but stale numbers. Every page that hard-codes a market cap, ARR or revenue figure is a staleness liability.
