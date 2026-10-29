@@ -66,6 +66,9 @@ while ( have_posts() ) :
 			<p style="color:var(--gl-text-muted);font-size:1rem;margin-top:4px;"><?php echo esc_html( $icp ); ?></p>
 		<?php endif; ?>
 
+		<?php /* Stacks have no last_updated field; the post's modified date is the honest signal for cost-estimate freshness. */ ?>
+		<p class="gl-last-updated"><?php esc_html_e( 'Last updated: ', 'gtmlens-child' ); ?><time datetime="<?php echo esc_attr( get_the_modified_date( 'Y-m-d' ) ); ?>"><?php echo esc_html( get_the_modified_date( 'M j, Y' ) ); ?></time></p>
+
 		<!-- P11d: Grouped-stage stack flow -->
 		<?php if ( $tools ) :
 			// Map vendor_category slug -> stage label/order

@@ -1,4 +1,4 @@
-// Pricing as of August 2026 — verify before publishing
+// Pricing as of August 2026 (Claude note updated October 2026) — verify before publishing
 {
   "vendors": {
     "clay": {
@@ -477,7 +477,7 @@
         "series-c",
         "enterprise"
       ],
-      "pricingNote": "API list, Aug 2026: Haiku 4.5 $1/$5, Sonnet 5 $2/$10, Opus 5 $5/$25, Fable 5 $10/$50 per M input/output tokens; usage-based",
+      "pricingNote": "API list, Oct 2026: Haiku 5.5 $0.10/$0.50 (prompts up to 100k tokens; $0.50/$2.50 above), Sonnet 5.5 $2/$10, Opus 5.5 $4/$20, Fable 5.1 $10/$50 per M input/output tokens; usage-based",
       "url": "/vendors/claude-anthropic/"
     }
   },

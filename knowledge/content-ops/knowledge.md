@@ -253,3 +253,63 @@ Salesforce–Braze ~$5.66B EV announced 2026-10-20 ($47.50/sh, close ~FY2028); S
 ### Time-sensitive
 Nov 1 column task targets "October 2026" but the Sep–Oct edition already covers to Oct 19 — the prompt does not say how to scope a partial month; fix before it fires.
 Hypothesis #7 (roundup research misses rounds): 1 confirmation (Bland, found 2026-10-19).
+
+## Tier 1–3 fixes applied (2026-10-29)
+### Tier 1 — published claims corrected
+- **Vendors** claude-anthropic (68) and openai-gpt (361): entry_price set to the Oct 2026 ladders; `last_updated` 20261029. No other field carried stale model names.
+- **Comparison #464 rebuilt.** Sections 1–3 and 6, the verdict, decision rules A and B, and a new excerpt all rest on "identical at the frontier and volume tiers, GPT-6.1 half price in the middle". Tier pairing is labelled as our inference. Haiku 5.5's 5× price step above 100k-token prompts is called out as the real volume-tier differentiator. Sections 4–5 kept; Claudeforce is described as a partner channel, not an Anthropic app. Opens with a dated update note.
+- **Quiz** stack-rules.json Claude note is on the Oct 2026 ladder (live = repo, verified by fetch).
+- **Correction or update notes:**
+  - **Inline fix + note on current pieces:** #662 (Category 8 model ladder), #658 (Fin completed Sep 10), #654 (Qualified/Piper bought Apr 2026, about $1.2B fair value per the 10-Q), #638 (Claudeforce in beta per the Dreamforce roundup of Sep 28).
+  - **Top note only on preserved snapshots:** #593 Q3 tracker; #642 Q3 report (Fin, models, Claudeforce, Agent Skills → AAIF Oct 22 — the prediction-6 grade stands); #355 Q2 CX map (inline "(update: completed Sep 10)").
+- **Gemini (360):** primary source ai.google.dev pricing (page updated 2026-10-28):
+  - Gemini 4 Argon $2/$10 to Nov 30, then $4/$20.
+  - 3.8 Flash $0.75/$3.75 to Dec 31, then $1.50/$7.50.
+  - 3.5 Flash-Lite $0.30/$2.50.
+  - The May analyst take now opens with a dated caveat (not rewritten; capability claims not re-verified).
+- **My own error, owned:** the Q4 main map (#662) was published this month with the June–July model ladder, which had already been replaced. Pricing was carried over from our own pages instead of re-fetched.
+### Tier 2
+- **Salesforce take (88):** new paragraph on the buy-not-build pattern.
+  - Qualified: Apr 2026, ~$1.2B fair value, 10-Q.
+  - Fin: $3.6B, completed Sep 10.
+  - Contentful: ~$1.5B cash, pending per the Jul 31 10-Q.
+  - Braze: ~$5.66B EV, $47.50/sh cash, Oct 20, close in FY2028. Sources: Braze 8-K, Reuters, TNW.
+  - Verdict gains a Marketing Cloud renewal caution.
+  - Not included (unverified): Spindle AI, Loops, Merlin AI, Agentforce Hunter.
+- **HubSpot Agent Hub:** only secondary sources, which conflict on whether Breeze was retired and on July vs INBOUND timing. HubSpot take left unchanged.
+- **M&A proposals** in `monitor/proposals/2026-10-29-review.md`:
+  - Qualified fails the exact-day gate.
+  - Braze passes (pending deal).
+  - Contentful fails (no announcement date).
+### Tier 3
+- **Duplicate H1 fixed server-side** (functions.php, `gtmlens_suppress_duplicate_h1` + `gtmlens_demote_content_h1`). Verified one H1 on posts, /about/ and the about subpages; titles and og:title intact.
+  - How it works: `the_title()` prints nothing for an empty title. The filter blanks the queried post's title in the loop (posts) or after `wp_body_open` (/about/, where Kadence's hero prints before the loop). It skips anything inside `the_content`, so our hero keeps the H1.
+  - The `kadence_page_title` / `kadence_disable_post_title` filters at the about hook never worked.
+- **Meta descriptions:**
+  - Excerpts written for alta/netomi/sable/actively-ai-vs-unify.
+  - The 3 GTM-engineering template pages get fallback descriptions in the RankMath filter.
+  - The homepage description now uses live counts. It had said 31 vendors/20 comparisons; live is 58/26/6.
+- **Vendor excerpts drift from ACF.** They are hand-written, feed meta descriptions, and are not rendered from ACF, so rule 11 does not cover them. Fixed:
+  - clay: Series C $3.1B → Series D $7.1B.
+  - hightouch: $1.2B → $2.75B.
+  - 11x: $20M A at $50M → $24M A + ~$50M B at ~$350M.
+  - n8n: adds the Series C at $2.5B.
+  - Left alone: typeform (excerpt ~$945M vs record "Not disclosed") and hubspot (FY2023 revenue): dated, not contradicted.
+- **Image alt finding was a crawler false positive.** crawl.py counted `alt=""` as missing. Homepage logos are decorative inside labelled links, so `alt=""` is correct. 0 images lack an alt attribute. Fix the crawler before trusting this metric again.
+- **Links:**
+  - hubspot-vs-attio → attio-vs-hubspot.
+  - clari-vs-custom-ai-forecasting → /clari-salesloft-six-months/ (no Clari vendor profile exists; /vendors/clari/ redirects to /vendors/).
+  - Homepage footer adds Privacy Policy, and Team/Contact point at /about/… (they went through redirects).
+- **Stack pages** now show "Last updated" from post_modified. Dates: Apr 30 (×3), May 2, Jul 4 (×2). See decisions/2026-10-29-stack-freshness-stamp.md.
+### Open after this pass
+- ZoomInfo Q3 Nov 4 (grade Q4 prediction 1).
+- HubSpot results ~Nov 4–5.
+- Q4 Claude capability tracker due ~Nov; it should supersede the #593 note.
+- Dec 2 watermark transition.
+- Dec Clari+Salesloft re-score.
+- Bland Series B date dispute.
+- lemlist–Claap proposal.
+- Qualified exact day.
+- HubSpot Agent Hub primary source.
+- Agentforce Hunter GA (Nov) unverified.
+- WP credential still absent.

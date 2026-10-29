@@ -1279,7 +1279,23 @@ add_action( 'wp_head', function () {
    RankMath honors the document title/description filters when no explicit override. */
 add_filter( 'rank_math/frontend/description', function ( $desc ) {
 	if ( is_front_page() ) {
-		return 'Independent analyst coverage of the AI-native GTM stack: 31 vendor profiles, 20 head-to-head comparisons, 6 stack recipes, and weekly deep-dives. No vendor money. No affiliate links.';
+		return sprintf(
+			'Independent analyst coverage of the AI-native GTM stack: %d vendor profiles, %d head-to-head comparisons, %d stack recipes, and weekly deep-dives. No vendor money. No affiliate links.',
+			(int) wp_count_posts( 'vendor' )->publish,
+			(int) wp_count_posts( 'comparison' )->publish,
+			(int) wp_count_posts( 'stack' )->publish
+		);
+	}
+	/* Template-driven GTM Engineering pages have no editor content for RankMath to excerpt. */
+	if ( '' === trim( (string) $desc ) ) {
+		$page_desc = array(
+			'gtm-engineering' => 'GTM Engineering is the discipline of composing AI, data and software into revenue systems. Pillars, a learning path, copy-able playbooks and resources.',
+			'best-practices'  => 'GTM stack decision frameworks: how to vet a tool in 30 minutes, choose a CRM at seed, what to measure in a stack audit, and why AI SDRs fail.',
+			'playbooks'       => 'Step-by-step GTM engineering builds you can copy, each with the tools, data flow, integration steps and gotchas: Clay, Smartlead, HeyReach, RB2B and more.',
+		);
+		foreach ( $page_desc as $slug => $text ) {
+			if ( is_page( $slug ) ) return $text;
+		}
 	}
 	return $desc;
 } );
@@ -2104,6 +2120,25 @@ add_action( 'wp_head', 'gtmlens_insight_hide_default_title' );
 function gtmlens_insight_hide_default_title() {
 	if ( ! is_singular( 'post' ) ) return;
 	echo "<style>body.single-post .entry-header .entry-title, body.single-post .single-post-title, body.single-post header.entry-header h1.entry-title { display: none !important; }</style>";
+}
+
+// Drop the theme's header H1 server-side where our own hero carries the H1 (single posts, /about/).
+// the_title() prints nothing for an empty title; get_the_title() inside the_content (our hero) is untouched.
+add_filter( 'the_title', 'gtmlens_suppress_duplicate_h1', 10, 2 );
+function gtmlens_suppress_duplicate_h1( $title, $id = 0 ) {
+	if ( is_admin() || doing_filter( 'the_content' ) ) return $title;
+	// Posts: the header prints inside the loop. /about/: Kadence's page hero prints after <body> but before the loop.
+	$in_scope = is_singular( 'post' ) ? in_the_loop() : ( is_page( 'about' ) && did_action( 'wp_body_open' ) );
+	if ( ! $in_scope ) return $title;
+	if ( (int) $id !== (int) get_queried_object_id() || did_action( 'loop_end' ) ) return $title;
+	return '';
+}
+
+// Pages: the page already has an H1 (theme header or our hero), so demote H1 blocks typed into the content.
+add_filter( 'the_content', 'gtmlens_demote_content_h1', 20 );
+function gtmlens_demote_content_h1( $content ) {
+	if ( ! is_page() ) return $content;
+	return preg_replace( '/<h1(\s+class="wp-block-heading[^"]*"[^>]*)>(.*?)<\/h1>/is', '<h2$1>$2</h2>', $content );
 }
 /* === /P11 Phase 6c === */
 

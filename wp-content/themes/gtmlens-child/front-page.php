@@ -674,9 +674,10 @@ endif;
 	</span>
 	<nav class="glhp-footer-strip__nav" aria-label="<?php esc_attr_e( 'Footer navigation', 'gtmlens-child' ); ?>">
 		<a href="<?php echo esc_url( home_url( '/about/' ) ); ?>"><?php esc_html_e( 'About', 'gtmlens-child' ); ?></a>
-		<a href="<?php echo esc_url( home_url( '/team/' ) ); ?>"><?php esc_html_e( 'Team', 'gtmlens-child' ); ?></a>
-		<a href="<?php echo esc_url( home_url( '/contact/' ) ); ?>"><?php esc_html_e( 'Contact', 'gtmlens-child' ); ?></a>
+		<a href="<?php echo esc_url( home_url( '/about/team/' ) ); ?>"><?php esc_html_e( 'Team', 'gtmlens-child' ); ?></a>
+		<a href="<?php echo esc_url( home_url( '/about/contact/' ) ); ?>"><?php esc_html_e( 'Contact', 'gtmlens-child' ); ?></a>
 		<a href="<?php echo esc_url( home_url( '/editorial-policy/' ) ); ?>"><?php esc_html_e( 'Editorial Policy', 'gtmlens-child' ); ?></a>
+		<a href="<?php echo esc_url( home_url( '/privacy-policy/' ) ); ?>"><?php esc_html_e( 'Privacy Policy', 'gtmlens-child' ); ?></a>
 		<a class="gl-contact-email" href="mailto:info@gtmlens.com">info@gtmlens.com</a>
 	</nav>
 </div>
