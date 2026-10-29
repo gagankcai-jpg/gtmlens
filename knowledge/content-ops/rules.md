@@ -4,7 +4,7 @@ Promoted here after 3+ independent confirmations. Demote to `hypotheses.md` if c
 
 ## Accuracy gates
 1. **Nothing is published or recorded without an exact date AND either a primary source or two independent sources.** Single-source items carry an inline flag ("single-source", "company-claimed", "analyst inference"). *A wrong figure is worse than a missing one.*
-2. **Never take prices or round terms from an aggregator.** Go to the vendor's own pricing page or the company's own announcement. Confirmed repeatedly and expensively: Pipedrive ($39/$59/$79 vs actual $24/$49/$69), Clay ($167 monthly headline presented as the annual rate), Instantly (Hypergrowth reported $358, actual $97).
+2. **Never take prices or round terms from an aggregator.** Go to the vendor's own pricing page or the company's own announcement. Confirmed repeatedly and expensively: Pipedrive ($39/$59/$79 vs actual $24/$49/$69), Clay (plan price = actions tier + data-credit tier; as of 2026-10-29 the $167 headline IS the annual-billing rate and $185 is monthly — a component like the $54 actions tier was wrongly published as the entry price. Re-derive from the add-on tables, don't read the headline), Instantly (Hypergrowth reported $358, actual $97).
 3. **Vendor benchmarks, customer counts, ARR and retention claims are attributed, never stated as fact.**
 4. **Undisclosed deal values are recorded as undisclosed, never estimated** — do not impute a price from a stale valuation.
 5. **Quarterly capital comparisons exclude foundation-model rounds, and name the outlier deal.** Raw totals are meaningless (Q1 2026 raw = $152B). Always report GTM-only, and say which single deal drove the quarter.

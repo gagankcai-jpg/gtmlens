@@ -336,3 +336,8 @@ Hypothesis #7 (roundup research misses rounds): 1 confirmation (Bland, found 202
   - **n8n total raised:** $254M → $240M (n8n primary).
   - **Lesson:** the Q2 2026 pieces (114 map, 147 report) were drafted with unverified funding figures. Treat any Q2 2026 funding claim as unverified until checked. Supports hypothesis 9 (excerpt drift); I propagated one bad figure myself while fixing another. Recheck the whole sentence, not just the field being corrected.
 - **Highspot pass (2026-10-29, user-approved):** the "April 2024 $2.3B" claim from the August correction (rule 9) had survived in swot_weaknesses for two months. Rule 9 needs a full-record grep, not just the take, whenever a claim is corrected. Also fixed: Series F date (2022-01-13), total ($654M → $648M, company-stated), stale IPO/acquisition SWOT lines, a top-of-take pointer to the merger, and the empty excerpt. Product brand is now "Highspot by Seismic".
+- **Clay pass (2026-10-29, user-approved):**
+  - **Entry price:** the published "$54/mo" was a component. Clay's plan price = actions tier + data-credit tier (Launch $54 + $113 = $167 annual; $60 + $125 = $185 monthly).
+  - **ARR:** "$200M+" was overstated; company-stated is $100M in Dec 2025, "on track for $200M" in mid-2026. **Third vendor in a row (Hightouch, Clay; Highspot's valuation) where a profile overstated a growth or valuation figure. Promote hypothesis-level suspicion: any ARR figure in a vendor take needs a company-stated source and date.**
+  - **Total:** $319M → $317M from Clay's itemized rounds; tender offers are not raised capital.
+  - **Stamp side effect:** editing a stack moves its post_modified stamp even when the costs were not re-verified. Revisit the stamp decision if this recurs.
