@@ -158,7 +158,7 @@ $stack_tiers = [
 	$gl_now_ts_h = current_time( 'timestamp' );
 	$gl_days_since = $gl_last_mod_ts > 0 ? floor( ( $gl_now_ts_h - $gl_last_mod_ts ) / 86400 ) : 99;
 	$gl_days_since = (int) $gl_days_since;
-	$gl_updated_lbl = $gl_days_since <= 0 ? 'today' : ( $gl_days_since === 1 ? 'yesterday' : ( $gl_days_since < 7 ? $gl_days_since . ' days ago' : 'this week' ) );
+	$gl_updated_lbl = $gl_days_since <= 0 ? 'today' : ( $gl_days_since === 1 ? 'yesterday' : ( $gl_days_since < 7 ? $gl_days_since . ' days ago' : ( $gl_last_mod_ts > 0 ? date_i18n( 'M j', $gl_last_mod_ts ) : 'recently' ) ) );
 	$gl_p25_cap = 0;
 	if ( function_exists( 'gtmlens_get_funding_events' ) ) {
 		$gl_p25_fe = gtmlens_get_funding_events();
@@ -195,7 +195,7 @@ $stack_tiers = [
      ══════════════════════════════════════════════════════════════════════════ -->
 <?php echo do_shortcode( '[market_map]' ); ?>
 
-<!-- P12: This week in GTM (Pulse strip) -->
+<!-- P12: Latest deals (Pulse strip) -->
 <?php
 $pulse_events = function_exists( 'gtmlens_get_funding_events' )
 	? gtmlens_get_funding_events( [ 'exclude_public' => true ] )
@@ -207,11 +207,11 @@ $pulse_events = array_slice(
 if ( $pulse_events ) :
 	$mo_names = ['','Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
 	?>
-	<section class="glhp-boxed gl-pulse-strip" aria-label="<?php esc_attr_e( 'This week in GTM', 'gtmlens-child' ); ?>">
+	<section class="glhp-boxed gl-pulse-strip" aria-label="<?php esc_attr_e( 'Latest deals', 'gtmlens-child' ); ?>">
 		<div class="gl-pulse-strip__head">
 			<span class="gl-pulse-strip__dot" aria-hidden="true"></span>
-			<span class="gl-pulse-strip__label"><?php esc_html_e( 'This week in GTM', 'gtmlens-child' ); ?></span>
-			<a class="gl-pulse-strip__more" href="<?php echo esc_url( home_url( '/funding-tracker/' ) ); ?>"><?php esc_html_e( 'See all rounds →', 'gtmlens-child' ); ?></a>
+			<span class="gl-pulse-strip__label"><?php esc_html_e( 'Latest deals', 'gtmlens-child' ); ?></span>
+			<a class="gl-pulse-strip__more" href="<?php echo esc_url( home_url( '/funding-tracker/' ) ); ?>"><?php esc_html_e( 'Funding tracker →', 'gtmlens-child' ); ?></a>
 		</div>
 		<div class="gl-pulse-strip__items">
 			<?php foreach ( $pulse_events as $ev ) :
