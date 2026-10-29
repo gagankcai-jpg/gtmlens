@@ -341,3 +341,8 @@ Hypothesis #7 (roundup research misses rounds): 1 confirmation (Bland, found 202
   - **ARR:** "$200M+" was overstated; company-stated is $100M in Dec 2025, "on track for $200M" in mid-2026. **Third vendor in a row (Hightouch, Clay; Highspot's valuation) where a profile overstated a growth or valuation figure. Promote hypothesis-level suspicion: any ARR figure in a vendor take needs a company-stated source and date.**
   - **Total:** $319M → $317M from Clay's itemized rounds; tender offers are not raised capital.
   - **Stamp side effect:** editing a stack moves its post_modified stamp even when the costs were not re-verified. Revisit the stamp decision if this recurs.
+- **Apollo pass (2026-10-29, user-approved):**
+  - **Pocus:** acquired by Apollo on Mar 19 2026, written up in two posts but missing from the tracker; now event #711. **Covered-in-prose-but-not-recorded is a new failure mode.** Worth a sweep: grep posts for "acquired"/"bought" and diff against M&A events.
+  - **CEO change:** Matt Curl replaced Tim Zheng on Feb 3 2026 and the site never mentioned it.
+  - **Pricing:** apollo.io/pricing renders prices client-side, so WebFetch sees none. Read it in Chrome (the toggle switches annual/monthly).
+  - **Funding_event via classic editor:** event_type is a select (not a radio); category is a select2 AJAX field (inject an Option with the term id); the date hidden input takes Ymd.
