@@ -235,3 +235,21 @@ Three new editions, all cat 139, each grading its Q2 predecessor and pointing ba
 - **Monaco** was already correct on-site ($35M Series A Feb 2026 + $50M Series B May 2026, $85M+) — it was the Q2 *map* that was 10x stale, not the record.
 - **Unresolved discrepancy left alone:** Fortune puts Bland's $40M Series B in Jan 2025; our event #403 has 2024-09-12. One source each, so changing it would break our own two-source gate. Logged as a watch item.
 - **Potential tracker event not recorded (propose-only):** lemlist acquired **Claap** (~7 people, ~$2M ARR) in October 2025 — cash + vendor loan + convertible + earn-out, ~$25M all-in per Founderpath. A tracked vendor acquiring an untracked target, same shape as Attio–Inconvo which we did record. Historical (Oct 2025), so it would change a past quarter: human call.
+
+## Full-site review (2026-10-29) — findings only, nothing applied
+No site changes or routine runs since 2026-10-19. 155 sitemap URLs, all 200, zero PHP errors, **zero broken internal links** (458 targets). (First crawl pass dropped the page-sitemap on a timeout — crawl artifact; re-filled. Run sub-sitemap fetches with a 60s timeout.)
+### Published claims now wrong (model layer moved Sep–Oct)
+Primary sources (platform.claude.com pricing, anthropic.com/news, developers.openai.com pricing): **Fable 5.1 $10/$50 (Sep 1, with Mythos 5.1) · Opus 5.5 $4/$20 (Sep 22) · Sonnet 5.5 $2/$10 (Sep 28) · Haiku 5.5 $0.10/$0.50 ≤100k prompts (Oct 7)**. OpenAI: **GPT-6 Astra $10/$50 · GPT-6.1 Sol $2/$10 · GPT-6.1 Terra $1/$5 · GPT-6 Luna $0.10/$0.50** (GPT-5.6 still listed; Sol now $4/$20). Our Aug thesis ("Luna has no Claude equivalent", "Claude 17% cheaper on output") is inverted: identical at frontier and volume; OpenAI ~half at the two middle tiers (tier pairing is our inference). Stale on: claude-vs-gpt comparison (+/compare/ excerpt), Q3 tracker, Q3 state-of, Q4 main map, vendors claude-anthropic + openai-gpt (feed homepage), quiz claude note.
+Also wrong: **Salesforce completed Fin on 2026-09-10** (salesforce.com) — 3 pages still say "closing expected early 2027". **AI SDR Q4 map's "Neither bought an AI SDR" is false** — Salesforce closed Qualified (Piper) Apr 1 2026 (~$1.2B per secondary citing its 10-Q; verify) and Dreamforce lists **Agentforce Hunter (outbound) GA November**. **Claudeforce reached beta** (Salesforce Dreamforce roundup) — Sep–Oct column and Q3 report both say we found no confirmation. Gemini profile names "Gemini 3.5 Flash" as default; secondary sources say it was deprecated Oct 8 — needs a primary-sourced refresh.
+### New events not covered
+Salesforce–Braze ~$5.66B EV announced 2026-10-20 ($47.50/sh, close ~FY2028); Salesforce's 2026 buys (Qualified, Fin, Braze, Spindle AI, Loops, Merlin AI) absent from its vendor take. Anthropic donated Agent Skills to the Agentic AI Foundation 2026-10-22. ZoomInfo Q3 results Nov 4 (resolves Q4 prediction 1); HubSpot ~Nov 4–5 (unconfirmed). No AI-GTM rounds found Oct 19–29 (roundup-level only).
+### Technical / SEO
+- 46 posts + 4 about pages emit two H1s: Kadence `h1.entry-title` is only CSS-hidden (functions.php ~L2106) while the insight hero adds `h1.gl-ih-title`. Suppress server-side.
+- Missing meta description: actively-ai-vs-unify, vendors alta/netomi/sable, gtm-engineering index/best-practices/playbooks. 93 descriptions >165 chars, 18 titles >65.
+- 110 images missing alt (80 = homepage market-map logos).
+- Orphan: /privacy-policy/. Single inbound: /about/press/, /about/team/.
+- Links to non-existent comparisons (redirect to /compare/): clari-vs-custom-ai-forecasting (from playbook-hubspot-forecast-claude), hubspot-vs-attio (from bp-choosing-crm-seed-stage — real slug is attio-vs-hubspot). 30 links route via redirects (mostly /category/*).
+- Freshness: 15 vendor profiles last updated May–Jun 2026; 6 stack pages carry no Last-updated stamp.
+### Time-sensitive
+Nov 1 column task targets "October 2026" but the Sep–Oct edition already covers to Oct 19 — the prompt does not say how to scope a partial month; fix before it fires.
+Hypothesis #7 (roundup research misses rounds): 1 confirmation (Bland, found 2026-10-19).
