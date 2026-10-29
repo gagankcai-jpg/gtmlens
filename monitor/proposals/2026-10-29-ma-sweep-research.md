@@ -329,3 +329,19 @@ Sources:
 - **#484 Fin:** dated at announcement 2026-06-15; it closed 2026-09-10. Moving it would shift Q2 → Q3 (Q3 would read 10), and posts describing Fin as a June/Q2 event would need notes.
 - **#483 Common Room:** dated 2026-07-02, while the Q3 report says it "closed July 17" (Zoom 10-Q). Same quarter, so no count change.
 - **Others not checked for announcement vs close:** Warmly, Ciro, Inconvo, Seam AI, Agency, DoubleO.ai, Pocus.
+
+## APPLIED 2026-10-29 (user-approved: move Fin + Common Room; check other 2026 dates)
+- **Moved to close dates:**
+  - #484 Fin: 2026-06-15 → 2026-09-10; note now "Announced Jun 15; completed Sep 10, 2026."
+  - #483 Common Room: 2026-07-02 → 2026-07-17, per the Zoom 10-Q; note appended.
+- **Other 2026 events checked:**
+  - **Pocus 03-19:** completed on announcement (Apollo newsroom "acquired"). OK.
+  - **Warmly 06-30:** announcement date; close unconfirmed (one weak source says Jul 1). Kept under the convention.
+  - **Ciro 07-08:** Dealroom + founders' "has been acquired". OK.
+  - **Inconvo 07-10:** Attio blog "Jul '26"; exact day from Silicon Republic. Kept.
+  - **Seam AI 07-21:** Clarify blog dated 2026-07-21. OK.
+  - **Agency:** 2026-08-04 → **2026-08-05**. Klaviyo's release is dated Aug 5 and the deal is still pending (close expected Q3), so the announcement date applies.
+  - **DoubleO.ai 09-30:** ZoomInfo IR (403 on fetch; record title says "acquires"). Kept.
+  - **Highspot 08-18:** close. OK.
+- **Q3 now reads 10 acquisitions on the tracker.** The notes on posts 642 and 638 are updated from nine to ten. Fin's $3.6B makes three Q3 deals with a disclosed price, not two.
+- **Not changed (existing values from filings, cited throughout published analysis):** Agency "up to $17M" (10-Q) and Common Room $266.8M (10-Q). These conflict with the new blank-unless-announced convention. User decision.

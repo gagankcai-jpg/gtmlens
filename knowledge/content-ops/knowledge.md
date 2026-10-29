@@ -354,3 +354,7 @@ Hypothesis #7 (roundup research misses rounds): 1 confirmation (Bland, found 202
     - REST create of funding_event works when the `vendor` key is omitted. Only *clearing* vendor on an existing record fails.
     - Adding events changes published quarter counts, so grep posts for "N acquisitions" after every tracker addition.
     - Linking an event to a vendor whose last_round_date differs double-lists the row in the feed.
+- **Close-date convention applied to all 2026 M&A events (2026-10-29):**
+  - Fin → Sep 10 (moves Q2 → Q3), Common Room → Jul 17, Agency → Aug 5 (announcement; still pending).
+  - Q3 2026 tracker = 10 acquisitions, 3 with disclosed price (Common Room, Agency, Fin).
+  - Outstanding conflict: two existing values come from 10-Qs (Agency $17M, Common Room $266.8M) under the new "blank unless announced" rule.
