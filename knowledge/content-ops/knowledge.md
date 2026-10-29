@@ -319,5 +319,13 @@ Hypothesis #7 (roundup research misses rounds): 1 confirmation (Bland, found 202
 - **Tracker fixes applied (user-approved):** #297 Vista–Salesloft is now 2021-12-23 and #317 Clari merger is now 2025-12-03. **REST gotchas for funding_event:**
   - Omit `vendor` when it is null.
   - Send empty numeric fields as `null`, not `""` (`rest_invalid_type`).
-  - Write `event_date` as `Y-m-d`. A `Ymd` write is accepted but stored in a different format from the other events, which would break string-sorted date order.
+  - `event_date` accepts either `Y-m-d` or `Ymd` (both are in the DB). **Correction:** the mixed formats are harmless, because the feed runs every date through `gtmlens_normalize_date()` (functions.php ~L1408) and nothing orders by raw meta. Prefer `Y-m-d` for consistency only.
+  - A blank `stage` is rejected on write (`rest_invalid_param`). Omit the key to leave it untouched.
 - **#298 Drift fixed (2024-02-13).** All three Salesloft M&A events had wrong dates (off by 12 days, 3 months and ~2.6 years), and at least one had a non-resolving source URL. Early hand-entered M&A records (ids ~297–317) look unreliable as a batch. Worth a sweep of the remaining early M&A events against primaries.
+- **M&A sweep applied 2026-10-29 (user-approved):**
+  - #299 Pipedrive: event_date 2020-11-15 → 2020-11-12 (Pipedrive newsroom release via PR Newswire + TechCrunch + tech.eu).
+  - #299 source_url: the stored URL was a 404; replaced with the real release.
+  - #299 valuation_usd_m: $1.5B (anonymous TechCrunch sources only) blanked per rule 4.
+  - #484 Fin note: "Close expected Q4 FY27" replaced with "Completed Sep 10, 2026".
+  - 7 M&A dates re-saved as Y-m-d (cosmetic; see correction above).
+  - All 4 early hand-entered M&A events (297/298/299/317) had wrong dates and 2 had dead or invented source URLs. Treat any pre-2026 hand-entered record as unverified until it is checked against a primary source.
