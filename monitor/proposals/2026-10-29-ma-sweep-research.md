@@ -301,3 +301,31 @@ Sources:
 - **Vendor 90 (Outreach):** "Outreach acquired Sameplan … in 2024": the date is unsupported (leads say ~2021); drop the year.
 - **Vendor 88 (Salesforce):** "pending acquisition of Contentful" → "completed its acquisition of Contentful on September 1, 2026"; Qualified "agreed December 17, 2025, closed April 1".
 - **c110 / p630:** "Clari bought Groove in August 2023" is correct (announced 2023-08-14).
+
+## APPLIED 2026-10-29 (user-approved: include older deals, close dates, blank values)
+- **New tracker M&A events (via REST; omitting `vendor` works on create):**
+  - #713 Qualified 2026-04-01
+  - #714 Contentful 2026-09-01
+  - #715 LivePerson 2026-09-04
+  - #716 Braze 2026-10-20 (pending, announcement date, 5660 EV)
+  - #717 Cognigy 2025-09-08 (955)
+  - #718 Clearbit 2023-12-01
+  - #719 Groove 2023-08-14 (announcement; close unconfirmed)
+  - #720 Wingman 2022-06-15 (announcement)
+  - #721 Slintel 2021-10-05
+  - #722 Chorus 2021-07-12 (575 announced; linked to vendor 153)
+- **Values:** blank where the only figure is a filing number (Qualified, Contentful, Clearbit) or a stock-implied value (LivePerson); recorded where announced (Braze, Cognigy, Chorus).
+- **Vendor 153 (Chorus):** last_round_date 20210713 → 20210712, to stop a feed double-listing (rule 12). Verified: one Chorus row.
+- **Clearbit note:** removed an unverified "became Breeze Intelligence" clause I had added.
+- **Posts 642 and 638:** dated correction notes ("seven" → nine Q3 acquisitions).
+- **Post 114:**
+  - Slintel corrected to 6sense (inline + struck list item).
+  - Boostup–Mediafly struck in 3 places.
+  - Kaia → Outreach; the Kaia AI → Demodesk list item struck.
+- **Vendor 88:** Qualified signed/closed dates; Contentful completed Sep 1.
+- **Vendor 90:** excerpt drops "in 2024" for Sameplan.
+
+### Open: existing events vs the close-date convention
+- **#484 Fin:** dated at announcement 2026-06-15; it closed 2026-09-10. Moving it would shift Q2 → Q3 (Q3 would read 10), and posts describing Fin as a June/Q2 event would need notes.
+- **#483 Common Room:** dated 2026-07-02, while the Q3 report says it "closed July 17" (Zoom 10-Q). Same quarter, so no count change.
+- **Others not checked for announcement vs close:** Warmly, Ciro, Inconvo, Seam AI, Agency, DoubleO.ai, Pocus.

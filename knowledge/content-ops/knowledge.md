@@ -346,3 +346,11 @@ Hypothesis #7 (roundup research misses rounds): 1 confirmation (Bland, found 202
   - **CEO change:** Matt Curl replaced Tim Zheng on Feb 3 2026 and the site never mentioned it.
   - **Pricing:** apollo.io/pricing renders prices client-side, so WebFetch sees none. Read it in Chrome (the toggle switches annual/monthly).
   - **Funding_event via classic editor:** event_type is a select (not a radio); category is a select2 AJAX field (inject an Option with the term id); the date hidden input takes Ymd.
+- **M&A sweep (2026-10-29, user-approved):**
+  - Added 10 tracker events.
+  - Q2 2026 map had 3 invented or misattributed deals (Slintel→ZoomInfo is really 6sense; Boostup→Mediafly and Kaia→Demodesk have no evidence). That makes **5 fabricated or mis-sourced claims in the Q2 2026 pieces now.**
+  - **Conventions now set by the user:** include pre-2025 deals; record **close** dates (announcement date only for pending deals or where no close date is confirmed); **blank** values unless a price was announced.
+  - **Gotchas:**
+    - REST create of funding_event works when the `vendor` key is omitted. Only *clearing* vendor on an existing record fails.
+    - Adding events changes published quarter counts, so grep posts for "N acquisitions" after every tracker addition.
+    - Linking an event to a vendor whose last_round_date differs double-lists the row in the feed.
