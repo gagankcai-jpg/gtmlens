@@ -147,3 +147,17 @@ No funding round or acquisition was found from any source, so the live "Seed / ~
 - Crunchbase News (August 29, 2023; $100M Series D led by Bain Capital Ventures at $1.6B; >$250M total): https://news.crunchbase.com/sales-marketing/apollo-io-funding-sales-tech-unicorn/
 - Bloomberg (2023-08-29): https://www.bloomberg.com/news/articles/2023-08-29/apollo-io-is-valued-at-1-6-billion-in-sales-tech-financing
 - No newer round found. The Pocus acquisition and new CFO are corporate news, not funding.
+
+---
+## APPLIED 2026-10-29 (user-approved: the 7 changes; Demandbase total excludes credit)
+- **Spot-checked against primary sources before writing:** the Salesloft merger page (Dec 3, 2025), the 6sense release ($426M total, Jan 20, 2022) and the Typeform release ("more than $187 million", Mar 10, 2022).
+- **Applied as proposed:** typeform, demandbase, chorus, salesloft, 6sense, outreach, apollo, plus last_round_source_url on each.
+- **Demandbase:** `last_round_size_usd_m` left blank, so the credit facility is not counted as equity anywhere. `total_raised` unchanged.
+- **Salesloft:** stage stays "Acquired", since the select field has no "Merged" option; the merger is described in `last_round_size`.
+  - The excerpt's "acquired by Vista in 2024" is corrected.
+  - The take gains a dated merger note; a full re-score is due in the December review.
+- **Not applied:** the Gong round size (optional, not approved) and all unverified leads.
+- **NEW: flagged for human review (tracker M&A records, not touched):**
+  - #317 "Salesloft + Clari merger" is dated 2025-11-01; it completed 2025-12-03.
+  - #297 "Salesloft acquired by Vista" is dated 2024-08-12; the Vista deal was 2021-12-23.
+  - #298 "Drift acquired by Salesloft" is dated 2024-02-01; not checked.
