@@ -27,3 +27,9 @@ Promoted here after 3+ independent confirmations. Demote to `hypotheses.md` if c
 16. **Publish the intended flagship last** — the homepage flagship is the newest published post.
 17. **Covers** are procedurally generated (canvas in-browser or PIL): navy base (13,31,60), diagonal gradient alpha 0.55 over palette [(76,29,149),(109,40,217),(236,72,153)], 44px dot grid, 9–13 seeded nodes with halos, bottom band with "GTMLENS · INDEPENDENT ANALYST VIEW". Seeds used: 72, 88, 101, 117, 139, 151, 163.
 18. **Never store credentials in the repo.** The WP Application Password belongs at `~/.config/gtmlens/wp.json` (user-created; still absent as of 2026-10-19).
+19. **M&A tracker conventions (user decision 2026-10-29; see decisions/2026-10-29-ma-tracker-conventions.md):**
+    - Include deals from any year.
+    - Record the **close** date (the announcement date only when the deal is pending or the close is unconfirmed, with the other date in the note).
+    - Leave the value **blank unless the parties announced a price**.
+    - Named exceptions, not precedent: Agency $17M and Common Room $266.8M (10-Q-derived).
+    - After any date move or new event, grep posts for quarter acquisition counts and add dated notes.
