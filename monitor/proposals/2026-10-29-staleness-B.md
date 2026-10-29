@@ -141,3 +141,6 @@ Profile matches the 2026-07-16 announcement (Fortune exclusive, $45M, Sequoia/8V
 
 Profile matches the 2026-07-08 PR Newswire Series A. Nothing new after 2026-07-23.
 Leads only (not counted): a secondary write-up claims a "$15M annual run rate" and "$30M by end of 2026" (would conflict with the profile's "first $1M within months"); and "Total raised $25M" may understate since existing investors (Entree, Target Global, Verissimo) imply a prior round. Neither confirmed with a primary source — verify against the PR Newswire release before editing. Beware name collision: an unrelated fashion app "Alta" raised a $20M Series A in Oct 2026.
+
+## APPLIED 2026-10-29 (user-approved: "apply all including tracker rounds")
+See knowledge/content-ops/knowledge.md "Staleness sweep applied" for the full list. Live-checked: all edited pages return 200; the only old strings left are quoted inside correction notes.

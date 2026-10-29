@@ -145,3 +145,6 @@ No funding, acquisition or leadership news found after 2026-08-22.
 | Profile field / claim | Live text | What's true now | Exact date | Source |
 |---|---|---|---|---|
 | Pricing | "$39/mo (Base, monthly; $32.50 annual), 2,000 active leads; unlimited email accounts" | The live page shows Base **$39 monthly / $32 annual**, 2,000 contacts and unlimited email accounts (FAQ). Fix $32.50 to $32. A third-party tracker reported a plan removal on 2026-10-10, but the live page still shows four plans (Base/Pro/Unlimited Smart/Unlimited Prime), so that report is not confirmed. | as of 2026-10-29 | https://www.smartlead.ai/pricing |
+
+## APPLIED 2026-10-29 (user-approved: "apply all including tracker rounds")
+See knowledge/content-ops/knowledge.md "Staleness sweep applied" for the full list. Live-checked: all edited pages return 200; the only old strings left are quoted inside correction notes.

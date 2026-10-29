@@ -141,3 +141,6 @@ No 2026 funding, acquisition or shutdown news found. Pricing matches the live pa
 ## 342 | Relevance AI (last_updated 2026-07-04) — CURRENT
 
 No material change found: no Series C, M&A or ARR disclosure. The $24M Series B led by Bessemer (May 2025, $37M total) matches (https://www.forbes.com.au/news/entrepreneurs/australian-ai-agent-crew-relevance-ai-bag-24-million/). The pricing page needs JavaScript, so I could not verify it.
+
+## APPLIED 2026-10-29 (user-approved: "apply all including tracker rounds")
+See knowledge/content-ops/knowledge.md "Staleness sweep applied" for the full list. Live-checked: all edited pages return 200; the only old strings left are quoted inside correction notes.

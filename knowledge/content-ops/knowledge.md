@@ -364,3 +364,59 @@ Hypothesis #7 (roundup research misses rounds): 1 confirmation (Bland, found 202
   - **Follow-up:** Q3 results Nov 4 resolve two published predictions; grade them on that day.
   - **Pattern across today's six vendor passes:** pages updated in August carried accurate events but stale numbers. Every page that hard-codes a market cap, ARR or revenue figure is a staleness liability.
 - **Gong pass (2026-10-29, user-approved):** the profile's core narrative (flat-to-declining, secondary trades below the mark, "below $5B") was contradicted by Gong's own May 12 2026 release: ARR >$500M, >55% YoY, ten quarters of acceleration, 5,000+ companies. The profile was last updated May 3, nine days before. Fourth vendor today whose analyst narrative had calcified around a 2024–25 thesis. **Hypothesis 10 (new): profiles last edited before a company's most recent company-stated metric release are presumptively stale; check each vendor's newsroom for releases newer than its last_updated.** Evidence count: Gong, Hightouch, Clay, ZoomInfo.
+
+## Staleness sweep applied (2026-10-29, user-approved)
+38 profiles were swept by 3 research agents. 24 were fixed; 14 were current.
+
+**Profiles fixed:**
+- **RB2B:** bootstrapped per founder; unsourced seed and valuation removed; pricing.
+- **Spekit:** $45M Series B Jan 19 2022, ~$60M total.
+- **Lyzr:** $14.5M Mar 9 2026 at ~$250M; the July $100M Series B is noted as in progress, not recorded.
+- **Default:** founder is Nico Ferreyra; $20M total; pricing.
+- **Sybill:** pricing; Series A date 2024-07-31.
+- **Bardeen:** Aug 2024 Dropbox/HubSpot strategic round; unsourced 2025 round removed.
+- **Reo.Dev:** $11.3M Series A Jul 17 2026.
+- **Unify:** Jun 24 relaunch; per-seat pricing.
+- **Pylon:** pricing; 1,500+ customers.
+- **Aurasell:** 50+ customers, $6M+ ARR, HQ San Mateo.
+- **Monaco:** SWOT aligned.
+- **Glean:** $300M+ ARR (May 28 2026).
+- **Crescendo:** Andy Lee CEO from Jul 14 2026.
+- **Warmly:** "agreed to acquire"; pricing; valuation undisclosed.
+- **Spotlight.ai:** bootstrapped after an angel pre-seed; founded 2022.
+- **Sierra:** see sierra.md.
+- **Pipedrive:** Nova launch Sep 16; restructuring announced Oct 29.
+- **Zapier:** 10,000+ apps; "Pro" plan name.
+- **lemlist:** ~€40M ARR (CFNews); Claap acquisition note.
+- **HockeyStack:** $5M framing removed.
+- **Attio:** $340M numeric valuation cleared; AI credits.
+- **Instantly:** $30M ARR labelled an estimate.
+- **HubSpot:** Q2 2026 figures, Agent Hub, Oct 15 pricing changes.
+- **Smartlead:** $32.
+- **HeyReach:** plan names.
+- **Aligned:** Seller Agent.
+- **PhantomBuster:** unsourced $2M cleared.
+
+**Warmly softened across 9 pages** ("agreed to acquire", close unconfirmed): posts 537, 576, 489, 642, 654, 662, 114; comparison 107; event #482 note.
+
+**Tracker:**
+- New rounds: #765 Reo.Dev $11.3M 2026-07-17 and #766 Lyzr $14.5M 2026-03-09. The amount field accepts decimals; the feed truncates to integers.
+- Q1 2026 is now 3 rounds / ~$300M; Q3 2026 is now 6 / ~$286M.
+- Dated corrections added to posts 642 (4 places), 638 and 630.
+
+**Not applied, unverified:**
+- lemlist CEO (Tenot vs Moubeche).
+- Pipedrive–Outfunnel.
+- lemlist–Claap tracker record (no exact deal date from a primary source).
+- Default Series A date (CMS metadata only).
+- Spotlight HQ.
+- Zapier Agents add-on price.
+- Factors.ai funding (flagged, no source either way).
+- Sierra "Series E" label (no reputable primary).
+- Founder-post ARR leads: HeyReach $19M, RB2B $10M.
+- Alta run-rate.
+- Glean–Aryn acquisition (aggregator only).
+
+**Pattern (feeds hypothesis 10):** most errors were unsourced header funding figures present since creation (RB2B, Spekit, Lyzr, Default, Bardeen, Spotlight, Attio, PhantomBuster, Factors.ai), not missed news. **Proposed rule candidate:** no header funding or valuation figure without a source URL in last_round_source_url. Evidence count: 9 in one sweep.
+
+**Ops note:** firing ~35 parallel page fetches right after a LiteSpeed purge produced transient 500s on Hostinger. Verify sequentially.
