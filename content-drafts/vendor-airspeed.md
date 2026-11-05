@@ -1,4 +1,4 @@
-# DRAFT — Vendor profile: Airspeed (formerly Glyphic)
+# PUBLISHED 2026-11-06 as vendor #774 (https://gtmlens.com/vendors/airspeed/) — Vendor profile: Airspeed (formerly Glyphic)
 
 Status: draft for review. Nothing is published.
 Sources: public only. No demo; no vendor-supplied material beyond the public website.
