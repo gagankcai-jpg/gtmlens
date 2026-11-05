@@ -420,3 +420,12 @@ Hypothesis #7 (roundup research misses rounds): 1 confirmation (Bland, found 202
 **Pattern (feeds hypothesis 10):** most errors were unsourced header funding figures present since creation (RB2B, Spekit, Lyzr, Default, Bardeen, Spotlight, Attio, PhantomBuster, Factors.ai), not missed news. **Proposed rule candidate:** no header funding or valuation figure without a source URL in last_round_source_url. Evidence count: 9 in one sweep.
 
 **Ops note:** firing ~35 parallel page fetches right after a LiteSpeed purge produced transient 500s on Hostinger. Verify sequentially.
+
+## Airspeed round + Q2 correction (2026-11-06, user-approved)
+- **Inbound pitch:** Isabelle at Airspeed (formerly Glyphic) asked to be included in the Q4 map. Advised: inclusion is editorial; the pitch does not decide it; evaluate for Category 4 (Conversation Intelligence) in the Q1 2027 edition on public sources. A draft reply was given to the user; I sent nothing.
+- **Missed round:** the pitch surfaced it. $20M Series A led by DN Capital, reported Jun 4 2026 (TNW, Tech Funding News). Rebrand from Glyphic on May 20 2026. Tracker event **#771** (category Revenue Intelligence, vendor unlinked; no profile yet).
+- **Q2 2026 now 8 rounds / $1,375M** (tracker-verified). Sierra share ~69%; ex-largest $425M.
+  - **Post 642:** top correction note; series line, Sierra share and ex-largest updated.
+  - **Post 654:** inline update.
+- **Process:** hypothesis 7 promoted to rule 20.
+- **Ops:** the WP session expired between sessions (new Chrome tab group); the user re-logged in.

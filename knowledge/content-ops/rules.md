@@ -33,3 +33,12 @@ Promoted here after 3+ independent confirmations. Demote to `hypotheses.md` if c
     - Leave the value **blank unless the parties announced a price**.
     - Named exceptions, not precedent: Agency $17M and Common Room $266.8M (10-Q-derived).
     - After any date move or new event, grep posts for quarter acquisition counts and add dated notes.
+20. **Roundup-level funding research misses rounds, so quarter totals are provisional until a per-vendor sweep.** Confirmed four times in 2026:
+    - Bland $50M (Jun 16): found while re-scoring the AI SDR map.
+    - Reo.Dev $11.3M (Jul 17) and Lyzr $14.5M (Mar 9): found by the staleness sweep.
+    - Airspeed $20M (Jun 4): surfaced by a vendor's inbound email.
+
+    Each one forced dated corrections to published quarter figures. **How to apply:**
+    - Label published quarter totals "as recorded on [date]".
+    - Before any quarterly report, run a per-vendor and category sweep, not just roundups.
+    - After every tracker addition, grep posts for the affected quarter's count and total.
