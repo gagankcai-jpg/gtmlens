@@ -430,3 +430,4 @@ Hypothesis #7 (roundup research misses rounds): 1 confirmation (Bland, found 202
 - **Process:** hypothesis 7 promoted to rule 20.
 - **Ops:** the WP session expired between sessions (new Chrome tab group); the user re-logged in.
 - **Airspeed profile published (2026-11-06, user-approved):** vendor #774, Revenue Intelligence, pricing_tier "$$" (estimate; quote-only pricing). Linked to tracker event #771 with the same date (20260604): the feed shows one row, which links to the profile. Feed note: event-sourced rows always carry `slug:""` and link via `url` (functions.php ~L1810). Do not treat the blank slug as a bug.
+- **Airspeed → Q1 2027 map, Category 4 Tracked (user decision 2026-11-06).** It already shows on the homepage interactive map automatically (vendor_category 85). The planning file `content-drafts/ai-gtm-market-map-q1-2027-plan.md` holds the inclusion rationale and all carry-forward corrections from the Oct 29 – Nov 6 reviews for the next edition.
