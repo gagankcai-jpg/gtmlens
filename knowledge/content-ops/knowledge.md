@@ -431,3 +431,21 @@ Hypothesis #7 (roundup research misses rounds): 1 confirmation (Bland, found 202
 - **Ops:** the WP session expired between sessions (new Chrome tab group); the user re-logged in.
 - **Airspeed profile published (2026-11-06, user-approved):** vendor #774, Revenue Intelligence, pricing_tier "$$" (estimate; quote-only pricing). Linked to tracker event #771 with the same date (20260604): the feed shows one row, which links to the profile. Feed note: event-sourced rows always carry `slug:""` and link via `url` (functions.php ~L1810). Do not treat the blank slug as a bug.
 - **Airspeed → Q1 2027 map, Category 4 Tracked (user decision 2026-11-06).** It already shows on the homepage interactive map automatically (vendor_category 85). The planning file `content-drafts/ai-gtm-market-map-q1-2027-plan.md` holds the inclusion rationale and all carry-forward corrections from the Oct 29 – Nov 6 reviews for the next edition.
+
+## Site review + fixes (2026-11-23, user-approved)
+- **Root cause of the missing October column:** scheduled routines abort when their first Bash call needs a permission approval and no one is present ("Tool permission stream closed before response received"). The Nov 1 funding refresh and Stack Movements both died within ~15s. They will keep failing until the permission is pre-approved, which is a user-owned settings change.
+- **Applied:**
+  - 4 tracker events (Rox, Listen Labs, Siena, Claap).
+  - November model repricing: Fable 5.2 and GPT-6.2 Astra both $8/$40; Gemini 4 Carbon is now Google's top model, with Argon and Carbon going to $4/$20 on Dec 1.
+  - Sierra $400M+ ARR (~40x).
+  - ZoomInfo Q3 (NRR 88% resolves prediction 2 as correct).
+  - HubSpot Q3 and the CEO change (Halligan returns).
+  - Salesforce Coworker/Listen Labs.
+  - October column published (#787).
+  - /stack-finder/ H1.
+- **Homepage flagship regression:** publishing a column displaced the flagship report. Fixed by excluding category 81 (rule 16 updated).
+- **Pricing-page notes:**
+  - aistudio.google.com/docs/pricing replaces ai.google.dev (redirects; read it in Chrome).
+  - OpenAI's pricing table is client-rendered JSON; Terra/Luna rows sit only in the embedded data.
+  - Anthropic's main table now lists Fable 5.2 as the top model.
+- **Due next:** Salesforce FQ3 Dec 2; Gemini price change Dec 1; November column Dec 1 (fails unless permissions are fixed); HubSpot's Q3 10-Q is the check for the Warmly close.

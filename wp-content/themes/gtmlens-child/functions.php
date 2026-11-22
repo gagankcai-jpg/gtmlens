@@ -2127,8 +2127,8 @@ function gtmlens_insight_hide_default_title() {
 add_filter( 'the_title', 'gtmlens_suppress_duplicate_h1', 10, 2 );
 function gtmlens_suppress_duplicate_h1( $title, $id = 0 ) {
 	if ( is_admin() || doing_filter( 'the_content' ) ) return $title;
-	// Posts: the header prints inside the loop. /about/: Kadence's page hero prints after <body> but before the loop.
-	$in_scope = is_singular( 'post' ) ? in_the_loop() : ( is_page( 'about' ) && did_action( 'wp_body_open' ) );
+	// Posts: the header prints inside the loop. /about/ and /stack-finder/: Kadence's page hero prints after <body> but before the loop.
+	$in_scope = is_singular( 'post' ) ? in_the_loop() : ( is_page( array( 'about', 'stack-finder' ) ) && did_action( 'wp_body_open' ) );
 	if ( ! $in_scope ) return $title;
 	if ( (int) $id !== (int) get_queried_object_id() || did_action( 'loop_end' ) ) return $title;
 	return '';

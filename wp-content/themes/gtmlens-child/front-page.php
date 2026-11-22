@@ -28,12 +28,14 @@ $market_map_posts = get_posts( [
 $market_map = $market_map_posts ? $market_map_posts[0] : null;
 
 // ── Featured report post ─────────────────────────────────────────────────────
+// Monthly Stack Movements columns (category 81) never take the flagship slot.
 $flagship_posts = get_posts( [
-	'post_type'      => 'post',
-	'orderby'        => 'date',
-	'order'          => 'DESC',
-	'posts_per_page' => 1,
-	'post_status'    => 'publish',
+	'post_type'        => 'post',
+	'orderby'          => 'date',
+	'order'            => 'DESC',
+	'posts_per_page'   => 1,
+	'post_status'      => 'publish',
+	'category__not_in' => [ 81 ],
 ] );
 $flagship = $flagship_posts ? $flagship_posts[0] : null;
 

@@ -24,7 +24,7 @@ Promoted here after 3+ independent confirmations. Demote to `hypotheses.md` if c
 ## Process
 14. **M&A record-writing is always human-reviewed.** The monthly routine's apply endpoint handles rounds only and must never receive an acquisition.
 15. **Production writes of researched figures happen only after the user has seen the exact records.**
-16. **Publish the intended flagship last** — the homepage flagship is the newest published post.
+16. **The homepage flagship is the newest published post outside category 81** (Stack Movements columns are excluded as of 2026-11-23; front-page.php `category__not_in`). Publish the intended flagship report last among non-column posts.
 17. **Covers** are procedurally generated (canvas in-browser or PIL): navy base (13,31,60), diagonal gradient alpha 0.55 over palette [(76,29,149),(109,40,217),(236,72,153)], 44px dot grid, 9–13 seeded nodes with halos, bottom band with "GTMLENS · INDEPENDENT ANALYST VIEW". Seeds used: 72, 88, 101, 117, 139, 151, 163.
 18. **Never store credentials in the repo.** The WP Application Password belongs at `~/.config/gtmlens/wp.json` (user-created; still absent as of 2026-10-19).
 19. **M&A tracker conventions (user decision 2026-10-29; see decisions/2026-10-29-ma-tracker-conventions.md):**

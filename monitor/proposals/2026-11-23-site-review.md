@@ -53,3 +53,18 @@ Inputs: `2026-11-23-funding-ma.md`, `2026-11-23-earnings-models.md`, plus a live
 ## Content gaps
 - **October 2026 Stack Movements (Oct 20–31):** missing. Candidate items: Braze (Oct 20), AAIF Agent Skills (Oct 22), Sierra $400M (Oct 30), Merlin early termination.
 - **November 2026 column:** due Dec 1. It would carry ZoomInfo/HubSpot Q3, the HubSpot CEO change, the Fable 5.2 / GPT-6.2 / Gemini 4 releases, Rox, Listen Labs and Agentforce Coworker.
+
+## APPLIED 2026-11-23 (user-approved: items 1 and 2)
+- **Tracker:** #777 Rox (round, 2026-11-11, $100M at $1.3B), #778 Listen Labs (ma, 2026-11-02), #779 Siena (round, 2026-10-06, $17M), #780 Claap (ma, 2025-10-20).
+- **Models** (re-fetched from each vendor's own pricing page on 2026-11-23):
+  - Comparison #464: table, text, verdict and rule B updated, with a dated note.
+  - Vendors 68 and 361 entry prices; vendor 360 entry price and note (Carbon/Neon/Hydrogen, Dec 1 change; Argon no longer described as flagship).
+  - Quiz stack-rules.json (live = repo); Q4 map Category 8.
+- **Sierra $400M+:** vendor 328, post 658 (2 places), comparison 349, post 348 (top note).
+- **ZoomInfo:** vendor 89 Q3 paragraph. Q4-map prediction 2 marked **[Resolved Nov 4, 2026: correct]**, NRR 88%.
+- **HubSpot:** vendor 74 excerpt, SWOT, take (Q3 figures; Halligan returns as CEO Nov 12).
+- **Salesforce:** vendor 88 note (Listen Labs, Agentforce Coworker $50/user/mo, Dec 2 results).
+- **/stack-finder/:** now one H1 (functions.php `the_title` suppression extended).
+- **Published post #787** "GTM Stack Movements: October 2026" with cover #788. Its scoreboard matches the tracker (Q4 to Oct 31: Siena + Braze pending).
+- **Regression found and fixed:** the column took the homepage "Q4 2026 Flagship Report" slot (flagship = newest post). front-page.php now excludes category 81, so the Q4 map is restored. Live = repo.
+- **Not done (user-owned):** pre-approve permissions for the scheduled routines before Dec 1.
