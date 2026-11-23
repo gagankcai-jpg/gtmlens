@@ -41,3 +41,4 @@ These did not meet the bar: no exact date confirmed, no primary source, or uncer
 - Published funding_event #790 Dreamteam, round, 2026-11-16: $53M seed + Series A (Together Fund / Accel; Premji Invest), category CRM (45), valuation blank. Sources: TechCrunch + TNW (+ YourStory). The tracker feed lists it once.
 - Trashed 8 stale or out-of-scope auto-drafts: #791 (Crunchbase voice-AI roundup), #770 Rune (defense), #632 Listen Labs (M&A already recorded), #583 Encore AI (duplicate of #591), #582 Smallest.ai (voice infra), #474 Fin (already recorded), #472 (essay), #471 Glean (revenue figure, not a round).
 - Q4 2026 rounds on the tracker are now Siena, Rox and Dreamteam. Still provisional (rule 20).
+- Published vendor #801 Dreamteam (/vendors/dreamteam/), category CRM (45), last_round_date 20261116; funding_event #790 now links vendor 801. Feed lists the round once.

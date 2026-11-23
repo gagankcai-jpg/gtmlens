@@ -1,4 +1,4 @@
-# Vendor profile: Dreamteam (draft)
+# PUBLISHED 2026-11-23 as vendor #801 (https://gtmlens.com/vendors/dreamteam/) — Vendor profile: Dreamteam
 
 Status: draft for review. Nothing is published.
 Sources: public only. No demo; no vendor-supplied material beyond the public website and the company's announcement post.
