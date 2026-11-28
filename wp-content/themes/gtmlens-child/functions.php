@@ -400,6 +400,7 @@ add_action( 'template_redirect', function () {
 		'what-is-gtm-engineering'        => '/gtm-engineering/what-is/',
 		'compare/n8n-vs-make-vs-zapier'  => '/compare/n8n-vs-zapier/',
 		'insights/funding-tracker'       => '/funding-tracker/',
+		'stack-builder-quiz'             => '/stack-finder/',
 	];
 	if ( isset( $redirects[ $path ] ) ) {
 		wp_safe_redirect( home_url( $redirects[ $path ] ), 301 );
